@@ -2267,7 +2267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 9e3cfcfb280f37c4f98a7b32d93b9717, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: b8cb1fd90313ec84e8d131a75d0be08f, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 463463633}
   m_GesturePerformed:
@@ -2279,7 +2279,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 9e3cfcfb280f37c4f98a7b32d93b9717, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: b8cb1fd90313ec84e8d131a75d0be08f, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4461,7 +4461,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2d400a5000b4c294aabb3de8aebcd8d2, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 0b23628c034b7804986ba2c18fb8b486, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -11268,7 +11268,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 61f6dcfaff7fc774f84a1643f02ea4a4, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 2535b41a99394914f93ccf27b1730357, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -11281,7 +11281,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 61f6dcfaff7fc774f84a1643f02ea4a4, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 2535b41a99394914f93ccf27b1730357, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -46897,7 +46897,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 9e3cfcfb280f37c4f98a7b32d93b9717, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 7fdd2afa44a436446bdb55fa7872a77d, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
@@ -46910,7 +46910,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 9e3cfcfb280f37c4f98a7b32d93b9717, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: e863a2a22d6dda740bd9ee2298b3afd5, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
