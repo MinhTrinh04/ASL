@@ -3255,7 +3255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: e8317f15bbe122c44b7d6c21a4fc5f19, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: f94488f235bdc9c4eb87687aab69d151, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 646324489}
   m_GesturePerformed:
@@ -3267,7 +3267,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e8317f15bbe122c44b7d6c21a4fc5f19, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: f94488f235bdc9c4eb87687aab69d151, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3280,7 +3280,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e8317f15bbe122c44b7d6c21a4fc5f19, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 0d0440d4c2bb56c4ea02f6b0ed833992, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7443,7 +7443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 536aab53098bf3244b7f45b21eca59fa, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: e7876a67f22a38843bcebdaf378e6d75, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 1642865203}
   m_GesturePerformed:
@@ -7455,7 +7455,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 536aab53098bf3244b7f45b21eca59fa, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: e7876a67f22a38843bcebdaf378e6d75, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
