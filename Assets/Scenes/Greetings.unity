@@ -2061,12 +2061,12 @@ GameObject:
   - component: {fileID: 463463633}
   - component: {fileID: 463463632}
   m_Layer: 0
-  m_Name: B
+  m_Name: Hi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &463463631
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2086,7 +2086,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -462.40002, y: 247.5}
+  m_AnchoredPosition: {x: -46, y: 247.5}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &463463632
@@ -9089,7 +9089,7 @@ GameObject:
   - component: {fileID: 520764216751437916}
   - component: {fileID: 214048083223172853}
   m_Layer: 0
-  m_Name: A
+  m_Name: Hello
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10358,7 +10358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 2535b41a99394914f93ccf27b1730357, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: bd49d5c3b2a18eb4a82d5188f46e0edb, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 520764216751437916}
   m_GesturePerformed:
@@ -10370,7 +10370,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2535b41a99394914f93ccf27b1730357, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: bd49d5c3b2a18eb4a82d5188f46e0edb, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -10383,7 +10383,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2535b41a99394914f93ccf27b1730357, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 68393c8e5d3eab54a87fc5bfc623213b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -79867,7 +79867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -554, y: 247.5}
+  m_AnchoredPosition: {x: -251, y: 247.5}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6421749611846793604
