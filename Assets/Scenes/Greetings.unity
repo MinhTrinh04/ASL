@@ -3897,7 +3897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: ae19e25d0d3b873468a791c242be7572, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 9c7563b03b7fd6f41a5d394c157c68ed, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 866733695}
   m_GesturePerformed:
@@ -3909,7 +3909,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: ae19e25d0d3b873468a791c242be7572, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 9c7563b03b7fd6f41a5d394c157c68ed, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
