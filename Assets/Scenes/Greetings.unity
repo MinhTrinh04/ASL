@@ -744,7 +744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: What's up
+  m_text: What's up R
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3881,7 +3881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -47, y: 247.5}
+  m_AnchoredPosition: {x: 120, y: 247.5}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &866733694
@@ -3929,6 +3929,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1094199371719484033}
+        m_TargetAssemblyTypeName: DualHandTrigger, Assembly-CSharp
+        m_MethodName: SetRightHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   m_GestureEnded:
     m_PersistentCalls:
       m_Calls:
@@ -3958,6 +3970,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 0
+      - m_Target: {fileID: 1094199371719484033}
+        m_TargetAssemblyTypeName: DualHandTrigger, Assembly-CSharp
+        m_MethodName: SetRightHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   m_StaticGestures:
@@ -10519,6 +10543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1094199371719484032}
+  - component: {fileID: 1094199371719484033}
   m_Layer: 0
   m_Name: Gesture Detection
   m_TagString: Untagged
@@ -20512,6 +20537,26 @@ Transform:
   - {fileID: 4883420944845446156}
   m_Father: {fileID: 925566561781172949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1094199371719484033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218497865932235093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1e645fe732deb4688fb1e3a57dde65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLeftHandReady: 0
+  isRightHandReady: 0
+  OnDualGesturePerformed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDualGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!224 &1094770989982605248
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25352,7 +25397,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e7b5bfc4e711f9049b4ad03ade500a21, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8ecb1b2f675de454c8d5a427d3311887, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
@@ -25365,7 +25410,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: f8cb17f8ab5fc8c4083750c7e3a19f97, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 3
           m_FloatArgument: 0
@@ -29115,7 +29160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -27.700119}
+  m_AnchoredPosition: {x: 0, y: 13}
   m_SizeDelta: {x: 409.7, y: 67.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2008517216245768497
@@ -32964,7 +33009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2326280347543280371
 GameObject:
   m_ObjectHideFlags: 0
@@ -37491,7 +37536,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 3a3a0d45621f98a4daebb7304139c969, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8ecb1b2f675de454c8d5a427d3311887, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
@@ -37504,7 +37549,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: b1b759cfdab277e42805ae0212c3c9ad, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
@@ -42646,7 +42691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &3209065362599639913
 GameObject:
   m_ObjectHideFlags: 0
@@ -44749,7 +44794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 5470164485962528318}
-  m_HandShapeOrPose: {fileID: 0}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 9c7563b03b7fd6f41a5d394c157c68ed, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 5038163983169140471}
   m_GesturePerformed:
@@ -44761,7 +44806,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11400000, guid: 9c7563b03b7fd6f41a5d394c157c68ed, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -44774,8 +44819,20 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11400000, guid: ae19e25d0d3b873468a791c242be7572, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1094199371719484033}
+        m_TargetAssemblyTypeName: DualHandTrigger, Assembly-CSharp
+        m_MethodName: SetLeftHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -44797,7 +44854,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 595885870855858715}
         m_TargetAssemblyTypeName: UnityEngine.XR.Hands.Samples.Gestures.DebugTools.XRHandShapeDebugUI,
           Unity.XR.Hands.Samples.Gestures
         m_MethodName: ClearDetectedHandShape
@@ -44810,6 +44867,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 0
+      - m_Target: {fileID: 1094199371719484033}
+        m_TargetAssemblyTypeName: DualHandTrigger, Assembly-CSharp
+        m_MethodName: SetLeftHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   m_StaticGestures:
@@ -45339,7 +45408,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c3992a46bbdfb1c4d9446ec269f778bd, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8ecb1b2f675de454c8d5a427d3311887, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
@@ -45352,7 +45421,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e863a2a22d6dda740bd9ee2298b3afd5, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
@@ -51789,7 +51858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &4033169644143091939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -53615,7 +53684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4154468372274236562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67298,7 +67367,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 8b21a490579f14243ac2c65d702d0621, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8ecb1b2f675de454c8d5a427d3311887, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
@@ -67311,7 +67380,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 60daa8e83ed1163488562d11f4d9e5be, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 5
           m_FloatArgument: 0
@@ -69781,7 +69850,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 7fdd2afa44a436446bdb55fa7872a77d, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8ecb1b2f675de454c8d5a427d3311887, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
@@ -69794,7 +69863,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e863a2a22d6dda740bd9ee2298b3afd5, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
@@ -70546,7 +70615,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5636442521220197185
 GameObject:
   m_ObjectHideFlags: 0
@@ -79867,7 +79936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -251, y: 247.5}
+  m_AnchoredPosition: {x: -127, y: 247.5}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6421749611846793604
@@ -80044,7 +80113,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 201e5d377563ef14ba2af87226046e90, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8ecb1b2f675de454c8d5a427d3311887, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 7
           m_FloatArgument: 0
@@ -80057,7 +80126,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 1b87b102d6f63a7458a7c10e6951b6cb, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 7
           m_FloatArgument: 0
@@ -91635,7 +91704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 45.66001, y: -24.3}
+  m_AnchoredPosition: {x: 121, y: 234}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7520100915055943561
@@ -92759,7 +92828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7622498241322068095
 GameObject:
   m_ObjectHideFlags: 0
@@ -100980,7 +101049,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Custom
+  m_text: What's up L
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -101007,8 +101076,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.4
-  m_fontSizeBase: 11.4
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -104262,7 +104331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &8770233764867544939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -105094,7 +105163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &8847838031043700660
 GameObject:
   m_ObjectHideFlags: 0
@@ -107821,12 +107890,12 @@ GameObject:
   - component: {fileID: 5038163983169140471}
   - component: {fileID: 3442030520408226536}
   m_Layer: 0
-  m_Name: Left Custom Gesture
+  m_Name: What's up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &9168398146369097381
 GameObject:
   m_ObjectHideFlags: 0
