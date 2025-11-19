@@ -2,10 +2,11 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class DynamicGoodbye : MonoBehaviour
+public class DynamicGesture : MonoBehaviour
 {
     [Header("Settings")]
     public float waveSpeed = 0.5f;
+    public string gestureName = "Default";
 
     [SerializeField]
     Image m_Background;
@@ -54,12 +55,12 @@ public class DynamicGoodbye : MonoBehaviour
 
         if (active && _isWaitingForClose && !isGestureActive)
         {
-            FireGoodbye();
+            StartPerform();
         }
 
         else if (!active && isGestureActive)
         {
-            EndGoodbye();
+            EndPerform();
         }
     }
 
@@ -76,9 +77,9 @@ public class DynamicGoodbye : MonoBehaviour
         }
     }
 
-    void FireGoodbye()
+    void StartPerform()
     {
-        Debug.Log("<color=yellow>GOODBYE DETECTED! (Wave) 👋</color>");
+        Debug.Log($"<color=yellow>{gestureName} DETECTED!</color>");
 
         isGestureActive = true;
         _isWaitingForClose = false;
@@ -93,7 +94,7 @@ public class DynamicGoodbye : MonoBehaviour
         m_Background.color = m_BackgroundHighlightColor;
     }
 
-    void EndGoodbye()
+    void EndPerform()
     {
         isGestureActive = false;
 
