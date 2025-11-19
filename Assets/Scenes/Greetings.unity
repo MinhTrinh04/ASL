@@ -135,12 +135,12 @@ GameObject:
   - component: {fileID: 46712039}
   - component: {fileID: 46712038}
   m_Layer: 0
-  m_Name: D
+  m_Name: Goodbye Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &46712037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -281.80005, y: 247.5}
+  m_AnchoredPosition: {x: -281.80005, y: 111}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &46712038
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 1f89cf3d1a26bd6469a102ba63baef68, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 46712039}
   m_GesturePerformed:
@@ -188,7 +188,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 1f89cf3d1a26bd6469a102ba63baef68, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: e5d73173aa3736e428f4d6f3d0e2b4e3, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2675,12 +2675,12 @@ GameObject:
   - component: {fileID: 646324489}
   - component: {fileID: 646324488}
   m_Layer: 0
-  m_Name: E
+  m_Name: Goodbye Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &646324487
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2700,7 +2700,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -186.40004, y: 247.5}
+  m_AnchoredPosition: {x: -31, y: 107}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &646324488
@@ -2716,7 +2716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: f94488f235bdc9c4eb87687aab69d151, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 9991eb1d93b56654ea24cf8697cee839, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 646324489}
   m_GesturePerformed:
@@ -2728,7 +2728,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 9991eb1d93b56654ea24cf8697cee839, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2741,7 +2741,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 6cbb977b66fe256439c515cfcb157a9d, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3124,7 +3124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: D
+  m_text: GB Open
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7742,7 +7742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E
+  m_text: GB Close
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10544,6 +10544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1094199371719484032}
   - component: {fileID: 1094199371719484033}
+  - component: {fileID: 1094199371719484034}
   m_Layer: 0
   m_Name: Gesture Detection
   m_TagString: Untagged
@@ -20555,6 +20556,24 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnDualGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1094199371719484034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 218497865932235093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab8800e7705d0e4092648c2585cacb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveSpeed: 0.5
+  isOpenPoseActive: 0
+  isClosedPoseActive: 0
+  OnGoodbyeDetected:
     m_PersistentCalls:
       m_Calls: []
 --- !u!224 &1094770989982605248
