@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class DynamicGoodbye : MonoBehaviour
@@ -6,54 +7,71 @@ public class DynamicGoodbye : MonoBehaviour
     [Header("Settings")]
     public float waveSpeed = 0.5f;
 
+    [SerializeField]
+    Image m_Background;
+
     [Header("Debug State")]
     [SerializeField] private bool isOpenPoseActive = false;
     [SerializeField] private bool isClosedPoseActive = false;
+    [SerializeField] private bool isGestureActive = false;
 
     private float _timer = 0f;
     private bool _isWaitingForClose = false;
 
-    [Header("Output Event")]
-    public UnityEvent OnGoodbyeDetected;
+    [Header("Dynamic Gesture Event")]
+    public UnityEvent DynamicGestureDetected; 
+    public UnityEvent DynamicGestureEnded;  
 
-    // Hàm nối với Pose MỞ (Goodbye_Open)
+    [SerializeField]
+    Image m_Highlight;
+
+    Color m_BackgroundDefaultColor;
+    Color m_BackgroundHighlightColor = new Color(0f, 0.627451f, 1f);
+    void Awake()
+    {
+        m_BackgroundDefaultColor = m_Background.color;
+        if (m_Highlight)
+        {
+            m_Highlight.enabled = false;
+            m_Highlight.gameObject.SetActive(true);
+        }
+    }
+
     public void SetOpenPose(bool active)
     {
         isOpenPoseActive = active;
 
-        if (active)
+        if (active && !isGestureActive)
         {
-            // Khi tay mở ra, bắt đầu đếm giờ chờ tay đóng lại
             _isWaitingForClose = true;
             _timer = 0f;
-            Debug.Log("Wave Phase 1: Hand Open");
         }
     }
 
-    // Hàm nối với Pose ĐÓNG (Goodbye_Closed)
     public void SetClosedPose(bool active)
     {
         isClosedPoseActive = active;
 
-        // Logic kiểm tra: Đang chờ đóng + Tay thực sự đóng -> Kích hoạt
-        if (active && _isWaitingForClose)
+        if (active && _isWaitingForClose && !isGestureActive)
         {
             FireGoodbye();
+        }
+
+        else if (!active && isGestureActive)
+        {
+            EndGoodbye();
         }
     }
 
     void Update()
     {
-        // Nếu đang chờ gập ngón tay
         if (_isWaitingForClose)
         {
             _timer += Time.deltaTime;
 
-            // Nếu quá thời gian mà chưa gập tay -> Hủy bỏ (Reset)
             if (_timer > waveSpeed)
             {
                 _isWaitingForClose = false;
-                // Debug.Log("Wave Timeout - Too slow");
             }
         }
     }
@@ -61,10 +79,30 @@ public class DynamicGoodbye : MonoBehaviour
     void FireGoodbye()
     {
         Debug.Log("<color=yellow>GOODBYE DETECTED! (Wave) 👋</color>");
-        OnGoodbyeDetected?.Invoke();
 
-        // Reset ngay để người chơi có thể vẫy tiếp cái nữa (Open -> Close -> Open -> Close)
+        isGestureActive = true;
         _isWaitingForClose = false;
         _timer = 0f;
+
+        if (m_Highlight)
+        {
+            m_Highlight.enabled = true;
+        }
+
+        DynamicGestureDetected?.Invoke();
+        m_Background.color = m_BackgroundHighlightColor;
+    }
+
+    void EndGoodbye()
+    {
+        isGestureActive = false;
+
+        if (m_Highlight)
+        {
+            m_Highlight.enabled = false;
+        }
+
+        DynamicGestureEnded?.Invoke();
+        m_Background.color = m_BackgroundDefaultColor;
     }
 }
