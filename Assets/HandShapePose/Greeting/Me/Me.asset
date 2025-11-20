@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 740f51a1ac4b42088297287229057627, type: 3}
-  m_Name: You
+  m_Name: Me
   m_EditorClassIdentifier: 
-  m_HandShape: {fileID: 11400000, guid: 19f67bcc69361634a82c70dcaa26700b, type: 2}
+  m_HandShape: {fileID: 11400000, guid: 288eb3f77856c9543b8660fa344b49aa, type: 2}
   m_RelativeOrientation:
     m_UserConditions: []
     m_TargetConditions:
@@ -20,4 +20,4 @@ MonoBehaviour:
       m_AlignmentCondition: 0
       m_ReferenceDirection: 0
       m_AngleTolerance: 30
-      m_IgnorePositionY: 0
+      m_IgnorePositionY: 1

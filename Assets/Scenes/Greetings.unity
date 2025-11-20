@@ -6129,12 +6129,12 @@ GameObject:
   - component: {fileID: 1470480037}
   - component: {fileID: 1470480036}
   m_Layer: 0
-  m_Name: I
+  m_Name: Me
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1470480035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6154,7 +6154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 175.2, y: 247.5}
+  m_AnchoredPosition: {x: -189, y: 162}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470480036
@@ -6170,7 +6170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 44838d28cab18fd4690bb246d70e092d, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: c9e2cd64302b1ee48ab2e866d806fcde, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 1470480037}
   m_GesturePerformed:
@@ -6182,7 +6182,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: c9e2cd64302b1ee48ab2e866d806fcde, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6195,7 +6195,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 288eb3f77856c9543b8660fa344b49aa, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6234,14 +6234,7 @@ MonoBehaviour:
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1470480036}
+  - {fileID: 2071935583}
   m_Highlight: {fileID: 1748707806}
 --- !u!114 &1470480037
 MonoBehaviour:
@@ -7920,14 +7913,7 @@ MonoBehaviour:
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 2071935583}
+  - {fileID: 1470480036}
   m_Highlight: {fileID: 1730578432}
 --- !u!114 &2071935584
 MonoBehaviour:
@@ -22766,8 +22752,8 @@ RectTransform:
   - {fileID: 463463631}
   - {fileID: 1642865201}
   - {fileID: 2071935582}
-  - {fileID: 642874876}
   - {fileID: 1470480035}
+  - {fileID: 642874876}
   - {fileID: 833424959}
   - {fileID: 102409899}
   - {fileID: 2030534362}
