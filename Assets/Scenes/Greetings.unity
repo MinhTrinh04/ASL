@@ -2375,12 +2375,12 @@ GameObject:
   - component: {fileID: 642874878}
   - component: {fileID: 642874877}
   m_Layer: 0
-  m_Name: H
+  m_Name: Fine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &642874876
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2400,7 +2400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 83.59999, y: 247.5}
+  m_AnchoredPosition: {x: -18, y: 166}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642874877
@@ -2416,7 +2416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 592ac04ddb04bcf46b932e3b8c47231d, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 5aacb7a93b7b82b4cbc9c1810b23f864, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 642874878}
   m_GesturePerformed:
@@ -2428,7 +2428,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 5aacb7a93b7b82b4cbc9c1810b23f864, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2441,7 +2441,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 0c547ae7989de114b8e9603f8516dc39, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2479,15 +2479,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 642874877}
+  m_StaticGestures: []
   m_Highlight: {fileID: 556347691}
 --- !u!114 &642874878
 MonoBehaviour:
@@ -4152,7 +4144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: H
+  m_text: Fine
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
