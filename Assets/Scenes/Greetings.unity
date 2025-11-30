@@ -9970,7 +9970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
   m_HandShapeOrPose: {fileID: 11400000, guid: bd49d5c3b2a18eb4a82d5188f46e0edb, type: 2}
-  m_TargetTransform: {fileID: 0}
+  m_TargetTransform: {fileID: 6416326181286178228}
   m_Background: {fileID: 520764216751437916}
   m_GesturePerformed:
     m_PersistentCalls:
@@ -10032,15 +10032,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 214048083223172853}
+  m_StaticGestures: []
   m_Highlight: {fileID: 289958774186948168}
 --- !u!222 &214570559771639082
 CanvasRenderer:
