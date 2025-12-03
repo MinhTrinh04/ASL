@@ -1470,7 +1470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: O
+  m_text: What L
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2555,13 +2555,14 @@ GameObject:
   - component: {fileID: 777873368}
   - component: {fileID: 777873367}
   - component: {fileID: 777873366}
+  - component: {fileID: 777873369}
   m_Layer: 0
-  m_Name: N
+  m_Name: What
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &777873365
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2581,7 +2582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -281.80005, y: 153.99998}
+  m_AnchoredPosition: {x: -281.80005, y: 71}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &777873366
@@ -2591,7 +2592,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777873364}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
   m_Name: 
@@ -2708,6 +2709,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777873364}
   m_CullTransparentMesh: 1
+--- !u!114 &777873369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777873364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1e645fe732deb4688fb1e3a57dde65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gestureName: Default
+  m_Background: {fileID: 777873367}
+  m_Highlight: {fileID: 1726023749}
+  isLeftHandReady: 0
+  isRightHandReady: 0
+  OnDualGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7433513183651429208}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Hands.Samples.Gestures.DebugTools.XRSelectedHandShapeDebugUI,
+          Unity.XR.Hands.Samples.Gestures
+        m_MethodName: UpdateSelectedHandShapeTextUI
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6847164364035501446}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Hands.Samples.Gestures.DebugTools.XRHandShapeDebugUI,
+          Unity.XR.Hands.Samples.Gestures
+        m_MethodName: set_handShapeOrPose
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDualGestureEnded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7433513183651429208}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Hands.Samples.Gestures.DebugTools.XRSelectedHandShapeDebugUI,
+          Unity.XR.Hands.Samples.Gestures
+        m_MethodName: UpdateSelectedHandShapeTextUI
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6847164364035501446}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Hands.Samples.Gestures.DebugTools.XRHandShapeDebugUI,
+          Unity.XR.Hands.Samples.Gestures
+        m_MethodName: ClearDetectedHandShape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &803943314
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,12 +4121,12 @@ GameObject:
   - component: {fileID: 987471469}
   - component: {fileID: 987471468}
   m_Layer: 0
-  m_Name: P
+  m_Name: What R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &987471467
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4070,7 +4146,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -97.000015, y: 154}
+  m_AnchoredPosition: {x: -97.000015, y: 71.00005}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987471468
@@ -4086,7 +4162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 75c3e64aac2abd14bb26e753e301b1b4, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 987471469}
   m_GesturePerformed:
@@ -4098,7 +4174,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4111,8 +4187,20 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 777873369}
+        m_TargetAssemblyTypeName: DualGesture, Assembly-CSharp
+        m_MethodName: SetRightHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4147,6 +4235,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 0
+      - m_Target: {fileID: 777873369}
+        m_TargetAssemblyTypeName: DualGesture, Assembly-CSharp
+        m_MethodName: SetRightHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   m_StaticGestures:
@@ -4840,7 +4940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: P
+  m_text: What R
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5049,7 +5149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: N
+  m_text: What
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6729,12 +6829,12 @@ GameObject:
   - component: {fileID: 1901556352}
   - component: {fileID: 1901556351}
   m_Layer: 0
-  m_Name: O
+  m_Name: What L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1901556350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6754,7 +6854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -186.40004, y: 153.99998}
+  m_AnchoredPosition: {x: -186.40004, y: 71.00004}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1901556351
@@ -6769,8 +6869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 722b582fbb15b2040aeefcde2c847b4d, type: 2}
+  m_HandTrackingEvents: {fileID: 5470164485962528318}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 1901556352}
   m_GesturePerformed:
@@ -6782,7 +6882,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6795,8 +6895,20 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 19437b79dcea30043bad63364221b279, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 777873369}
+        m_TargetAssemblyTypeName: DualGesture, Assembly-CSharp
+        m_MethodName: SetLeftHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6831,6 +6943,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 0
+      - m_Target: {fileID: 777873369}
+        m_TargetAssemblyTypeName: DualGesture, Assembly-CSharp
+        m_MethodName: SetLeftHand
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   m_StaticGestures:
