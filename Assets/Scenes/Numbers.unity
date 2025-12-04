@@ -1983,7 +1983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &430455038
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2868,12 +2868,12 @@ GameObject:
   - component: {fileID: 613433187}
   - component: {fileID: 613433186}
   m_Layer: 0
-  m_Name: J
+  m_Name: 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &613433185
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2909,7 +2909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 77f3a95886d14334e91ca499e03cb013, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 537c822d0c800e0419d7f49f0f804a62, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 613433187}
   m_GesturePerformed:
@@ -2921,7 +2921,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 77f3a95886d14334e91ca499e03cb013, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 537c822d0c800e0419d7f49f0f804a62, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2934,7 +2934,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 77f3a95886d14334e91ca499e03cb013, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: d220bd33fab7bd5479fcd84f4e00d39e, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4861,7 +4861,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: J
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -84984,7 +84984,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6787176668469589827
 GameObject:
   m_ObjectHideFlags: 0
