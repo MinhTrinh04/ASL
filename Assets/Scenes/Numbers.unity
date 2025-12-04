@@ -2226,7 +2226,7 @@ GameObject:
   - component: {fileID: 463463633}
   - component: {fileID: 463463632}
   m_Layer: 0
-  m_Name: B
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2267,7 +2267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 44ff2eab9bc65794fb12f2a73e183f20, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 9a4fd99e5b9178d4aa29825bb4933a42, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 463463633}
   m_GesturePerformed:
@@ -2279,7 +2279,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 44ff2eab9bc65794fb12f2a73e183f20, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 9a4fd99e5b9178d4aa29825bb4933a42, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2292,7 +2292,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: d489623d362fec44a8a768f6b2a495cd, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: ae658b419ca08e44a97bebea18b5c8d7, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2330,15 +2330,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 463463632}
+  m_StaticGestures: []
   m_Highlight: {fileID: 1082372212}
 --- !u!114 &463463633
 MonoBehaviour:
@@ -5169,7 +5161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: B
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
