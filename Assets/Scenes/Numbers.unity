@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 46712039}
   - component: {fileID: 46712038}
   m_Layer: 0
-  m_Name: D
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 8cc9d6c0dcd4900448f893c3622a0a11, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 46712039}
   m_GesturePerformed:
@@ -188,7 +188,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 8cc9d6c0dcd4900448f893c3622a0a11, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c66f29b74fc86bb4db521e03cb6ef158, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: b863e1a5216239542b087bc583eb6d99, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -239,15 +239,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 46712038}
+  m_StaticGestures: []
   m_Highlight: {fileID: 1083228494}
 --- !u!114 &46712039
 MonoBehaviour:
@@ -744,7 +736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: C
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3206,7 +3198,7 @@ GameObject:
   - component: {fileID: 646324489}
   - component: {fileID: 646324488}
   m_Layer: 0
-  m_Name: E
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3247,7 +3239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: f94488f235bdc9c4eb87687aab69d151, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: d35ecf4f91dc5454b99033c8258cd3f8, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 646324489}
   m_GesturePerformed:
@@ -3259,7 +3251,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: f94488f235bdc9c4eb87687aab69d151, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: d35ecf4f91dc5454b99033c8258cd3f8, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3272,7 +3264,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 0d0440d4c2bb56c4ea02f6b0ed833992, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 231559b80635dab459ade54a3887697b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -3310,15 +3302,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 646324488}
+  m_StaticGestures: []
   m_Highlight: {fileID: 1694102834}
 --- !u!114 &646324489
 MonoBehaviour:
@@ -3655,7 +3639,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: D
+  m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4387,7 +4371,7 @@ GameObject:
   - component: {fileID: 866733695}
   - component: {fileID: 866733694}
   m_Layer: 0
-  m_Name: C
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4428,7 +4412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 731dbc96d461daa4aae7dc452bc431c8, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: ac939e4eec7fbdd4e9d360aec5adb96b, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 866733695}
   m_GesturePerformed:
@@ -4440,7 +4424,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 731dbc96d461daa4aae7dc452bc431c8, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: ac939e4eec7fbdd4e9d360aec5adb96b, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4453,7 +4437,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 831d2a27a63f0e747932f6168e35dde9, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: b106c409ff048914cbe27237966ff874, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4491,15 +4475,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 866733694}
+  m_StaticGestures: []
   m_Highlight: {fileID: 2048803634}
 --- !u!114 &866733695
 MonoBehaviour:
@@ -8458,7 +8434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
