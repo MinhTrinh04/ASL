@@ -6740,7 +6740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: F
+  m_text: 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7370,7 +7370,7 @@ GameObject:
   - component: {fileID: 1642865203}
   - component: {fileID: 1642865202}
   m_Layer: 0
-  m_Name: F
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7411,7 +7411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: e7876a67f22a38843bcebdaf378e6d75, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: e4edbc18af65f494f9737e2d598d1df7, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 1642865203}
   m_GesturePerformed:
@@ -7423,7 +7423,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e7876a67f22a38843bcebdaf378e6d75, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: e4edbc18af65f494f9737e2d598d1df7, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7436,7 +7436,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 536aab53098bf3244b7f45b21eca59fa, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 9c82efe21efd719459ac9e2b86f075f2, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -7474,15 +7474,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1642865202}
+  m_StaticGestures: []
   m_Highlight: {fileID: 943937207}
 --- !u!114 &1642865203
 MonoBehaviour:
