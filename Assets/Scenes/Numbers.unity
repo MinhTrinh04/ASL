@@ -11313,7 +11313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -27.7}
+  m_AnchoredPosition: {x: 0, y: 2.5}
   m_SizeDelta: {x: 409.7, y: 67.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &153025172820001280
@@ -22475,7 +22475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1136308558826659435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47548,7 +47548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 7fdd2afa44a436446bdb55fa7872a77d, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 768ebbfc3cb9e3646af86997e99611e5, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 9117537241621738766}
   m_GesturePerformed:
@@ -47560,7 +47560,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 7fdd2afa44a436446bdb55fa7872a77d, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 768ebbfc3cb9e3646af86997e99611e5, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
@@ -47573,7 +47573,7 @@ MonoBehaviour:
         m_MethodName: set_handShapeOrPose
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: e863a2a22d6dda740bd9ee2298b3afd5, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 0fdbe31b87bd26040a41eadf578bd316, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
@@ -47611,15 +47611,7 @@ MonoBehaviour:
         m_CallState: 0
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
-  m_StaticGestures:
-  - {fileID: 3562070760055881779}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 214048083223172853}
+  m_StaticGestures: []
   m_Highlight: {fileID: 8207554935974994514}
 --- !u!224 &3563800223867327643
 RectTransform:
@@ -48291,7 +48283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Thumb Up
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -48318,8 +48310,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.4
-  m_fontSizeBase: 11.4
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -85714,12 +85706,12 @@ GameObject:
   - component: {fileID: 9117537241621738766}
   - component: {fileID: 3562070760055881779}
   m_Layer: 0
-  m_Name: Right Thumbs Up
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &6787176668469589827
 GameObject:
   m_ObjectHideFlags: 0
