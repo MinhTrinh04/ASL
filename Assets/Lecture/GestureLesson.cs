@@ -1,100 +1,135 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.Events;
+using TMPro;
+using System.Collections;
 
 public class GestureLesson : MonoBehaviour
 {
     [Header("UI References")]
-    public Image progressRing;       // Vòng tròn xoay
-    public TextMeshProUGUI statusText; // Chữ hướng dẫn
-    public GameObject successEffect;   // Hạt pháo hoa (Particle System)
+    public Image progressRing;       // KÉO OBJECT "PROGRESS" (CON) VÀO ĐÂY
+    public TMP_Text statusText;      // Kéo Text vào đây
 
     [Header("Settings")]
-    public float requiredHoldTime = 1.5f; // Thời gian cần giữ (giây)
-    public Color activeColor = Color.green;
-    public Color inactiveColor = Color.gray;
+    public float requiredHoldTime = 1.5f;
+    public float resetDelayTime = 1.5f;
+
+    [Header("Colors")]
+    public Color barColor = new Color(0, 1, 0, 1); // Màu xanh lá khi chạy
+
+    [Header("Messages")]
+    public string defaultMessage = "Perform gesture number 1";
+    public string holdingMessage = "Holding... ";
+    public string successMessage = "Success!";
 
     [Header("Events")]
-    public UnityEvent OnLessonFinished; // Sự kiện bắn ra khi xong bài
+    public UnityEvent OnLessonFinished;
 
     // Biến nội bộ
-    private bool isHoldingPose = false;
-    private float currentTimer = 0f;
-    private bool isCompleted = false;
+    private float currentHoldTime = 0f;
+    private bool isGestureDetected = false;
+    private bool isLessonCompleting = false;
 
     void Start()
     {
-        // Reset trạng thái ban đầu
-        if (progressRing)
-        {
-            progressRing.fillAmount = 0;
-            progressRing.color = inactiveColor;
-        }
-        if (successEffect) successEffect.SetActive(false);
-    }
-
-    // Hàm này sẽ được gọi từ Static Hand Gesture
-    public void SetHoldingState(bool state)
-    {
-        if (isCompleted) return;
-        isHoldingPose = state;
-
-        if (state)
-        {
-            if (statusText) statusText.text = "Giữ nguyên...";
-            if (progressRing) progressRing.color = activeColor;
-        }
-        else
-        {
-            if (statusText) statusText.text = "Hãy làm theo mẫu";
-            if (progressRing) progressRing.color = inactiveColor;
-        }
+        ResetUI();
     }
 
     void Update()
     {
-        if (isCompleted) return;
+        // 1. Nếu đang chờ reset (đã xong bài) thì không làm gì
+        if (isLessonCompleting) return;
 
-        // Logic tăng/giảm thanh tiến độ
-        if (isHoldingPose)
+        // 2. Logic tính toán thời gian giữ tay
+        if (isGestureDetected)
         {
-            currentTimer += Time.deltaTime;
+            currentHoldTime += Time.deltaTime;
+
+            // Hiển thị đếm ngược cho ngầu
+            float timeRemaining = Mathf.Max(0, requiredHoldTime - currentHoldTime);
+            if (statusText != null)
+                statusText.text = $"{holdingMessage} {timeRemaining:F1}s";
         }
         else
         {
-            // Nếu buông tay thì tụt thanh từ từ (để đỡ bị mất hứng)
-            currentTimer -= Time.deltaTime * 2;
+            // Bỏ tay ra thì tụt nhanh
+            currentHoldTime -= Time.deltaTime * 3;
+
+            // Trả về text mặc định
+            if (currentHoldTime <= 0 && statusText != null)
+                statusText.text = defaultMessage;
         }
 
-        // Kẹp giá trị từ 0 đến max
-        currentTimer = Mathf.Clamp(currentTimer, 0f, requiredHoldTime);
+        // Kẹp giá trị trong khoảng 0 đến max
+        currentHoldTime = Mathf.Clamp(currentHoldTime, 0, requiredHoldTime);
 
-        // Cập nhật UI
-        if (progressRing)
-        {
-            progressRing.fillAmount = currentTimer / requiredHoldTime;
-        }
+        // 3. Cập nhật thanh Bar
+        UpdateUI();
 
-        // Kiểm tra chiến thắng
-        if (currentTimer >= requiredHoldTime)
+        // 4. Kiểm tra hoàn thành
+        if (currentHoldTime >= requiredHoldTime)
         {
-            CompleteLesson();
+            StartCoroutine(HandleLessonCompletion());
         }
     }
 
-    void CompleteLesson()
+    // Giữ nguyên tên hàm để không bị lỗi Inspector
+    public void SetGestureDetected(bool detected)
     {
-        isCompleted = true;
-        if (statusText) statusText.text = "Tuyệt vời!";
-        if (successEffect) successEffect.SetActive(true);
+        if (!isLessonCompleting)
+        {
+            isGestureDetected = detected;
+        }
+    }
 
-        Debug.Log("Bài học hoàn thành!");
+    void UpdateUI()
+    {
+        if (progressRing != null)
+        {
+            // Tính phần trăm (0 đến 1)
+            float ratio = currentHoldTime / requiredHoldTime;
 
-        // Gọi Event để Game Manager biết đường chuyển bài
-        OnLessonFinished.Invoke();
+            progressRing.fillAmount = ratio;
+            progressRing.color = barColor; // Luôn giữ màu xanh lá
+        }
+    }
 
-        // Tự hủy hoặc ẩn đi sau 2 giây
-        Destroy(gameObject, 2.0f);
+    IEnumerator HandleLessonCompletion()
+    {
+        isLessonCompleting = true;
+        isGestureDetected = false;
+
+        // Hiển thị trạng thái thành công
+        if (progressRing != null) progressRing.fillAmount = 1f;
+        if (statusText != null) statusText.text = successMessage;
+
+        // Gọi sự kiện
+        OnLessonFinished?.Invoke();
+
+        // Chờ 1.5 giây
+        yield return new WaitForSeconds(resetDelayTime);
+
+        // Reset lại từ đầu
+        ResetLesson();
+    }
+
+    void ResetLesson()
+    {
+        currentHoldTime = 0f;
+        isLessonCompleting = false;
+        isGestureDetected = false;
+        ResetUI();
+    }
+
+    void ResetUI()
+    {
+        if (progressRing != null)
+        {
+            progressRing.fillAmount = 0; // Ẩn thanh xanh lá đi (lộ ra nền xanh dương bên dưới)
+        }
+        if (statusText != null)
+        {
+            statusText.text = defaultMessage;
+        }
     }
 }
