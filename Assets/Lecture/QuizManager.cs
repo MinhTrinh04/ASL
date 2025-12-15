@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class QuizManager : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class QuizManager : MonoBehaviour
     public TMP_Text feedbackTextUI;
     public TMP_Text scoreTextUI;
 
-    [Header("Cấu hình bài thi")]
+    [Header("Exam Config")]
+    public Color feedbackColor = new Color(0, 1, 0, 1); // Màu xanh lá khi chạy
     public List<QuizData> questionList; // Kéo các file câu hỏi vào đây
     public float delayNextQuestion = 2.0f;
 
@@ -61,17 +63,14 @@ public class QuizManager : MonoBehaviour
             questionImageUI.gameObject.SetActive(false);
         }
 
-        feedbackTextUI.text = "Đang chờ trả lời...";
-        feedbackTextUI.color = Color.yellow;
+        feedbackTextUI.text = "Waiting for gesture...";
+        feedbackTextUI.color = feedbackColor;
     }
 
-    // --- HÀM NHẬN TÍN HIỆU TỪ TAY ---
     public void SubmitAnswer(string gestureID)
     {
-        // Nếu chưa bắt đầu thi hoặc đã hết câu hỏi thì lờ đi
         if (!isExamActive || currentQuestionIndex >= questionList.Count) return;
 
-        // Kiểm tra đáp án
         string correctAnswer = questionList[currentQuestionIndex].correctGestureID;
 
         if (gestureID == correctAnswer)
@@ -82,9 +81,9 @@ public class QuizManager : MonoBehaviour
 
     IEnumerator HandleCorrectAnswer()
     {
-        isExamActive = false; // Tạm dừng để không nhận thêm input khi đang chuyển câu
+        isExamActive = false;
 
-        feedbackTextUI.text = "CHÍNH XÁC!";
+        feedbackTextUI.text = "CORRECT!";
         feedbackTextUI.color = Color.green;
         score++;
         UpdateScoreUI();
@@ -100,9 +99,9 @@ public class QuizManager : MonoBehaviour
     void EndExam()
     {
         isExamActive = false;
-        questionTextUI.text = "KẾT THÚC BÀI THI";
+        questionTextUI.text = "TEST COMPLETED";
         questionImageUI.gameObject.SetActive(false);
-        feedbackTextUI.text = $"Tổng điểm: {score}/{questionList.Count}";
+        feedbackTextUI.text = $"Total Score: {score}/{questionList.Count}";
     }
 
     void UpdateScoreUI()
