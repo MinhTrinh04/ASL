@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 public class ClassroomManager : MonoBehaviour
 {
@@ -7,7 +9,10 @@ public class ClassroomManager : MonoBehaviour
     public GameObject quizPhase;      // Kéo object 'Phase_Quiz' vào đây
     public GameObject examEntranceUI; // Kéo object 'UI_Exam_Entrance' vào đây
 
-    // Trạng thái hiện tại
+    [Header("Teleport Settings")]
+    public TeleportationProvider teleportProvider;
+    public Transform globalSpawnPoint;
+
     private bool isQuizMode = false;
 
     void Start()
@@ -28,6 +33,7 @@ public class ClassroomManager : MonoBehaviour
 
         // Hiện lại cái cửa/bảng rủ rê đi thi
         if (examEntranceUI) examEntranceUI.SetActive(true);
+        MovePlayerToSpawn();
 
         Debug.Log("Đã chuyển sang chế độ HỌC");
     }
@@ -44,7 +50,26 @@ public class ClassroomManager : MonoBehaviour
 
         // Ẩn cái cửa rủ thi đi (đang thi rồi mà)
         if (examEntranceUI) examEntranceUI.SetActive(false);
+        MovePlayerToSpawn();
 
         Debug.Log("Đã chuyển sang chế độ THI");
+    }
+
+    void MovePlayerToSpawn()
+    {
+        if (teleportProvider == null || globalSpawnPoint == null)
+        {
+            Debug.LogWarning("Chưa gắn TeleportProvider hoặc SpawnPoint!");
+            return;
+        }
+
+        TeleportRequest request = new TeleportRequest()
+        {
+            destinationPosition = globalSpawnPoint.position,
+            destinationRotation = globalSpawnPoint.rotation,
+            matchOrientation = MatchOrientation.TargetUpAndForward
+        };
+
+        teleportProvider.QueueTeleportRequest(request);
     }
 }
