@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
 
 public class QuizManager : MonoBehaviour
@@ -17,13 +18,17 @@ public class QuizManager : MonoBehaviour
     public Color feedbackColor = new Color(0, 1, 0, 1); // Màu xanh lá khi chạy
     public List<QuizData> questionList; // Kéo các file câu hỏi vào đây
     public float delayNextQuestion = 2.0f;
+    public float autoReturnDelay = 5.0f;
+
+    [Header("Events")]
+    public UnityEvent onExamFinished;
 
     // Biến nội bộ
     private int currentQuestionIndex = 0;
     private int score = 0;
     private bool isExamActive = false; // Biến này để bật/tắt chế độ thi
 
-    void Start()
+    void OnEnable()
     {
         // Có thể gọi hàm này khi bấm nút "Bắt đầu thi"
         StartExam();
@@ -102,11 +107,24 @@ public class QuizManager : MonoBehaviour
         questionTextUI.text = "TEST COMPLETED";
         questionImageUI.gameObject.SetActive(false);
         feedbackTextUI.text = $"Total Score: {score}/{questionList.Count}";
+
+        StartCoroutine(WaitAndFinish());
     }
 
     void UpdateScoreUI()
     {
         if (scoreTextUI != null)
             scoreTextUI.text = $"Score: {score}/{questionList.Count}";
+    }
+
+    IEnumerator WaitAndFinish()
+    {
+        float timer = autoReturnDelay;
+        while (timer > 0)
+        {
+            yield return null;
+            timer -= Time.deltaTime;
+        }
+        onExamFinished?.Invoke();
     }
 }
