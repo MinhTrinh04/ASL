@@ -208,6 +208,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
 
                     if (m_Highlight)
                         m_Highlight.enabled = true;
+                    else { }
 
                     foreach (var gesture in m_StaticGestures)
                     {
