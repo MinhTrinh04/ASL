@@ -4070,7 +4070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 2528927416551745936}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 4e6fb9c97cacca347ae2be7a8ed30def, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 53867d2254a05634cbd7f85f39f95e49, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 833424961}
   m_GesturePerformed:
@@ -4082,7 +4082,7 @@ MonoBehaviour:
         m_MethodName: UpdateSelectedHandShapeTextUI
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 4e6fb9c97cacca347ae2be7a8ed30def, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 53867d2254a05634cbd7f85f39f95e49, type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.ScriptableObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4736,8 +4736,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UseOptimizedControls: 0
-  m_LeftHandMesh: {fileID: 1048441851}
-  m_RightHandMesh: {fileID: 92641028}
+  m_MetaQuestLeftHandMesh: {fileID: 1048441851}
+  m_MetaQuestRightHandMesh: {fileID: 92641028}
+  m_AndroidXRLeftHandMesh: {fileID: 0}
+  m_AndroidXRRightHandMesh: {fileID: 0}
   m_HandMeshMaterial: {fileID: 2100000, guid: 613690cd962241049a0ec289a6ff835e, type: 2}
   m_DrawMeshes: 1
   m_DebugDrawPrefab: {fileID: 6507399986997092475, guid: 254b742d65a15d14b9df756ae77de868, type: 3}
