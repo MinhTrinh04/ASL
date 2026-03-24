@@ -15,9 +15,9 @@ MonoBehaviour:
   m_HandShape: {fileID: 11400000, guid: 4e6fb9c97cacca347ae2be7a8ed30def, type: 2}
   m_RelativeOrientation:
     m_UserConditions:
-    - m_HandAxis: 2
+    - m_HandAxis: 1
       m_AlignmentCondition: 0
       m_ReferenceDirection: 0
-      m_AngleTolerance: 45
-      m_IgnorePositionY: 0
+      m_AngleTolerance: 30
+      m_IgnorePositionY: 1
     m_TargetConditions: []
