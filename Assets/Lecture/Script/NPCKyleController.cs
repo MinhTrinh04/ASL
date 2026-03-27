@@ -39,10 +39,37 @@ public class NPCKyleController : MonoBehaviour
 
     private void Start()
     {
-        // Initial state: Only Practice button is active
-        if(btnPractice) btnPractice.SetActive(true);
-        if(btnStartExam) btnStartExam.SetActive(false);
-        if(btnPracticeAgain) btnPracticeAgain.SetActive(false);
+        // 1. Practice Button
+        if(btnPractice) 
+        {
+            var btn = btnPractice.GetComponent<UnityEngine.UI.Button>();
+            btn.onClick.RemoveAllListeners(); // Nuke the old 'Numbers' linkage
+            btn.onClick.AddListener(StartPractice);
+            btnPractice.SetActive(true);
+        }
+
+        // 2. Practice Again Button
+        if(btnPracticeAgain)
+        {
+            var btn = btnPracticeAgain.GetComponent<UnityEngine.UI.Button>();
+            btn.onClick.RemoveAllListeners(); // Nuke the old 'Numbers' linkage
+            btn.onClick.AddListener(StartPractice);
+            btnPracticeAgain.SetActive(false);
+        }
+
+        // 3. Start Exam Button
+        if(btnStartExam) 
+        {
+            var btn = btnStartExam.GetComponent<UnityEngine.UI.Button>();
+            btn.onClick.RemoveAllListeners(); // Nuke the old 'Numbers' linkage
+            
+            ClassroomManager mgr = GetComponentInParent<ClassroomManager>();
+            if (mgr != null)
+            {
+                btn.onClick.AddListener(mgr.EnterQuizMode);
+            }
+            btnStartExam.SetActive(false);
+        }
         
         practiceTextUI.text = "Hello, my name is Kyle. Do you want to practice with me?";
     }
