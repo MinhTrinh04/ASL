@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
@@ -26,8 +26,37 @@ public class DynamicGesture : MonoBehaviour
     [SerializeField]
     Image m_Highlight;
 
+    [Header("Global Aliases")]
+    public System.Collections.Generic.List<string> openPoseIDs = new System.Collections.Generic.List<string>();
+    public System.Collections.Generic.List<string> closedPoseIDs = new System.Collections.Generic.List<string>();
+
     Color m_BackgroundDefaultColor;
     Color m_BackgroundHighlightColor = new Color(0f, 0.627451f, 1f);
+
+    void OnEnable()
+    {
+        GestureHub.OnGestureDetected += HandleGlobalDetected;
+        GestureHub.OnGestureEnded += HandleGlobalEnded;
+    }
+
+    void OnDisable()
+    {
+        GestureHub.OnGestureDetected -= HandleGlobalDetected;
+        GestureHub.OnGestureEnded -= HandleGlobalEnded;
+    }
+
+    void HandleGlobalDetected(string id)
+    {
+        if (openPoseIDs.Contains(id)) SetOpenPose(true);
+        if (closedPoseIDs.Contains(id)) SetClosedPose(true);
+    }
+
+    void HandleGlobalEnded(string id)
+    {
+        if (openPoseIDs.Contains(id)) SetOpenPose(false);
+        if (closedPoseIDs.Contains(id)) SetClosedPose(false);
+    }
+
     void Awake()
     {
         m_BackgroundDefaultColor = m_Background.color;
