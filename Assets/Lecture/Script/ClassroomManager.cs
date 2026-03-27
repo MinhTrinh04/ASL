@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
@@ -13,6 +13,10 @@ public class ClassroomManager : MonoBehaviour
     public TeleportationProvider teleportProvider;
     public Transform globalSpawnPoint;
 
+    [Header("Gesture Management")]
+    public GestureTopicController gestureTopicController;
+    public string topicName = "Alphabets";
+
     private bool isQuizMode = false;
 
     void Start()
@@ -24,6 +28,9 @@ public class ClassroomManager : MonoBehaviour
     public void EnterLectureMode()
     {
         isQuizMode = false;
+        
+        // Ensure correct gestures are active
+        if (gestureTopicController) gestureTopicController.EnableTopic(topicName);
 
         // Bật đồ dùng học tập
         if (lecturePhase) lecturePhase.SetActive(true);

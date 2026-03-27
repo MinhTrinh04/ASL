@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
@@ -30,8 +30,14 @@ public class QuizManager : MonoBehaviour
 
     void OnEnable()
     {
+        GestureHub.OnGestureDetected += SubmitAnswer;
         // Có thể gọi hàm này khi bấm nút "Bắt đầu thi"
         StartExam();
+    }
+
+    void OnDisable()
+    {
+        GestureHub.OnGestureDetected -= SubmitAnswer;
     }
 
     public void StartExam()

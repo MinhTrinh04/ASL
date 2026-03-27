@@ -37,6 +37,16 @@ public class NPCKyleController : MonoBehaviour
 #endif
     }
 
+    private void OnEnable()
+    {
+        GestureHub.OnGestureDetected += OnGestureInput;
+    }
+
+    private void OnDisable()
+    {
+        GestureHub.OnGestureDetected -= OnGestureInput;
+    }
+
     private void Start()
     {
         // 1. Practice Button
