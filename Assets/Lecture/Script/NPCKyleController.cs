@@ -1,33 +1,115 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class NPCKyleController : MonoBehaviour
 {
     public Animator kyleAnim;
     public TMP_Text practiceTextUI;
-    public List<PracticeData> practiceList;
+    
+    [Header("Data")]
+    public List<PracticeData> allPracticeData;
+    
+    [Header("UI Buttons")]
+    public GameObject btnPractice;
+    public GameObject btnStartExam;
+    public GameObject btnPracticeAgain;
 
+    private List<PracticeData> currentSessionList = new List<PracticeData>();
     private int currentQuestionIndex = 0;
     private int currentSpellingIndex = 0;
     private bool isPracticeActive = false;
 
-    // Hàm gọi khi người dùng nhấn nút "Start Practice" (tạo riêng, không dùng nút Start Exam)
+    private void Update()
+    {
+        // For Editor testing without VR headset
+#if UNITY_EDITOR
+        if (!isPracticeActive) return;
+        foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(kcode) && kcode >= KeyCode.A && kcode <= KeyCode.Z)
+            {
+                OnGestureInput(kcode.ToString());
+            }
+        }
+#endif
+    }
+
+    private void Start()
+    {
+        // Initial state: Only Practice button is active
+        if(btnPractice) btnPractice.SetActive(true);
+        if(btnStartExam) btnStartExam.SetActive(false);
+        if(btnPracticeAgain) btnPracticeAgain.SetActive(false);
+        
+        practiceTextUI.text = "Hello, my name is Kyle. Do you want to practice with me?";
+    }
+
     public void StartPractice()
     {
+        // Hide "Practice" or "Practice Again" buttons
+        if(btnPractice) btnPractice.SetActive(false);
+        if(btnPracticeAgain) btnPracticeAgain.SetActive(false);
+        if(btnStartExam) btnStartExam.SetActive(false);
+
+        GenerateRandomSession();
+        
         currentQuestionIndex = 0;
         isPracticeActive = true;
-        kyleAnim.SetTrigger("think");
+        
+        if(kyleAnim) kyleAnim.SetTrigger("think");
         LoadPracticeStep();
+    }
+
+    private void GenerateRandomSession()
+    {
+        currentSessionList.Clear();
+        
+        // Filter into lists
+        var spellings = allPracticeData.Where(d => d.targetWord.Length > 1).ToList();
+        var letters = allPracticeData.Where(d => d.targetWord.Length == 1).ToList();
+        
+        // Shuffle
+        ShuffleList(spellings);
+        ShuffleList(letters);
+        
+        // Take exactly 2 spellings and 2 or 3 letters (let's say 3 letters for a total of 5 questions)
+        var selectedSpellings = spellings.Take(2).ToList();
+        var selectedLetters = letters.Take(3).ToList();
+        
+        currentSessionList.AddRange(selectedSpellings);
+        currentSessionList.AddRange(selectedLetters);
+        
+        // Shuffle the final session list
+        ShuffleList(currentSessionList);
+    }
+
+    private void ShuffleList<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            T temp = list[i];
+            int randomIndex = Random.Range(i, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
     }
 
     void LoadPracticeStep()
     {
-        if (currentQuestionIndex >= practiceList.Count)
+        if (currentQuestionIndex >= currentSessionList.Count)
         {
-            practiceTextUI.text = "Great job!";
+            practiceTextUI.text = "You are ready! You can take the exam now or practice again with me.";
             isPracticeActive = false;
+            
+            if(kyleAnim) kyleAnim.SetTrigger("wave");
+            
+            // Show end state buttons
+            if(btnPracticeAgain) btnPracticeAgain.SetActive(true);
+            if(btnStartExam) btnStartExam.SetActive(true);
+            
             return;
         }
         currentSpellingIndex = 0;
@@ -36,26 +118,25 @@ public class NPCKyleController : MonoBehaviour
 
     void UpdateUI()
     {
-        string word = practiceList[currentQuestionIndex].targetWord;
-        // Highlight màu xanh cho các chữ cái đã làm đúng
+        string word = currentSessionList[currentQuestionIndex].targetWord;
+        // Highlight green for correct letters
         string highlighted = $"<color=green>{word.Substring(0, currentSpellingIndex)}</color>{word.Substring(currentSpellingIndex)}";
         practiceTextUI.text = highlighted;
     }
 
-    // Nhận dữ liệu từ hệ thống nhận diện cử chỉ
     public void OnGestureInput(string gestureID)
     {
         if (!isPracticeActive) return;
 
-        string target = practiceList[currentQuestionIndex].gestureSequence[currentSpellingIndex];
+        string target = currentSessionList[currentQuestionIndex].gestureSequence[currentSpellingIndex];
 
-        if (gestureID == target)
+        // Ensure case-insensitive or exact match depending on gestureID format
+        if (gestureID.Equals(target, System.StringComparison.OrdinalIgnoreCase))
         {
             currentSpellingIndex++;
             UpdateUI();
 
-            // Nếu xong 1 từ
-            if (currentSpellingIndex >= practiceList[currentQuestionIndex].gestureSequence.Count)
+            if (currentSpellingIndex >= currentSessionList[currentQuestionIndex].gestureSequence.Count)
             {
                 StartCoroutine(CorrectSequence());
             }
@@ -66,13 +147,13 @@ public class NPCKyleController : MonoBehaviour
     {
         isPracticeActive = false;
         practiceTextUI.text = "<color=green>CORRECT!</color>";
-        kyleAnim.SetTrigger("correct");
+        if(kyleAnim) kyleAnim.SetTrigger("correct");
 
         yield return new WaitForSeconds(2f);
 
         currentQuestionIndex++;
         isPracticeActive = true;
-        kyleAnim.SetTrigger("think");
+        if(kyleAnim) kyleAnim.SetTrigger("think");
         LoadPracticeStep();
     }
 }
