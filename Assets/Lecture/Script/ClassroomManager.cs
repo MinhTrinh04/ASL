@@ -15,7 +15,7 @@ public class ClassroomManager : MonoBehaviour
 
     [Header("Gesture Management")]
     public GestureTopicController gestureTopicController;
-    public string topicName = "Alphabets";
+    public int currentTopicIndex = 0;
 
     private bool isQuizMode = false;
 
@@ -30,7 +30,7 @@ public class ClassroomManager : MonoBehaviour
         isQuizMode = false;
         
         // Ensure correct gestures are active
-        if (gestureTopicController) gestureTopicController.EnableTopic(topicName);
+        if (gestureTopicController) gestureTopicController.EnableTopicByIndex(currentTopicIndex);
 
         // Bật đồ dùng học tập
         if (lecturePhase) lecturePhase.SetActive(true);
@@ -64,16 +64,32 @@ public class ClassroomManager : MonoBehaviour
 
     void MovePlayerToSpawn()
     {
-        if (teleportProvider == null || globalSpawnPoint == null)
+        if (teleportProvider == null)
         {
-            Debug.LogWarning("Chưa gắn TeleportProvider hoặc SpawnPoint!");
+            Debug.LogWarning("Chưa gắn TeleportProvider!");
+            return;
+        }
+
+        // Ưu tiên lấy Spawn Point theo topic index
+        Transform targetSpawn = null;
+        if (gestureTopicController != null)
+        {
+            targetSpawn = gestureTopicController.GetSpawnPointByIndex(currentTopicIndex);
+        }
+
+        // Fallback về global nếu không có topic spawn
+        if (targetSpawn == null) targetSpawn = globalSpawnPoint;
+
+        if (targetSpawn == null)
+        {
+            Debug.LogWarning("Không tìm thấy Spawn Point nào để dịch chuyển!");
             return;
         }
 
         TeleportRequest request = new TeleportRequest()
         {
-            destinationPosition = globalSpawnPoint.position,
-            destinationRotation = globalSpawnPoint.rotation,
+            destinationPosition = targetSpawn.position,
+            destinationRotation = targetSpawn.rotation,
             matchOrientation = MatchOrientation.TargetUpAndForward
         };
 

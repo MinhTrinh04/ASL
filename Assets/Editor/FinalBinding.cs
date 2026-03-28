@@ -10,15 +10,21 @@ public class FinalBinding : EditorWindow
         if (managerObj == null) return;
         
         GestureTopicController ctrl = managerObj.GetComponent<GestureTopicController>();
+        if (ctrl == null) return;
         
         ClassroomManager[] cManagers = GameObject.FindObjectsOfType<ClassroomManager>(true);
         foreach (var m in cManagers)
         {
             m.gestureTopicController = ctrl;
-            // Set topicName based on parent as a guess if not already set
-            if (string.IsNullOrEmpty(m.topicName) || m.topicName == "Alphabets")
+            
+            // Tìm index dựa trên tên GameObject (ví dụ: "Alphabets")
+            for (int i = 0; i < ctrl.topics.Count; i++)
             {
-                m.topicName = m.gameObject.name;
+                if (ctrl.topics[i].topicName.Equals(m.gameObject.name, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    m.currentTopicIndex = i;
+                    break;
+                }
             }
             EditorUtility.SetDirty(m);
         }

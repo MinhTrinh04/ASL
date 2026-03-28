@@ -8,20 +8,44 @@ public class GestureTopicController : MonoBehaviour
     {
         public string topicName;
         public GameObject gestureGroupObject;
+        public Transform topicSpawnPoint;
     }
 
     public List<TopicGroup> topics = new List<TopicGroup>();
 
-    public void EnableTopic(string topicName)
+    public void EnableTopicByIndex(int index)
     {
-        foreach (var topic in topics)
+        for (int i = 0; i < topics.Count; i++)
         {
-            if (topic.gestureGroupObject != null)
+            if (topics[i].gestureGroupObject != null)
             {
-                bool isActive = topic.topicName.Equals(topicName, System.StringComparison.OrdinalIgnoreCase);
-                topic.gestureGroupObject.SetActive(isActive);
+                topics[i].gestureGroupObject.SetActive(i == index);
             }
         }
-        Debug.Log($"[GestureTopicController] Switched to topic: {topicName}");
+        
+        if (index >= 0 && index < topics.Count)
+            Debug.Log($"[GestureTopicController] Switched to topic: {topics[index].topicName} (Index: {index})");
+    }
+
+    public Transform GetSpawnPointByIndex(int index)
+    {
+        if (index >= 0 && index < topics.Count)
+        {
+            return topics[index].topicSpawnPoint;
+        }
+        return null;
+    }
+
+    // Keep legacy method for backward compatibility if needed, but updated to internal index search
+    public void EnableTopic(string topicName)
+    {
+        for (int i = 0; i < topics.Count; i++)
+        {
+            if (topics[i].topicName.Equals(topicName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                EnableTopicByIndex(i);
+                return;
+            }
+        }
     }
 }
