@@ -180,11 +180,15 @@ public class NPCKyleController : MonoBehaviour
         isPracticeActive = false;
         practiceTextUI.text = "<color=green>CORRECT!</color>";
         if(kyleAnim) kyleAnim.SetTrigger("correct");
-
-        // Wait a frame to ensure the animator has switched to the new state
-        yield return null; 
+ 
+        // Small delay to let the trigger settle
+        yield return new WaitForSeconds(0.1f);
         
-        // Wait for the duration of the "Correct" animation to finish before proceeding
+        // Wait until the transition to "Correct" (index 0) is complete
+        while (kyleAnim && kyleAnim.IsInTransition(0))
+            yield return null;
+            
+        // Now capture the actual duration of the Correct animation clip
         float animDuration = 2f; // Fallback
         if (kyleAnim)
         {
