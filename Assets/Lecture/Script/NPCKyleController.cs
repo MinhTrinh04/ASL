@@ -84,7 +84,13 @@ public class NPCKyleController : MonoBehaviour
         currentQuestionIndex = 0;
         isPracticeActive = true;
         
-        if(kyleAnim) kyleAnim.SetTrigger("think");
+        if (kyleAnim)
+        {
+            kyleAnim.ResetTrigger("think");
+            kyleAnim.ResetTrigger("correct");
+            kyleAnim.ResetTrigger("wave");
+            kyleAnim.SetTrigger("think");
+        }
         LoadPracticeStep();
     }
 
@@ -129,8 +135,8 @@ public class NPCKyleController : MonoBehaviour
             practiceTextUI.text = "You have finished! Do you want to practice again with me?";
             isPracticeActive = false;
             
-            // Kyle will no longer automatically wave here (waiting for a future "finish" state)
-            // if(kyleAnim) kyleAnim.SetTrigger("wave");
+            // Restore wave trigger to ensure Kyle returns to his default state for subsequent sessions
+            if(kyleAnim) kyleAnim.SetTrigger("wave");
             
             // Show end state buttons
             if(btnPracticeAgain) btnPracticeAgain.SetActive(true);
@@ -179,7 +185,14 @@ public class NPCKyleController : MonoBehaviour
 
         currentQuestionIndex++;
         isPracticeActive = true;
-        if(kyleAnim) kyleAnim.SetTrigger("think");
+        
+        // Only return to "Thinking" state if we have more questions to ask.
+        // This prevents a conflict with the "wave" trigger at the end of the session.
+        if (currentQuestionIndex < currentSessionList.Count)
+        {
+            if (kyleAnim) kyleAnim.SetTrigger("think");
+        }
+        
         LoadPracticeStep();
     }
 }
