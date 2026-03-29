@@ -15,6 +15,7 @@ public class ClassroomManager : MonoBehaviour
 
     [Header("Gesture Management")]
     public GestureTopicController gestureTopicController;
+    public NPCKyleController kyleController;
     public int currentTopicIndex = 0;
 
     private bool isQuizMode = false;
@@ -40,6 +41,13 @@ public class ClassroomManager : MonoBehaviour
 
         // Hiện lại cái cửa/bảng rủ rê đi thi
         if (examEntranceUI) examEntranceUI.SetActive(true);
+        
+        // Nhờ Kyle vẫy tay chào
+        if (kyleController && kyleController.kyleAnim)
+        {
+            kyleController.kyleAnim.SetTrigger("wave");
+        }
+
         MovePlayerToSpawn();
 
         Debug.Log("Đã chuyển sang chế độ HỌC");

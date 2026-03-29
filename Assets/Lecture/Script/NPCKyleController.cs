@@ -46,40 +46,28 @@ public class NPCKyleController : MonoBehaviour
     {
         GestureHub.OnGestureDetected -= OnGestureInput;
     }
-
     private void Start()
     {
-        // 1. Practice Button
         if(btnPractice) 
         {
-            var btn = btnPractice.GetComponent<UnityEngine.UI.Button>();
-            btn.onClick.RemoveAllListeners(); // Nuke the old 'Numbers' linkage
-            btn.onClick.AddListener(StartPractice);
+            btnPractice.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(StartPractice);
             btnPractice.SetActive(true);
         }
 
-        // 2. Practice Again Button
-        if(btnPracticeAgain)
+        if(btnPracticeAgain) 
         {
-            var btn = btnPracticeAgain.GetComponent<UnityEngine.UI.Button>();
-            btn.onClick.RemoveAllListeners(); // Nuke the old 'Numbers' linkage
-            btn.onClick.AddListener(StartPractice);
+            btnPracticeAgain.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(StartPractice);
             btnPracticeAgain.SetActive(false);
         }
 
-        // 3. Start Exam Button
         if(btnStartExam) 
         {
-            var btn = btnStartExam.GetComponent<UnityEngine.UI.Button>();
-            btn.onClick.RemoveAllListeners(); // Nuke the old 'Numbers' linkage
-            
             ClassroomManager mgr = GetComponentInParent<ClassroomManager>();
-            if (mgr != null)
-            {
-                btn.onClick.AddListener(mgr.EnterQuizMode);
-            }
+            if (mgr != null) btnStartExam.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(mgr.EnterQuizMode);
             btnStartExam.SetActive(false);
         }
+
+        if(kyleAnim) kyleAnim.SetTrigger("wave");
         
         practiceTextUI.text = "Hello, my name is Kyle. Do you want to practice with me?";
     }
@@ -138,7 +126,7 @@ public class NPCKyleController : MonoBehaviour
     {
         if (currentQuestionIndex >= currentSessionList.Count)
         {
-            practiceTextUI.text = "You are ready! You can take the exam now or practice again with me.";
+            practiceTextUI.text = "You have finished! Do you want to practice again with me?";
             isPracticeActive = false;
             
             if(kyleAnim) kyleAnim.SetTrigger("wave");
