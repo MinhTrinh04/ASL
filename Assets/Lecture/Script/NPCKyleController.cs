@@ -69,7 +69,9 @@ public class NPCKyleController : MonoBehaviour
 
         if(kyleAnim) kyleAnim.SetTrigger("wave");
         
-        practiceTextUI.text = "Hello, my name is Kyle. Do you want to practice with me?";
+        // Initial greeting for better UX
+        if (practiceTextUI) 
+            practiceTextUI.text = "<size=80%>Hi! I'm Kyle. Are you ready to practice your ASL skills?</size>";
     }
 
     public void StartPractice()
@@ -132,7 +134,7 @@ public class NPCKyleController : MonoBehaviour
     {
         if (currentQuestionIndex >= currentSessionList.Count)
         {
-            practiceTextUI.text = "You have finished! Do you want to practice again with me?";
+            practiceTextUI.text = "<size=80%>Impressive! You've mastered these. Ready for the exam or want more practice?</size>";
             isPracticeActive = false;
             
             // Restore wave trigger to ensure Kyle returns to his default state for subsequent sessions
@@ -151,9 +153,23 @@ public class NPCKyleController : MonoBehaviour
     void UpdateUI()
     {
         string word = currentSessionList[currentQuestionIndex].targetWord;
-        // Highlight green for correct letters
-        string highlighted = $"<color=green>{word.Substring(0, currentSpellingIndex)}</color>{word.Substring(currentSpellingIndex)}";
-        practiceTextUI.text = highlighted;
+        
+        // Dynamic title based on length for better UX
+        string title = (word.Length == 1) ? "Can you show me the letter:" : "Can you spell the word:";
+        
+        // Vibrant color palette
+        string colorCorrect = "#00FF88"; // Vibrant Green
+        string colorTitle = "#CCCCCC";   // Secondary Grey
+        
+        // Highlighting logic
+        string progress = word.Substring(0, currentSpellingIndex);
+        string remaining = word.Substring(currentSpellingIndex);
+        
+        string highlighted = $"<color={colorCorrect}>{progress}</color>{remaining}";
+        
+        // Structured Layout: Title (small, grey) + Word (large, bold, highlighted)
+        practiceTextUI.text = $"<size=70%><color={colorTitle}>{title}</color></size>\n" +
+                              $"<size=120%><b>{highlighted}</b></size>";
     }
 
     public void OnGestureInput(string gestureID)
@@ -178,7 +194,12 @@ public class NPCKyleController : MonoBehaviour
     IEnumerator CorrectSequence()
     {
         isPracticeActive = false;
-        practiceTextUI.text = "<color=green>CORRECT!</color>";
+
+        // Random encouraging success messages
+        string[] successMessages = { "Perfect!", "Well done!", "You got it!", "Excellent!" };
+        string randomSuccess = successMessages[Random.Range(0, successMessages.Length)];
+        
+        practiceTextUI.text = $"<color=#00FF88>{randomSuccess}</color>";
         if(kyleAnim) kyleAnim.SetTrigger("correct");
  
         // Small delay to let the trigger settle
