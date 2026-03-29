@@ -129,7 +129,8 @@ public class NPCKyleController : MonoBehaviour
             practiceTextUI.text = "You have finished! Do you want to practice again with me?";
             isPracticeActive = false;
             
-            if(kyleAnim) kyleAnim.SetTrigger("wave");
+            // Kyle will no longer automatically wave here (waiting for a future "finish" state)
+            // if(kyleAnim) kyleAnim.SetTrigger("wave");
             
             // Show end state buttons
             if(btnPracticeAgain) btnPracticeAgain.SetActive(true);
