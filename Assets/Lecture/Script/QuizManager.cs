@@ -84,7 +84,7 @@ public class QuizManager : MonoBehaviour
 
         string correctAnswer = questionList[currentQuestionIndex].correctGestureID;
 
-        if (gestureID == correctAnswer)
+        if (GestureHub.AreEquivalent(gestureID, correctAnswer))
         {
             StartCoroutine(HandleCorrectAnswer());
         }

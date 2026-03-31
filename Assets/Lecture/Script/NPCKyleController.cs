@@ -24,17 +24,8 @@ public class NPCKyleController : MonoBehaviour
 
     private void Update()
     {
-        // For Editor testing without VR headset
-#if UNITY_EDITOR
-        if (!isPracticeActive) return;
-        foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
-        {
-            if (Input.GetKeyDown(kcode) && kcode >= KeyCode.A && kcode <= KeyCode.Z)
-            {
-                OnGestureInput(kcode.ToString());
-            }
-        }
-#endif
+        // Debug keys removed to avoid conflicts with New Input System.
+        // Use XR Hands in VR or the Scene View to test gestures.
     }
 
     private void OnEnable()
@@ -174,12 +165,13 @@ public class NPCKyleController : MonoBehaviour
 
     public void OnGestureInput(string gestureID)
     {
+        Debug.Log($"[Kyle] Received gesture: {gestureID}");
         if (!isPracticeActive) return;
 
         string target = currentSessionList[currentQuestionIndex].gestureSequence[currentSpellingIndex];
 
-        // Ensure case-insensitive or exact match depending on gestureID format
-        if (gestureID.Equals(target, System.StringComparison.OrdinalIgnoreCase))
+        // Use equivalence grouping for M, N, T to improve user experience
+        if (GestureHub.AreEquivalent(gestureID, target))
         {
             currentSpellingIndex++;
             UpdateUI();
