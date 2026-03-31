@@ -49,8 +49,6 @@ public class ClassroomManager : MonoBehaviour
         }
 
         MovePlayerToSpawn();
-
-        Debug.Log("Đã chuyển sang chế độ HỌC");
     }
 
     public void EnterQuizMode()
@@ -66,8 +64,6 @@ public class ClassroomManager : MonoBehaviour
         // Ẩn cái cửa rủ thi đi (đang thi rồi mà)
         if (examEntranceUI) examEntranceUI.SetActive(false);
         MovePlayerToSpawn();
-
-        Debug.Log("Đã chuyển sang chế độ THI");
     }
 
     void MovePlayerToSpawn()

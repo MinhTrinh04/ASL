@@ -82,14 +82,12 @@ public class VRMagicTrajectory : MonoBehaviour
         {
             if (!isDrawing)
             {
-                Debug.Log($"[VRMagicTrajectory] '{gestureID}' Shape Match Started ({handTrackingEvents.handedness}). Drawing...");
                 StartDrawing();
             }
             RecordPoint(args);
         }
         else if (isDrawing)
         {
-            Debug.Log($"[VRMagicTrajectory] '{gestureID}' Shape Match Ended. Evaluating {worldPoints.Count} points...");
             StopDrawingAndEvaluate();
         }
     }
@@ -148,11 +146,10 @@ public class VRMagicTrajectory : MonoBehaviour
             }
 
             float score = VRMagicUnistroke.Recognize(points2D, template);
-            Debug.Log($"[VRMagicTrajectory] Gesture '{gestureID}' score: {score:F2}");
+            // Log removed for noise reduction
 
             if (score >= matchThreshold)
             {
-                Debug.Log($"[VRMagicTrajectory] SUCCESS! Gesture '{gestureID}' published.");
                 GestureHub.Publish(gestureID);
                 
                 // Keep the trail for a moment then clear

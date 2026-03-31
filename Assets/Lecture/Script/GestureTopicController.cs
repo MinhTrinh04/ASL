@@ -24,7 +24,9 @@ public class GestureTopicController : MonoBehaviour
         }
         
         if (index >= 0 && index < topics.Count)
-            Debug.Log($"[GestureTopicController] Switched to topic: {topics[index].topicName} (Index: {index})");
+        {
+            // Log removed for noise reduction
+        }
     }
 
     public Transform GetSpawnPointByIndex(int index)

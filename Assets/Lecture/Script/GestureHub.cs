@@ -10,12 +10,10 @@ public class GestureHub : MonoBehaviour
     {
         if (isDetected)
         {
-            Debug.Log($"[GestureHub] Detected: {gestureID}");
             OnGestureDetected?.Invoke(gestureID);
         }
         else
         {
-            Debug.Log($"[GestureHub] Ended: {gestureID}");
             OnGestureEnded?.Invoke(gestureID);
         }
     }
