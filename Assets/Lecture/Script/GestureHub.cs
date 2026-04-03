@@ -29,7 +29,6 @@ public class GestureHub : MonoBehaviour
 
         if (aInGroup && bInGroup)
         {
-            Debug.Log($"[GestureHub] Equivalence Match: {gestureA} counts as {gestureB}");
             return true;
         }
 

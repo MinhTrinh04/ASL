@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI; // Cần thêm thư viện này để xử lý Image
 
@@ -31,9 +31,21 @@ public class DualGesture : MonoBehaviour
 
     void Awake()
     {
+        if (m_Background == null)
+            m_Background = GetComponent<Image>();
+
         if (m_Background != null)
         {
             m_BackgroundDefaultColor = m_Background.color;
+        }
+
+        if (m_Highlight == null)
+        {
+            Transform highlightTransform = transform.Find("HighlightOutline");
+            if (highlightTransform != null)
+            {
+                m_Highlight = highlightTransform.GetComponent<Image>();
+            }
         }
 
         if (m_Highlight != null)
@@ -65,6 +77,7 @@ public class DualGesture : MonoBehaviour
 
             UpdateUI(true);
 
+            GestureHub.Publish(gestureName, true);
             OnDualGesturePerformed?.Invoke();
             _wasActive = true;
         }
@@ -72,6 +85,7 @@ public class DualGesture : MonoBehaviour
         {
             UpdateUI(false);
 
+            GestureHub.Publish(gestureName, false);
             OnDualGestureEnded?.Invoke();
             _wasActive = false;
         }
@@ -84,9 +98,9 @@ public class DualGesture : MonoBehaviour
             m_Background.color = isActive ? m_BackgroundHighlightColor : m_BackgroundDefaultColor;
         }
 
-        if (m_Highlight)
+        if (m_Highlight != null)
         {
-            m_Highlight.enabled = true;
+            m_Highlight.enabled = isActive;
         }
     }
 }

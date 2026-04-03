@@ -15,13 +15,23 @@ public class GestureTrigger : MonoBehaviour
         }
     }
 
+    private bool isDetected = false;
+
     public void Trigger()
     {
-        GestureHub.Publish(gestureID, true);
+        if (!isDetected)
+        {
+            isDetected = true;
+            GestureHub.Publish(gestureID, true);
+        }
     }
 
     public void TriggerEnded()
     {
-        GestureHub.Publish(gestureID, false);
+        if (isDetected)
+        {
+            isDetected = false;
+            GestureHub.Publish(gestureID, false);
+        }
     }
 }

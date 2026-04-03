@@ -165,7 +165,6 @@ public class NPCKyleController : MonoBehaviour
 
     public void OnGestureInput(string gestureID)
     {
-        Debug.Log($"[Kyle] Received gesture: {gestureID}");
         if (!isPracticeActive) return;
 
         string target = currentSessionList[currentQuestionIndex].gestureSequence[currentSpellingIndex];

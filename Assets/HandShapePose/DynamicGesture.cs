@@ -59,8 +59,24 @@ public class DynamicGesture : MonoBehaviour
 
     void Awake()
     {
-        m_BackgroundDefaultColor = m_Background.color;
-        if (m_Highlight)
+        if (m_Background == null)
+            m_Background = GetComponent<Image>();
+
+        if (m_Background != null)
+        {
+            m_BackgroundDefaultColor = m_Background.color;
+        }
+
+        if (m_Highlight == null)
+        {
+            Transform highlightTransform = transform.Find("HighlightOutline");
+            if (highlightTransform != null)
+            {
+                m_Highlight = highlightTransform.GetComponent<Image>();
+            }
+        }
+
+        if (m_Highlight != null)
         {
             m_Highlight.enabled = false;
             m_Highlight.gameObject.SetActive(true);
@@ -115,12 +131,13 @@ public class DynamicGesture : MonoBehaviour
         _timer = 0f;
 
         if (m_Highlight)
-        {
             m_Highlight.enabled = true;
-        }
 
+        if (m_Background)
+            m_Background.color = m_BackgroundHighlightColor;
+
+        GestureHub.Publish(gestureName, true);
         DynamicGestureDetected?.Invoke();
-        m_Background.color = m_BackgroundHighlightColor;
     }
 
     void EndPerform()
@@ -128,11 +145,12 @@ public class DynamicGesture : MonoBehaviour
         isGestureActive = false;
 
         if (m_Highlight)
-        {
             m_Highlight.enabled = false;
-        }
 
+        if (m_Background)
+            m_Background.color = m_BackgroundDefaultColor;
+
+        GestureHub.Publish(gestureName, false);
         DynamicGestureEnded?.Invoke();
-        m_Background.color = m_BackgroundDefaultColor;
     }
 }
