@@ -1,12 +1,23 @@
-﻿using UnityEngine;
+using UnityEngine;
+
+public enum QuestionType
+{
+    Matching,          // Chọn ảnh
+    Ordering,          // Đánh vần chuỗi (Spelling)
+    AudioFillInTheGap  // Nghe và điền vào chỗ trống
+}
 
 [CreateAssetMenu(fileName = "NewQuestion", menuName = "Quiz System/Question")]
 public class QuizData : ScriptableObject
 {
-    [Header("Đề bài")]
-    [TextArea] public string questionText; // VD: "1 + 1 = ?"
-    public Sprite questionImage;           // VD: Ảnh quả táo (Để null nếu chỉ dùng text)
+    [Header("Câu hỏi")]
+    public QuestionType questionType;
+    [TextArea] public string questionText;
+    public string sentenceTemplate; // VD: "I love {0}"
+    public Sprite questionImage;
+    public AudioClip questionAudio;
+    public string topic = "Alphabets";
 
     [Header("Đáp án")]
-    public string correctGestureID;        // VD: "2" (Phải khớp với ID bạn cài trong Gesture)
+    public string[] correctGestureIDs; // Mảng các ID Gesture (VD: ["A"], ["C", "A", "T"])
 }
