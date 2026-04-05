@@ -31,11 +31,17 @@ public class QuizManager : MonoBehaviour
     [Header("Events")]
     public UnityEvent onExamFinished;
 
+    [Header("Aesthetic Palette")]
+    private readonly string COLOR_BLUE = "#5E97FF";
+    private readonly string COLOR_BEIGE = "#E9C46A";
+    private readonly string COLOR_RED = "#E76F51";
+
     // Internal state
     private int currentQuestionIndex = 0;
-    private int score = 0;
+    private float score = 0;
     private bool isExamActive = false;
     private List<string> currentInputBuffer = new List<string>();
+    private int currentQuestionMistakes = 0;
 
     void OnEnable()
     {
@@ -75,6 +81,7 @@ public class QuizManager : MonoBehaviour
 
     void LoadQuestion(int index)
     {
+        if (index < 0) return;
         if (index >= questionList.Count)
         {
             EndExam();
@@ -83,19 +90,28 @@ public class QuizManager : MonoBehaviour
 
         QuizData data = questionList[index];
         currentInputBuffer.Clear();
+        currentQuestionMistakes = 0;
+        feedbackTextUI.text = "";
 
         if (data.questionType == QuestionType.Ordering)
         {
             UpdateSpellingDisplay(data);
         }
+        else if (data.questionType == QuestionType.Matching)
+        {
+            string letter = (data.correctGestureIDs != null && data.correctGestureIDs.Length > 0) ? data.correctGestureIDs[0] : "?";
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>Identify the correct hand sign for</color>\n" +
+                                 $"<size=200%><color={COLOR_BLUE}><b>{letter}</b></color></size></align>";
+        }
         else if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
         {
-            // Hiển thị ____ trong câu
-            questionTextUI.text = string.Format(data.sentenceTemplate, "____");
+            // Display ____ in the template with brand colors
+            string formattedTemplate = data.sentenceTemplate.Replace("{0}", $"<color={COLOR_BLUE}>____</color>");
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{formattedTemplate}</color></align>";
         }
         else
         {
-            questionTextUI.text = data.questionText;
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{data.questionText}</color></align>";
         }
 
         // 2. Image display
@@ -150,7 +166,15 @@ public class QuizManager : MonoBehaviour
     void HandleCorrectPart(string gestureID)
     {
         currentInputBuffer.Add(gestureID);
-        score++;
+        
+        // Scoring: 1.0 point per question, divided by parts
+        float pointPerPart = 1.0f / questionList[currentQuestionIndex].correctGestureIDs.Length;
+        
+        // Deduction based on mistakes
+        if (currentQuestionMistakes == 1) pointPerPart *= 0.7f;
+        else if (currentQuestionMistakes == 2) pointPerPart *= 0.4f;
+        
+        score += pointPerPart;
         UpdateScoreUI();
 
         // Update display for Ordering questions
@@ -164,7 +188,7 @@ public class QuizManager : MonoBehaviour
             audioSource.PlayOneShot(correctClip);
 
         feedbackTextUI.text = "Correct!";
-        feedbackTextUI.color = Color.green;
+        feedbackTextUI.color = new Color(0.368f, 0.592f, 1.0f); // COLOR_BLUE
 
         if (currentInputBuffer.Count == questionList[currentQuestionIndex].correctGestureIDs.Length)
         {
@@ -174,11 +198,26 @@ public class QuizManager : MonoBehaviour
 
     void HandleWrongInput()
     {
+        currentQuestionMistakes++;
+
         if (audioSource != null && wrongClip != null)
             audioSource.PlayOneShot(wrongClip);
 
-        feedbackTextUI.text = "Incorrect! Try again.";
-        feedbackTextUI.color = Color.red;
+        if (currentQuestionMistakes >= 3)
+        {
+            feedbackTextUI.text = $"<color={COLOR_RED}>Too many mistakes! Moving to next question.</color>";
+            Invoke("LoadNextQuestion", 2.0f);
+        }
+        else
+        {
+            feedbackTextUI.text = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3). Try again.</color>";
+        }
+    }
+
+    void LoadNextQuestion()
+    {
+        currentQuestionIndex++;
+        LoadQuestion(currentQuestionIndex);
     }
 
     public void HandleDelete()
@@ -216,10 +255,9 @@ public class QuizManager : MonoBehaviour
         questionTextUI.text = "CONGRATULATIONS!";
         questionImageUI.gameObject.SetActive(false);
         
-        int totalPossible = 0;
-        foreach(var q in questionList) totalPossible += q.correctGestureIDs.Length;
+        int totalPossible = questionList.Count;
         
-        feedbackTextUI.text = $"Total Score: {score}/{totalPossible}";
+        feedbackTextUI.text = $"Total Score: {score:F1}/{totalPossible}";
 
         if (score == totalPossible && finishClip != null && audioSource != null)
             audioSource.PlayOneShot(finishClip);
@@ -229,11 +267,10 @@ public class QuizManager : MonoBehaviour
 
     void UpdateScoreUI()
     {
-        int totalPossible = 0;
-        foreach (var q in questionList) totalPossible += q.correctGestureIDs.Length;
+        int totalPossible = questionList.Count;
 
         if (scoreTextUI != null)
-            scoreTextUI.text = $"Score: {score}/{totalPossible}";
+            scoreTextUI.text = $"Score: <color={COLOR_BLUE}>{score:F1}</color>/<color={COLOR_RED}>{totalPossible}</color>";
     }
 
     IEnumerator WaitAndFinish()
@@ -251,15 +288,18 @@ public class QuizManager : MonoBehaviour
         if (data == null || data.correctGestureIDs == null) return;
 
         string fullWord = string.Join("", data.correctGestureIDs);
-        string displayedText = "<color=#FFFF00>How do you spell this word in ASL?</color>\n\n<size=150%>";
+        string title = $"How do you <color={COLOR_BLUE}>spell</color> this <color={COLOR_RED}>word</color>?";
+        string displayedText = $"<color={COLOR_BEIGE}>{title}</color>\n\n<size=150%>";
         
         int completed = currentInputBuffer.Count;
         for (int i = 0; i < fullWord.Length; i++)
         {
             if (i < completed)
-                displayedText += $"<color=#00FF00><b>{fullWord[i]}</b></color>";
+                displayedText += $"<color={COLOR_BLUE}><b>{fullWord[i]}</b></color>"; // Brand Blue for completed
+            else if (i == completed)
+                displayedText += $"<color={COLOR_BEIGE}>{fullWord[i]}</color>"; // Brand Beige for current
             else
-                displayedText += $"<color=#FFFFFF>{fullWord[i]}</color>";
+                displayedText += $"<color=#FFFFFF55>{fullWord[i]}</color>"; // Dimmed white for future
             
             if (i < fullWord.Length - 1) displayedText += " ";
         }
