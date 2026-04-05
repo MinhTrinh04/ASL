@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Audio_Gap_R
   m_EditorClassIdentifier: 
   questionType: 2
-  questionText: ""
-  sentenceTemplate: "Listen to the name and sign the missing first letter: {0}ain"
+  questionText: 
+  sentenceTemplate: 'Listen to the name and sign the missing first letter: {0}ain'
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
-  topic: "Alphabets"
+  topic: Alphabets
   correctGestureIDs:
-  - R
+  - P

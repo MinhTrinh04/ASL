@@ -84,8 +84,11 @@ public class QuizManager : MonoBehaviour
         QuizData data = questionList[index];
         currentInputBuffer.Clear();
 
-        // 1. Text display based on template
-        if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
+        if (data.questionType == QuestionType.Ordering)
+        {
+            UpdateSpellingDisplay(data);
+        }
+        else if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
         {
             // Hiển thị ____ trong câu
             questionTextUI.text = string.Format(data.sentenceTemplate, "____");
@@ -150,6 +153,13 @@ public class QuizManager : MonoBehaviour
         score++;
         UpdateScoreUI();
 
+        // Update display for Ordering questions
+        QuizData currentData = questionList[currentQuestionIndex];
+        if (currentData.questionType == QuestionType.Ordering)
+        {
+            UpdateSpellingDisplay(currentData);
+        }
+
         if (audioSource != null && correctClip != null)
             audioSource.PlayOneShot(correctClip);
 
@@ -176,6 +186,14 @@ public class QuizManager : MonoBehaviour
         if (currentInputBuffer.Count > 0)
         {
             currentInputBuffer.RemoveAt(currentInputBuffer.Count - 1);
+            
+            // Update display for Ordering questions
+            QuizData currentData = questionList[currentQuestionIndex];
+            if (currentData.questionType == QuestionType.Ordering)
+            {
+                UpdateSpellingDisplay(currentData);
+            }
+
             feedbackTextUI.text = "Deleted last sign.";
             feedbackTextUI.color = Color.yellow;
         }
@@ -226,5 +244,27 @@ public class QuizManager : MonoBehaviour
         ToggleSecondaryObjects(true);
         
         onExamFinished?.Invoke();
+    }
+
+    void UpdateSpellingDisplay(QuizData data)
+    {
+        if (data == null || data.correctGestureIDs == null) return;
+
+        string fullWord = string.Join("", data.correctGestureIDs);
+        string displayedText = "<color=#FFFF00>How do you spell this word in ASL?</color>\n\n<size=150%>";
+        
+        int completed = currentInputBuffer.Count;
+        for (int i = 0; i < fullWord.Length; i++)
+        {
+            if (i < completed)
+                displayedText += $"<color=#00FF00><b>{fullWord[i]}</b></color>";
+            else
+                displayedText += $"<color=#FFFFFF>{fullWord[i]}</color>";
+            
+            if (i < fullWord.Length - 1) displayedText += " ";
+        }
+        displayedText += "</size>";
+        
+        questionTextUI.text = $"<align=center>{displayedText}</align>";
     }
 }
