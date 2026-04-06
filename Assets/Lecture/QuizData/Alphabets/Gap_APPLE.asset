@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
+  m_Name: Gap_APPLE
+  m_EditorClassIdentifier: 
+  questionType: 1
+  questionText: 'Fill in the missing letters:'
+  sentenceTemplate: A _ P _ E
+  questionImage: {fileID: 0}
+  questionAudio: {fileID: 0}
+  topic: Alphabets
+  correctGestureIDs:
+  - A
+  - P
+  - P
+  - L
+  - E

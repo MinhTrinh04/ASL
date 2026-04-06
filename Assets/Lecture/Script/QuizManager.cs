@@ -288,20 +288,50 @@ public class QuizManager : MonoBehaviour
         if (data == null || data.correctGestureIDs == null) return;
 
         string fullWord = string.Join("", data.correctGestureIDs);
-        string title = $"How do you <color={COLOR_BLUE}>spell</color> this <color={COLOR_RED}>word</color>?";
-        string displayedText = $"<color={COLOR_BEIGE}>{title}</color>\n\n<size=150%>";
+        string title = string.IsNullOrEmpty(data.sentenceTemplate) ? 
+            $"How do you <color={COLOR_BLUE}>spell</color> this <color={COLOR_RED}>word</color>?" :
+            $"<color={COLOR_BEIGE}>Fill in the missing letters:</color>";
+            
+        string displayedText = $"{title}\n\n<size=150%>";
         
         int completed = currentInputBuffer.Count;
-        for (int i = 0; i < fullWord.Length; i++)
+
+        // If we have a template like "A _ P _ E", use it for display
+        if (!string.IsNullOrEmpty(data.sentenceTemplate))
         {
-            if (i < completed)
-                displayedText += $"<color={COLOR_BLUE}><b>{fullWord[i]}</b></color>"; // Brand Blue for completed
-            else if (i == completed)
-                displayedText += $"<color={COLOR_BEIGE}>{fullWord[i]}</color>"; // Brand Beige for current
-            else
-                displayedText += $"<color=#FFFFFF55>{fullWord[i]}</color>"; // Dimmed white for future
-            
-            if (i < fullWord.Length - 1) displayedText += " ";
+            // Remove spaces for logic
+            string temp = data.sentenceTemplate.Replace(" ", "");
+            for (int i = 0; i < fullWord.Length; i++)
+            {
+                if (i < completed)
+                {
+                    displayedText += $"<color={COLOR_BLUE}><b>{fullWord[i]}</b></color>";
+                }
+                else
+                {
+                    char c = (i < temp.Length) ? temp[i] : '_';
+                    if (c == '_')
+                        displayedText += $"<color={COLOR_BEIGE}>_</color>"; // Brand Beige for current/future gaps
+                    else
+                        displayedText += $"<color=#FFFFFF55>{c}</color>"; // Static letters from template
+                }
+                if (i < fullWord.Length - 1) displayedText += " ";
+            }
+        }
+        else
+        {
+            // Standard spelling display
+            for (int i = 0; i < fullWord.Length; i++)
+            {
+                if (i < completed)
+                    displayedText += $"<color={COLOR_BLUE}><b>{fullWord[i]}</b></color>";
+                else if (i == completed)
+                    displayedText += $"<color={COLOR_BEIGE}>{fullWord[i]}</color>";
+                else
+                    displayedText += $"<color=#FFFFFF55>{fullWord[i]}</color>";
+                
+                if (i < fullWord.Length - 1) displayedText += " ";
+            }
         }
         displayedText += "</size>";
         
