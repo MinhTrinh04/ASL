@@ -18,6 +18,7 @@ public class QuizManager : MonoBehaviour
     public List<QuizData> questionList;
     public float delayNextQuestion = 2.0f;
     public float autoReturnDelay = 5.0f;
+    public float inputCooldownTime = 1.0f;
 
     [Header("Scene Transition (Phase v2.0)")]
     public List<GameObject> objectsToHide; // Chứa PDF1, PDF2, PDF3, RobotKyle...
@@ -42,6 +43,7 @@ public class QuizManager : MonoBehaviour
     private bool isExamActive = false;
     private List<string> currentInputBuffer = new List<string>();
     private int currentQuestionMistakes = 0;
+    private float lastInputTime = 0f;
 
     void OnEnable()
     {
@@ -91,6 +93,7 @@ public class QuizManager : MonoBehaviour
         QuizData data = questionList[index];
         currentInputBuffer.Clear();
         currentQuestionMistakes = 0;
+        lastInputTime = 0f;
         feedbackTextUI.text = "";
 
         AutoAdvanceGapFill(data);
@@ -142,6 +145,8 @@ public class QuizManager : MonoBehaviour
     {
         if (!isExamActive || currentQuestionIndex >= questionList.Count) return;
 
+        if (Time.time - lastInputTime < inputCooldownTime) return;
+
         QuizData currentData = questionList[currentQuestionIndex];
         string[] correctAnswers = currentData.correctGestureIDs;
 
@@ -167,6 +172,7 @@ public class QuizManager : MonoBehaviour
 
     void HandleCorrectPart(string gestureID)
     {
+        lastInputTime = Time.time;
         currentInputBuffer.Add(gestureID);
         QuizData currentData = questionList[currentQuestionIndex];
         
@@ -202,6 +208,7 @@ public class QuizManager : MonoBehaviour
 
     void HandleWrongInput()
     {
+        lastInputTime = Time.time;
         currentQuestionMistakes++;
 
         if (audioSource != null && wrongClip != null)
