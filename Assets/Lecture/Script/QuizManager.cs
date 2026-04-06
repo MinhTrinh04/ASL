@@ -93,6 +93,8 @@ public class QuizManager : MonoBehaviour
         currentQuestionMistakes = 0;
         feedbackTextUI.text = "";
 
+        AutoAdvanceGapFill(data);
+
         if (data.questionType == QuestionType.Ordering)
         {
             UpdateSpellingDisplay(data);
@@ -166,9 +168,12 @@ public class QuizManager : MonoBehaviour
     void HandleCorrectPart(string gestureID)
     {
         currentInputBuffer.Add(gestureID);
+        QuizData currentData = questionList[currentQuestionIndex];
         
-        // Scoring: 1.0 point per question, divided by parts
-        float pointPerPart = 1.0f / questionList[currentQuestionIndex].correctGestureIDs.Length;
+        AutoAdvanceGapFill(currentData);
+        
+        // Scoring: 1.0 point per question, divided by gaps
+        float pointPerPart = 1.0f / GetScoreWeight(currentData);
         
         // Deduction based on mistakes
         if (currentQuestionMistakes == 1) pointPerPart *= 0.7f;
@@ -178,7 +183,6 @@ public class QuizManager : MonoBehaviour
         UpdateScoreUI();
 
         // Update display for Ordering questions
-        QuizData currentData = questionList[currentQuestionIndex];
         if (currentData.questionType == QuestionType.Ordering)
         {
             UpdateSpellingDisplay(currentData);
@@ -313,7 +317,7 @@ public class QuizManager : MonoBehaviour
                     if (c == '_')
                         displayedText += $"<color={COLOR_BEIGE}>_</color>"; // Brand Beige for current/future gaps
                     else
-                        displayedText += $"<color=#FFFFFF55>{c}</color>"; // Static letters from template
+                        displayedText += $"<color={COLOR_BLUE}><b>{c}</b></color>"; // Static letters from template are BLUE from start
                 }
                 if (i < fullWord.Length - 1) displayedText += " ";
             }
@@ -336,5 +340,33 @@ public class QuizManager : MonoBehaviour
         displayedText += "</size>";
         
         questionTextUI.text = $"<align=center>{displayedText}</align>";
+    }
+
+    void AutoAdvanceGapFill(QuizData data)
+    {
+        if (data.questionType != QuestionType.Ordering || string.IsNullOrEmpty(data.sentenceTemplate)) return;
+
+        string temp = data.sentenceTemplate.Replace(" ", "");
+        string fullWord = string.Join("", data.correctGestureIDs);
+
+        while (currentInputBuffer.Count < temp.Length && currentInputBuffer.Count < fullWord.Length && temp[currentInputBuffer.Count] != '_')
+        {
+            currentInputBuffer.Add(fullWord[currentInputBuffer.Count].ToString());
+        }
+    }
+
+    int GetScoreWeight(QuizData data)
+    {
+        if (data.questionType != QuestionType.Ordering) return 1;
+        if (data.correctGestureIDs == null) return 1;
+        if (string.IsNullOrEmpty(data.sentenceTemplate)) return data.correctGestureIDs.Length;
+
+        string temp = data.sentenceTemplate.Replace(" ", "");
+        int count = 0;
+        foreach (char c in temp)
+        {
+            if (c == '_') count++;
+        }
+        return count == 0 ? 1 : count;
     }
 }
