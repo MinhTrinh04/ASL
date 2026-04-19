@@ -3034,17 +3034,17 @@ MonoBehaviour:
   m_StepButtonTextField: {fileID: 9053089469552918005}
   m_StepList:
   - stepObject: {fileID: 3410240344823347826}
-    buttonText: Continue
+    buttonText: Next
   - stepObject: {fileID: 8625647378827064232}
-    buttonText: Continue
+    buttonText: Next
   - stepObject: {fileID: 8526113750451567487}
-    buttonText: Continue
+    buttonText: Next
   - stepObject: {fileID: 3904445835793318496}
-    buttonText: Continue
+    buttonText: Next
   - stepObject: {fileID: 6654461411236106770}
-    buttonText: Continue
+    buttonText: Next
   - stepObject: {fileID: 1307200263617048019}
-    buttonText: Continue
+    buttonText: Next
   - stepObject: {fileID: 1245307993714908009}
     buttonText: Restart
 --- !u!223 &7380959999416681010
@@ -3265,7 +3265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.34509805, g: 0.6901961, b: 0.9647059, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5566,10 +5566,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.1254902, g: 0.5882353, b: 0.9529412, a: 1}
-    m_HighlightedColor: {r: 0.09411765, g: 0.4392157, b: 0.7137255, a: 1}
-    m_PressedColor: {r: 0.34509805, g: 0.6901961, b: 0.9647059, a: 1}
-    m_SelectedColor: {r: 0.1254902, g: 0.5882353, b: 0.9529412, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6941,7 +6941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue
+  m_text: Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
