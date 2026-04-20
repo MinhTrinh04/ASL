@@ -17,6 +17,7 @@ public class QuizManager : MonoBehaviour
     public GameObject examCanvas; // Màn hình thi
 
     [Header("Exam Config")]
+    public int topicIndex = 0; 
     public List<QuizData> questionList;
 
     [FormerlySerializedAs("delayNextQuestion")]
@@ -331,8 +332,21 @@ public class QuizManager : MonoBehaviour
         questionImageUI.gameObject.SetActive(false);
 
         int totalPossible = questionList.Count;
-        feedbackTextUI.text  = $"Total Score: {score:F1}/{totalPossible}";
+        float percentage = (totalPossible > 0) ? (score / totalPossible) * 100f : 0f;
+
+        feedbackTextUI.text  = $"Total Score: {score:F1}/{totalPossible} ({percentage:F0}%)";
         feedbackTextUI.color = Color.white;
+
+        // ── Report to ProgressManager ─────────────────────────────────────────
+        if (ProgressManager.Instance != null)
+        {
+            ProgressManager.Instance.SaveTopicScore(topicIndex, percentage);
+
+            if (percentage >= ProgressManager.Instance.passingGrade)
+            {
+                feedbackTextUI.text += "\n<color=#5E97FF>Topic Mastered! Next unlocked.</color>";
+            }
+        }
 
         if (score == totalPossible && finishClip != null && audioSource != null)
             audioSource.PlayOneShot(finishClip);

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
+using System.Collections.Generic;
 
 public class ClassroomManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class ClassroomManager : MonoBehaviour
     public GestureTopicController gestureTopicController;
     public NPCKyleController kyleController;
     public int currentTopicIndex = 0;
+
+    [Header("Quest Boards per Topic")]
+    public List<GameObject> quizBoards;
 
     private bool isQuizMode = false;
 
@@ -63,7 +67,30 @@ public class ClassroomManager : MonoBehaviour
 
         // Ẩn cái cửa rủ thi đi (đang thi rồi mà)
         if (examEntranceUI) examEntranceUI.SetActive(false);
+        
+        // Bật đúng bảng Quiz cho topic hiện tại
+        ActivateQuizBoard(currentTopicIndex);
+        
         MovePlayerToSpawn();
+    }
+
+    public void ActivateQuizBoard(int index)
+    {
+        if (quizBoards == null || quizBoards.Count == 0) return;
+        
+        for (int i = 0; i < quizBoards.Count; i++)
+        {
+            if (quizBoards[i] != null)
+                quizBoards[i].SetActive(i == index);
+        }
+    }
+
+    public void ChangeTopic(int newIndex)
+    {
+        if (ProgressManager.Instance != null)
+        {
+            ProgressManager.Instance.ApplyTopicChange(newIndex);
+        }
     }
 
     void MovePlayerToSpawn()

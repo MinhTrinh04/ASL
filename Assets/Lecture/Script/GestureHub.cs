@@ -10,6 +10,10 @@ public class GestureHub : MonoBehaviour
     {
         if (isDetected)
         {
+            if (gestureID.Equals("I", StringComparison.OrdinalIgnoreCase))
+            {
+                Debug.Log("<color=cyan>[GestureHub] Gesture 'I' Detected!</color>");
+            }
             OnGestureDetected?.Invoke(gestureID);
         }
         else
@@ -20,7 +24,7 @@ public class GestureHub : MonoBehaviour
 
     public static bool AreEquivalent(string gestureA, string gestureB)
     {
-        if (gestureA == gestureB) return true;
+        if (gestureA.Equals(gestureB, StringComparison.OrdinalIgnoreCase)) return true;
 
         // Group M, N, T, S, E as equivalent for easier gesture recognition (all are fist variants)
         string[] fistGroup = { "M", "N", "T", "S", "E" };
