@@ -2,14 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 
 public class WristDashboardUI : MonoBehaviour
 {
-    [Header("VR Input")]
-    [Tooltip("Kéo hành động bấm nút trên Controller vào đây (Ví dụ: Left Hand / Primary Button)")]
-    public InputActionReference toggleDashboardAction;
-
     [System.Serializable]
     public struct TopicUIElements
     {
@@ -29,24 +24,6 @@ public class WristDashboardUI : MonoBehaviour
     private void OnEnable()
     {
         RefreshUI();
-        if (toggleDashboardAction != null)
-        {
-            toggleDashboardAction.action.Enable();
-            toggleDashboardAction.action.performed += OnTogglePressed;
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (toggleDashboardAction != null)
-        {
-            toggleDashboardAction.action.performed -= OnTogglePressed;
-        }
-    }
-
-    private void OnTogglePressed(InputAction.CallbackContext context)
-    {
-        ToggleDashboard();
     }
 
     public void ToggleDashboard()
