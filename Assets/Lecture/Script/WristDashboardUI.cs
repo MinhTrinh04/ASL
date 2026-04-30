@@ -17,22 +17,28 @@ public class WristDashboardUI : MonoBehaviour
         public Color masteredColor; // >= 80%
     }
 
-    [Header("UI Structure")]
-    public GameObject dashboardPanel; // The actual content to show/hide
+    [Header("Target Menu")]
+    public GameObject targetMenu; // The entire container to show/hide
     public List<TopicUIElements> topicSlots;
 
-    private void OnEnable()
+    private void Start()
     {
-        RefreshUI();
+        // Khởi tạo trạng thái ẩn khi bắt đầu
+        if (targetMenu != null) targetMenu.SetActive(false);
     }
 
     public void ToggleDashboard()
     {
-        if (dashboardPanel != null)
+        if (targetMenu != null)
         {
-            bool isActive = !dashboardPanel.activeSelf;
-            dashboardPanel.SetActive(isActive);
-            if (isActive) RefreshUI();
+            bool nextState = !targetMenu.activeSelf;
+            targetMenu.SetActive(nextState);
+            
+            if (nextState) 
+            {
+                RefreshUI();
+                Debug.Log("[WristDashboardUI] Dashboard opened and refreshed.");
+            }
         }
     }
 
@@ -92,7 +98,7 @@ public class WristDashboardUI : MonoBehaviour
             if (ProgressManager.Instance.ApplyTopicChange(index))
             {
                 // Close dashboard on success
-                if (dashboardPanel != null) dashboardPanel.SetActive(false);
+                if (targetMenu != null) targetMenu.SetActive(false);
             }
         }
     }
