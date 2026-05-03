@@ -61,7 +61,10 @@ public class QuizManager : MonoBehaviour
     private bool           isExamActive           = false;
     private List<string>   currentInputBuffer     = new List<string>();
     private int            currentQuestionMistakes = 0;
+    private int            hiddenMistakes         = 0;
+    private string         lastWrongGesture       = "";
     private float          lastInputTime          = 0f;
+    private float          questionStartTime      = 0f;
     private float          invincibilityEndTime   = -1f;
 
     // ── Helpers ───────────────────────────────────────────────────────────────
@@ -122,7 +125,10 @@ public class QuizManager : MonoBehaviour
         // ── Reset per-question state ──────────────────────────────────────────
         currentInputBuffer.Clear();
         currentQuestionMistakes = 0;
+        hiddenMistakes          = 0;
+        lastWrongGesture        = "";
         lastInputTime           = 0f;
+        questionStartTime       = Time.time;
         invincibilityEndTime    = -1f;  // clear invincibility from previous question
 
         feedbackTextUI.text = "";
@@ -180,6 +186,16 @@ public class QuizManager : MonoBehaviour
     {
         if (!isExamActive || currentQuestionIndex >= questionList.Count) return;
 
+        // Block input for the first second of a new question
+        if (Time.time - questionStartTime < 1.0f) return;
+
+        // Ignore empty or neutral gestures
+        if (string.IsNullOrEmpty(gestureID) || gestureID.Equals("Idle", StringComparison.OrdinalIgnoreCase) || gestureID.Equals("None", StringComparison.OrdinalIgnoreCase))
+        {
+            lastWrongGesture = ""; // Reset so they can retry the same wrong gesture if they intentionally do it again
+            return;
+        }
+
         // ── Feature 2: inter-character cooldown ───────────────────────────────
         if (Time.time - lastInputTime < interCharCooldown) return;
 
@@ -192,11 +208,12 @@ public class QuizManager : MonoBehaviour
             if (GestureHub.AreEquivalent(gestureID, correctAnswers[nextIndex]))
             {
                 HandleCorrectPart(gestureID);
+                lastWrongGesture = ""; // Reset on correct
             }
             else
             {
                 // Pass the expected letter so HandleWrongInput can check no-penalty list
-                HandleWrongInput(correctAnswers[nextIndex]);
+                HandleWrongInput(correctAnswers[nextIndex], gestureID);
             }
         }
     }
@@ -237,8 +254,8 @@ public class QuizManager : MonoBehaviour
             StartCoroutine(HandleQuestionComplete());
     }
 
-    // ── Wrong input — Feature 1 (no-penalty) + Feature 3 (invincibility) ──────
-    void HandleWrongInput(string expected)
+    // ── Wrong input — Feature 1 (no-penalty) + Hidden Mistakes ────────────────
+    void HandleWrongInput(string expected, string gestureID)
     {
         // ── Feature 1: No-penalty letters ─────────────────────────────────────
         bool isNoPenalty = System.Array.Exists(
@@ -251,6 +268,12 @@ public class QuizManager : MonoBehaviour
             return;
         }
 
+        // Prevent continuous penalty for holding the exact same wrong gesture
+        if (gestureID == lastWrongGesture) return;
+        lastWrongGesture = gestureID;
+
+        // ── Normal mistake path with hidden mistakes ───────────────────────────
+        
         // ── Feature 3: Invincibility window ───────────────────────────────────
         if (IsInvincible())
         {
@@ -261,28 +284,41 @@ public class QuizManager : MonoBehaviour
             return;
         }
 
-        // ── Normal mistake path ────────────────────────────────────────────────
         lastInputTime = Time.time;
-        currentQuestionMistakes++;
+        hiddenMistakes++;
 
         PlayAudioIfAvailable(wrongClip);
 
-        if (currentQuestionMistakes == 1)
+        if (hiddenMistakes >= 3)
         {
-            // First real mistake → grant invincibility window silently
-            invincibilityEndTime = Time.time + invincibilityDuration;
-            feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
-            feedbackTextUI.color = Color.white;
-        }
-        else if (currentQuestionMistakes >= 3)
-        {
-            feedbackTextUI.text  = $"<color={COLOR_RED}>Too many mistakes! Moving to next question.</color>";
-            feedbackTextUI.color = Color.white;
-            Invoke(nameof(LoadNextQuestion), 2.0f);
+            // 3 hidden mistakes count as 1 actual penalty
+            currentQuestionMistakes++;
+            hiddenMistakes = 0; // Reset for the next penalty cycle
+
+            if (currentQuestionMistakes == 1)
+            {
+                // First real mistake → grant invincibility window silently
+                invincibilityEndTime = Time.time + invincibilityDuration;
+                feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
+                feedbackTextUI.color = Color.white;
+            }
+            else if (currentQuestionMistakes >= 3)
+            {
+                feedbackTextUI.text  = $"<color={COLOR_RED}>Too many mistakes! Moving to next question.</color>";
+                feedbackTextUI.color = Color.white;
+                Invoke(nameof(LoadNextQuestion), 2.0f);
+            }
+            else
+            {
+                feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
+                feedbackTextUI.color = Color.white;
+            }
         }
         else
         {
-            feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
+            // Provide feedback but don't count as an actual penalty yet
+            int attemptsLeft = 3 - hiddenMistakes;
+            feedbackTextUI.text  = $"<color={COLOR_RED}>Try again! ({attemptsLeft} attempts left)</color>";
             feedbackTextUI.color = Color.white;
         }
     }
