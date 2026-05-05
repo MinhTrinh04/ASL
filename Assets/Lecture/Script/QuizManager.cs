@@ -279,7 +279,8 @@ public class QuizManager : MonoBehaviour
         {
             // Grace period active — apply cooldown but don't increment counter
             lastInputTime = Time.time;
-            feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
+            int attemptsLeftInv = 3 - currentQuestionMistakes;
+            feedbackTextUI.text  = $"<color={COLOR_RED}>Try again! ({attemptsLeftInv} attempts left)</color>";
             feedbackTextUI.color = Color.white;
             return;
         }
@@ -287,22 +288,14 @@ public class QuizManager : MonoBehaviour
         lastInputTime = Time.time;
         hiddenMistakes++;
 
-        PlayAudioIfAvailable(wrongClip);
-
         if (hiddenMistakes >= 3)
         {
+            PlayAudioIfAvailable(wrongClip);
             // 3 hidden mistakes count as 1 actual penalty
             currentQuestionMistakes++;
             hiddenMistakes = 0; // Reset for the next penalty cycle
 
-            if (currentQuestionMistakes == 1)
-            {
-                // First real mistake → grant invincibility window silently
-                invincibilityEndTime = Time.time + invincibilityDuration;
-                feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
-                feedbackTextUI.color = Color.white;
-            }
-            else if (currentQuestionMistakes >= 3)
+            if (currentQuestionMistakes >= 3)
             {
                 feedbackTextUI.text  = $"<color={COLOR_RED}>Too many mistakes! Moving to next question.</color>";
                 feedbackTextUI.color = Color.white;
@@ -310,16 +303,19 @@ public class QuizManager : MonoBehaviour
             }
             else
             {
-                feedbackTextUI.text  = $"<color={COLOR_RED}>Incorrect! ({currentQuestionMistakes}/3)</color>";
+                if (currentQuestionMistakes == 1)
+                {
+                    // First real mistake → grant invincibility window silently
+                    invincibilityEndTime = Time.time + invincibilityDuration;
+                }
+                int attemptsLeft = 3 - currentQuestionMistakes;
+                feedbackTextUI.text  = $"<color={COLOR_RED}>Try again! ({attemptsLeft} attempts left)</color>";
                 feedbackTextUI.color = Color.white;
             }
         }
         else
         {
-            // Provide feedback but don't count as an actual penalty yet
-            int attemptsLeft = 3 - hiddenMistakes;
-            feedbackTextUI.text  = $"<color={COLOR_RED}>Try again! ({attemptsLeft} attempts left)</color>";
-            feedbackTextUI.color = Color.white;
+            // Hidden mistake: No text change, user silently retries (audio still plays)
         }
     }
 
