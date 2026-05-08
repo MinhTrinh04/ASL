@@ -38,8 +38,6 @@ public class QuizManager : MonoBehaviour
     [Tooltip("Seconds of 'invincibility' granted after the first real mistake on a question. Wrong inputs during this window do not count.")]
     public float invincibilityDuration = 2.5f;
 
-    [Header("Scene Transition (Phase v2.0)")]
-    public List<GameObject> objectsToHide; // Chứa PDF1, PDF2, PDF3, RobotKyle...
 
     [Header("Audio Feedback")]
     public AudioSource audioSource;
@@ -90,7 +88,6 @@ public class QuizManager : MonoBehaviour
     // ── Exam flow ─────────────────────────────────────────────────────────────
     public void StartExam()
     {
-        ToggleSecondaryObjects(false);
 
         currentQuestionIndex = 0;
         score                = 0;
@@ -102,14 +99,6 @@ public class QuizManager : MonoBehaviour
         UpdateScoreUI();
     }
 
-    void ToggleSecondaryObjects(bool show)
-    {
-        if (objectsToHide == null) return;
-        foreach (var obj in objectsToHide)
-        {
-            if (obj != null) obj.SetActive(show);
-        }
-    }
 
     void LoadQuestion(int index)
     {
@@ -397,7 +386,6 @@ public class QuizManager : MonoBehaviour
     IEnumerator WaitAndFinish()
     {
         yield return new WaitForSeconds(autoReturnDelay);
-        ToggleSecondaryObjects(true);
         onExamFinished?.Invoke();
     }
 
