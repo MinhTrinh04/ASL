@@ -38,6 +38,15 @@ public class WristDashboardUI : MonoBehaviour
             {
                 RefreshUI();
                 Debug.Log("[WristDashboardUI] Dashboard opened and refreshed.");
+                
+                // Optimize performance: Disable LayoutGroup after initial arrangement
+                var layout = targetMenu.GetComponent<VerticalLayoutGroup>();
+                if (layout != null)
+                {
+                    layout.enabled = true;
+                    Canvas.ForceUpdateCanvases();
+                    layout.enabled = false;
+                }
             }
         }
     }
