@@ -30,18 +30,8 @@ namespace Unity.VRTemplate
 
         public void Next()
         {
-            UpdateStep((m_CurrentStepIndex + 1) % m_StepList.Count);
-        }
-
-        public void Back()
-        {
-            UpdateStep((m_CurrentStepIndex - 1 + m_StepList.Count) % m_StepList.Count);
-        }
-
-        void UpdateStep(int newIndex)
-        {
             m_StepList[m_CurrentStepIndex].stepObject.SetActive(false);
-            m_CurrentStepIndex = newIndex;
+            m_CurrentStepIndex = (m_CurrentStepIndex + 1) % m_StepList.Count;
             m_StepList[m_CurrentStepIndex].stepObject.SetActive(true);
             m_StepButtonTextField.text = m_StepList[m_CurrentStepIndex].buttonText;
         }
