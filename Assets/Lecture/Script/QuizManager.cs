@@ -61,7 +61,8 @@ public class QuizManager : MonoBehaviour
     private int            currentQuestionMistakes = 0;
     private int            hiddenMistakes         = 0;
     private string         lastWrongGesture       = "";
-    private float          lastInputTime          = 0f;
+    private float          lastCorrectInputTime   = 0f;
+    private float          lastWrongInputTime     = 0f;
     private float          questionStartTime      = 0f;
     private float          invincibilityEndTime   = -1f;
 
@@ -127,7 +128,8 @@ public class QuizManager : MonoBehaviour
         currentQuestionMistakes = 0;
         hiddenMistakes          = 0;
         lastWrongGesture        = "";
-        lastInputTime           = 0f;
+        lastCorrectInputTime    = 0f;
+        lastWrongInputTime      = 0f;
         questionStartTime       = Time.time;
         invincibilityEndTime    = -1f;  // clear invincibility from previous question
 
@@ -150,8 +152,13 @@ public class QuizManager : MonoBehaviour
         }
         else if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
         {
-            string formattedTemplate = data.sentenceTemplate.Replace("{0}", $"<color={COLOR_BLUE}>____</color>");
-            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{formattedTemplate}</color></align>";
+            string template = data.sentenceTemplate.Contains("{0}") ? data.sentenceTemplate : data.sentenceTemplate.Replace("_", "{0}");
+            string formattedTemplate = template.Replace("{0}", $"<color={COLOR_BLUE}>____</color>");
+            
+            string title = string.IsNullOrEmpty(data.questionText) ? "" : $"{data.questionText}\n\n<size=200%>";
+            string endSize = string.IsNullOrEmpty(data.questionText) ? "" : "</size>";
+            
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}{formattedTemplate}{endSize}</color></align>";
         }
         else
         {
@@ -196,9 +203,6 @@ public class QuizManager : MonoBehaviour
             return;
         }
 
-        // ── Feature 2: inter-character cooldown ───────────────────────────────
-        if (Time.time - lastInputTime < interCharCooldown) return;
-
         QuizData currentData   = questionList[currentQuestionIndex];
         string[] correctAnswers = currentData.correctGestureIDs;
 
@@ -207,11 +211,17 @@ public class QuizManager : MonoBehaviour
         {
             if (GestureHub.AreEquivalent(gestureID, correctAnswers[nextIndex]))
             {
+                // ── Feature 2: inter-character cooldown ONLY for correct inputs ──
+                if (Time.time - lastCorrectInputTime < interCharCooldown) return;
+
                 HandleCorrectPart(gestureID);
                 lastWrongGesture = ""; // Reset on correct
             }
             else
             {
+                // Throttle wrong inputs to prevent rapid-fire mistakes during hand transition
+                if (Time.time - lastWrongInputTime < 0.5f) return;
+
                 // Pass the expected letter so HandleWrongInput can check no-penalty list
                 HandleWrongInput(correctAnswers[nextIndex], gestureID);
             }
@@ -226,7 +236,7 @@ public class QuizManager : MonoBehaviour
     // ── Correct input ─────────────────────────────────────────────────────────
     void HandleCorrectPart(string gestureID)
     {
-        lastInputTime = Time.time;
+        lastCorrectInputTime = Time.time;
         currentInputBuffer.Add(gestureID);
 
         QuizData currentData = questionList[currentQuestionIndex];
@@ -278,14 +288,14 @@ public class QuizManager : MonoBehaviour
         if (IsInvincible())
         {
             // Grace period active — apply cooldown but don't increment counter
-            lastInputTime = Time.time;
+            lastWrongInputTime = Time.time;
             int attemptsLeftInv = 3 - currentQuestionMistakes;
             feedbackTextUI.text  = $"<color={COLOR_RED}>Try again! ({attemptsLeftInv} attempts left)</color>";
             feedbackTextUI.color = Color.white;
             return;
         }
 
-        lastInputTime = Time.time;
+        lastWrongInputTime = Time.time;
         hiddenMistakes++;
 
         if (hiddenMistakes >= 3)
@@ -334,6 +344,8 @@ public class QuizManager : MonoBehaviour
             QuizData currentData = questionList[currentQuestionIndex];
             if (currentData.questionType == QuestionType.Ordering)
                 UpdateSpellingDisplay(currentData);
+            else if (currentData.questionType == QuestionType.AudioFillInTheGap)
+                AutoAdvanceGapFill(currentData);
 
             feedbackTextUI.text  = "Deleted last sign.";
             feedbackTextUI.color = Color.yellow;
@@ -406,9 +418,19 @@ public class QuizManager : MonoBehaviour
         if (data == null || data.correctGestureIDs == null) return;
 
         string fullWord = string.Join("", data.correctGestureIDs);
-        string title    = string.IsNullOrEmpty(data.sentenceTemplate)
-            ? $"How do you <color={COLOR_BLUE}>spell</color> this <color={COLOR_RED}>word</color>?"
-            : $"<color={COLOR_BEIGE}>Fill in the missing letters:</color>";
+        string missingType = (data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase)) ? "numbers" : "letters";
+        
+        string title = "";
+        if (!string.IsNullOrEmpty(data.questionText))
+        {
+            title = $"{data.questionText}\n<size=70%><color={COLOR_BEIGE}>Fill in the missing {missingType}:</color></size>";
+        }
+        else
+        {
+            title = string.IsNullOrEmpty(data.sentenceTemplate)
+                ? $"How do you <color={COLOR_BLUE}>spell</color> this <color={COLOR_RED}>word</color>?"
+                : $"<color={COLOR_BEIGE}>Fill in the missing {missingType}:</color>";
+        }
 
         string displayedText = $"{title}\n\n<size=150%>";
         int    completed     = currentInputBuffer.Count;
@@ -453,6 +475,21 @@ public class QuizManager : MonoBehaviour
 
     void AutoAdvanceGapFill(QuizData data)
     {
+        if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
+        {
+            string answered = string.Join(" ", currentInputBuffer);
+            if (string.IsNullOrEmpty(answered)) answered = "____";
+            
+            string templateStr = data.sentenceTemplate.Contains("{0}") ? data.sentenceTemplate : data.sentenceTemplate.Replace("_", "{0}");
+            string formattedTemplate = templateStr.Replace("{0}", $"<color={COLOR_BLUE}><b>{answered}</b></color>");
+            
+            string title = string.IsNullOrEmpty(data.questionText) ? "" : $"{data.questionText}\n\n<size=200%>";
+            string endSize = string.IsNullOrEmpty(data.questionText) ? "" : "</size>";
+            
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}{formattedTemplate}{endSize}</color></align>";
+            return;
+        }
+
         if (data.questionType != QuestionType.Ordering || string.IsNullOrEmpty(data.sentenceTemplate)) return;
 
         string temp     = data.sentenceTemplate.Replace(" ", "");

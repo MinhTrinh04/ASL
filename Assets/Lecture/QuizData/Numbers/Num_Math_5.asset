@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
   m_Name: Num_Math_5
   m_EditorClassIdentifier: 
-  questionType: 1
+  questionType: 2
   questionText: 
   sentenceTemplate: 2 + 3 = _
   questionImage: {fileID: 0}
