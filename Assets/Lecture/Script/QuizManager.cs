@@ -75,6 +75,18 @@ public class QuizManager : MonoBehaviour
     }
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
+    void Start()
+    {
+        // Tự động đồng bộ topicIndex từ ClassroomManager cha
+        // Đảm bảo score được lưu vào đúng key mà không cần set thủ công trong Inspector
+        ClassroomManager parentMgr = GetComponentInParent<ClassroomManager>(true);
+        if (parentMgr != null)
+        {
+            topicIndex = parentMgr.topicIndex;
+            Debug.Log($"[QuizManager] Auto-synced topicIndex = {topicIndex} from parent '{parentMgr.gameObject.name}'");
+        }
+    }
+
     void OnEnable()
     {
         GestureHub.OnGestureDetected += SubmitAnswer;

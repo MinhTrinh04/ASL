@@ -12,6 +12,10 @@ public class ProgressManager : MonoBehaviour
     [Header("Settings")]
     public float passingGrade = 80f;
 
+    [Header("Default Topic")]
+    [Tooltip("Topic sẽ được activate khi game khởi động (thường là 0 = Alphabets)")]
+    public int defaultTopicIndex = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -20,6 +24,13 @@ public class ProgressManager : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        // Kích hoạt topic mặc định ngay khi game bắt đầu
+        // Đây là nguồn duy nhất kích hoạt gesture group lúc startup — không có race condition
+        ApplyTopicChange(defaultTopicIndex);
     }
 
     public void SaveTopicScore(int topicIndex, float percentage)
@@ -54,31 +65,27 @@ public class ProgressManager : MonoBehaviour
             return false;
         }
 
+        // Bước 1: Kích hoạt gesture group TRƯỚC
+        // Đảm bảo gesture đúng đã active trước khi MovePlayerToSpawn() chạy
+        if (gestureTopicController != null)
+            gestureTopicController.EnableTopicByIndex(newTopicIndex);
+
+        // Bước 2: Toggle các classroom
         if (classrooms != null && classrooms.Count > 0)
         {
             for (int i = 0; i < classrooms.Count; i++)
             {
-                if (classrooms[i] != null)
+                if (classrooms[i] == null) continue;
+
+                bool isTarget = (i == newTopicIndex);
+                classrooms[i].gameObject.SetActive(isTarget);
+
+                if (isTarget)
                 {
-                    if (i == newTopicIndex)
-                    {
-                        classrooms[i].currentTopicIndex = newTopicIndex;
-                        classrooms[i].EnterLectureMode();
-                        // Kích hoạt toàn bộ object classroom này
-                        classrooms[i].gameObject.SetActive(true); 
-                    }
-                    else
-                    {
-                        // Tắt các classroom khác để dọn dẹn scene
-                        classrooms[i].gameObject.SetActive(false);
-                    }
+                    // KHÔNG set classrooms[i].topicIndex — nó là bất biến, set trong Inspector
+                    classrooms[i].EnterLectureMode();
                 }
             }
-        }
-
-        if (gestureTopicController != null)
-        {
-            gestureTopicController.EnableTopicByIndex(newTopicIndex);
         }
 
         Debug.Log($"[ProgressManager] Switched to Topic {newTopicIndex}");

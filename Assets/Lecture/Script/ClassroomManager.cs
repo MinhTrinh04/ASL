@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 public class ClassroomManager : MonoBehaviour
 {
+    [Header("Topic Identity")]
+    [Tooltip("Global index của topic này — khớp với ProgressManager.classrooms[]. Set 1 lần trong Inspector, không thay đổi runtime.\n(0=Alphabets, 1=Numbers, 2=Greetings)")]
+    public int topicIndex = 0;
+
     [Header("Phase References")]
     public GameObject lecturePhase;   // Kéo object 'Phase_Lecture' vào đây
     public GameObject quizPhase;      // Kéo object 'Phase_Quiz' vào đây
@@ -17,103 +21,82 @@ public class ClassroomManager : MonoBehaviour
     [Header("Gesture Management")]
     public GestureTopicController gestureTopicController;
     public NPCKyleController kyleController;
-    public int currentTopicIndex = 0;
 
-    [Header("Quest Boards per Topic")]
+    [Header("Quiz Boards (index từ 0, nội bộ của topic này)")]
     public List<GameObject> quizBoards;
 
     private bool isQuizMode = false;
 
     void Start()
     {
-        // Mặc định khi mới vào game thì bật chế độ HỌC
-        EnterLectureMode();
+        // Chỉ setup phase mặc định — gesture do ProgressManager quản lý
+        // KHÔNG gọi gestureTopicController ở đây để tránh race condition
+        if (lecturePhase) lecturePhase.SetActive(true);
+        if (quizPhase) quizPhase.SetActive(false);
+        if (examEntranceUI) examEntranceUI.SetActive(true);
     }
 
+    // ── Lecture Mode ─────────────────────────────────────────────────────────
     public void EnterLectureMode()
     {
         isQuizMode = false;
-        
-        // Ensure correct gestures are active
-        if (gestureTopicController) gestureTopicController.EnableTopicByIndex(currentTopicIndex);
 
-        // Bật đồ dùng học tập
         if (lecturePhase) lecturePhase.SetActive(true);
-
-        // Tắt đồ nghề thi cử
         if (quizPhase) quizPhase.SetActive(false);
-
-        // Hiện lại cái cửa/bảng rủ rê đi thi
         if (examEntranceUI) examEntranceUI.SetActive(true);
-        
-        // Nhờ Kyle vẫy tay chào
+
         if (kyleController && kyleController.kyleAnim)
-        {
             kyleController.kyleAnim.SetTrigger("wave");
-        }
 
         MovePlayerToSpawn();
     }
 
+    // ── Quiz Mode ─────────────────────────────────────────────────────────────
     public void EnterQuizMode()
     {
         isQuizMode = true;
 
-        // Tắt đồ dùng học tập cho đỡ rối
         if (lecturePhase) lecturePhase.SetActive(false);
+        if (examEntranceUI) examEntranceUI.SetActive(false);
 
-        // Bật bảng thi và logic thi
+        // Bật Phase_Quiz TRƯỚC khi gọi StartExam
         if (quizPhase) quizPhase.SetActive(true);
 
-        // Ẩn cái cửa rủ thi đi (đang thi rồi mà)
-        if (examEntranceUI) examEntranceUI.SetActive(false);
-        
-        // Bật đúng bảng Quiz cho topic hiện tại
-        ActivateQuizBoard(currentTopicIndex);
-        
+        // Bật board[0] và tự gọi StartExam
+        // Mỗi ClassroomManager chỉ quản lý boards của riêng nó — luôn dùng index 0
+        if (quizBoards != null && quizBoards.Count > 0 && quizBoards[0] != null)
+        {
+            quizBoards[0].SetActive(true);
+            QuizManager qm = quizBoards[0].GetComponent<QuizManager>();
+            if (qm != null) qm.StartExam();
+        }
+        else
+        {
+            Debug.LogWarning($"[ClassroomManager] {gameObject.name}: quizBoards rỗng hoặc null!");
+        }
+
         MovePlayerToSpawn();
     }
 
-    public void ActivateQuizBoard(int index)
-    {
-        if (quizBoards == null || quizBoards.Count == 0) return;
-        
-        for (int i = 0; i < quizBoards.Count; i++)
-        {
-            if (quizBoards[i] != null)
-                quizBoards[i].SetActive(i == index);
-        }
-    }
-
-    public void ChangeTopic(int newIndex)
-    {
-        if (ProgressManager.Instance != null)
-        {
-            ProgressManager.Instance.ApplyTopicChange(newIndex);
-        }
-    }
-
+    // ── Teleport ──────────────────────────────────────────────────────────────
     void MovePlayerToSpawn()
     {
         if (teleportProvider == null)
         {
-            Debug.LogWarning("Chưa gắn TeleportProvider!");
+            Debug.LogWarning($"[ClassroomManager] {gameObject.name}: Chưa gắn TeleportProvider!");
             return;
         }
 
-        // Ưu tiên lấy Spawn Point theo topic index
+        // Dùng topicIndex bất biến để lấy spawn point toàn cục
         Transform targetSpawn = null;
         if (gestureTopicController != null)
-        {
-            targetSpawn = gestureTopicController.GetSpawnPointByIndex(currentTopicIndex);
-        }
+            targetSpawn = gestureTopicController.GetSpawnPointByIndex(topicIndex);
 
-        // Fallback về global nếu không có topic spawn
         if (targetSpawn == null) targetSpawn = globalSpawnPoint;
 
         if (targetSpawn == null)
         {
-            Debug.LogWarning("Không tìm thấy Spawn Point nào để dịch chuyển!");
+            Debug.LogWarning($"[ClassroomManager] {gameObject.name}: Không tìm thấy Spawn Point!");
             return;
         }
 
@@ -121,7 +104,7 @@ public class ClassroomManager : MonoBehaviour
         {
             destinationPosition = targetSpawn.position,
             destinationRotation = targetSpawn.rotation,
-            matchOrientation = MatchOrientation.TargetUpAndForward
+            matchOrientation    = MatchOrientation.TargetUpAndForward
         };
 
         teleportProvider.QueueTeleportRequest(request);
