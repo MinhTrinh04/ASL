@@ -37,7 +37,7 @@ public class RecordingPrompter : MonoBehaviour
         if (numberText != null)
         {
             numberText.text = "Number " + currentNumber.ToString();
-            Debug.Log("Prompter changed to: Number " + currentNumber.ToString());
+
         }
     }
 }

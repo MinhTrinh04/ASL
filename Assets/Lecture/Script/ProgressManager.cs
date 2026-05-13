@@ -88,7 +88,6 @@ public class ProgressManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"[ProgressManager] Switched to Topic {newTopicIndex}");
         return true;
     }
 }

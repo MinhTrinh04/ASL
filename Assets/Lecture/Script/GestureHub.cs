@@ -10,9 +10,9 @@ public class GestureHub : MonoBehaviour
     {
         if (isDetected)
         {
-            if (gestureID.Equals("I", StringComparison.OrdinalIgnoreCase))
+            if (int.TryParse(gestureID, out _))
             {
-                Debug.Log("<color=cyan>[GestureHub] Gesture 'I' Detected!</color>");
+                Debug.Log($"<color=cyan>[GestureHub] Number Gesture '{gestureID}' Detected!</color>");
             }
             OnGestureDetected?.Invoke(gestureID);
         }

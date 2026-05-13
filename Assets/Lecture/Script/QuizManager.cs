@@ -83,7 +83,6 @@ public class QuizManager : MonoBehaviour
         if (parentMgr != null)
         {
             topicIndex = parentMgr.topicIndex;
-            Debug.Log($"[QuizManager] Auto-synced topicIndex = {topicIndex} from parent '{parentMgr.gameObject.name}'");
         }
     }
 
