@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Num_Seq_8
   m_EditorClassIdentifier: 
   questionType: 1
-  questionText: 
+  questionText: 'What is the missing number?'
   sentenceTemplate: 6, 7, _, 9
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}

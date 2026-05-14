@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
   m_Name: Num_Math_18
   m_EditorClassIdentifier: 
-  questionType: 2
-  questionText: 
+  questionType: 1
+  questionText: 'Solve the math problem:'
   sentenceTemplate: 9 x 2 = _
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}

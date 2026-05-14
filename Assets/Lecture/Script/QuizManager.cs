@@ -146,19 +146,22 @@ public class QuizManager : MonoBehaviour
         {
             string letter = (data.correctGestureIDs != null && data.correctGestureIDs.Length > 0)
                 ? data.correctGestureIDs[0] : "?";
-            questionTextUI.text =
-                $"<align=center><color={COLOR_BEIGE}>Identify the correct hand sign for</color>\n" +
-                $"<size=200%><color={COLOR_BLUE}><b>{letter}</b></color></size></align>";
+                        questionTextUI.text =
+                $"\n\n<align=center><color={COLOR_BEIGE}>Identify the correct hand sign for</color>\n" +
+                $"<size=180%><color={COLOR_BLUE}><b>{letter}</b></color></size></align>";
         }
         else if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
         {
+            // Legacy/One-shot mode: Replaces {0} or _ with the entire buffer
+            string answered = string.Join(" ", currentInputBuffer);
+            if (string.IsNullOrEmpty(answered)) answered = "<color=#FFFFFF55>____</color>";
+            else answered = $"<color={COLOR_BLUE}><b>{answered}</b></color>";
+
             string template = data.sentenceTemplate.Contains("{0}") ? data.sentenceTemplate : data.sentenceTemplate.Replace("_", "{0}");
-            string formattedTemplate = template.Replace("{0}", $"<color={COLOR_BLUE}>____</color>");
+            string formattedTemplate = template.Replace("{0}", answered);
             
-            string title = string.IsNullOrEmpty(data.questionText) ? "" : $"{data.questionText}\n\n<size=200%>";
-            string endSize = string.IsNullOrEmpty(data.questionText) ? "" : "</size>";
-            
-            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}{formattedTemplate}{endSize}</color></align>";
+            string title = string.IsNullOrEmpty(data.questionText) ? "Solve the math problem:" : data.questionText;
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}\n\n<size=200%>{formattedTemplate}</size></color></align>";
         }
         else
         {
@@ -209,10 +212,16 @@ public class QuizManager : MonoBehaviour
         int nextIndex = currentInputBuffer.Count;
         if (nextIndex < correctAnswers.Length)
         {
+            Debug.Log($"[Quiz] Comparing Input: '{gestureID}' with Expected: '{correctAnswers[nextIndex]}'");
+            
             if (GestureHub.AreEquivalent(gestureID, correctAnswers[nextIndex]))
             {
                 // ── Feature 2: inter-character cooldown ONLY for correct inputs ──
-                if (Time.time - lastCorrectInputTime < interCharCooldown) return;
+                if (Time.time - lastCorrectInputTime < interCharCooldown) 
+                {
+                    Debug.Log("[Quiz] Correct input ignored due to interCharCooldown.");
+                    return;
+                }
 
                 HandleCorrectPart(gestureID);
                 lastWrongGesture = ""; // Reset on correct
@@ -417,55 +426,68 @@ public class QuizManager : MonoBehaviour
     {
         if (data == null || data.correctGestureIDs == null) return;
 
-        string fullWord = string.Join("", data.correctGestureIDs);
         string missingType = (data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase)) ? "numbers" : "letters";
         
         string title = "";
         if (!string.IsNullOrEmpty(data.questionText))
         {
-            title = $"{data.questionText}\n<size=70%><color={COLOR_BEIGE}>Fill in the missing {missingType}:</color></size>";
+            // Subtle header in beige, without bold black style
+            title = $"<color={COLOR_BEIGE}><size=100%>{data.questionText}</size></color>";
         }
         else
         {
             title = string.IsNullOrEmpty(data.sentenceTemplate)
-                ? $"How do you <color={COLOR_BLUE}>spell</color> this <color={COLOR_RED}>word</color>?"
+                ? $"<color={COLOR_BEIGE}>How do you spell this word?</color>"
                 : $"<color={COLOR_BEIGE}>Fill in the missing {missingType}:</color>";
         }
 
-        string displayedText = $"{title}\n\n<size=150%>";
+        // Move title down with newlines and reduce main template size
+        string displayedText = $"\n\n{title}\n\n<size=180%>";
         int    completed     = currentInputBuffer.Count;
 
         if (!string.IsNullOrEmpty(data.sentenceTemplate))
         {
-            string temp = data.sentenceTemplate.Replace(" ", "");
-            for (int i = 0; i < fullWord.Length; i++)
+            string temp = data.sentenceTemplate;
+            int gapIndex = 0; 
+            for (int i = 0; i < temp.Length; i++)
             {
-                if (i < completed)
+                char c = temp[i];
+                if (c == ' ')
                 {
-                    displayedText += $"<color={COLOR_BLUE}><b>{fullWord[i]}</b></color>";
+                    displayedText += " ";
+                    continue;
+                }
+
+                if (c != '_')
+                {
+                    // Static character from template
+                    displayedText += $"<color={COLOR_BLUE}><b>{c}</b></color>";
                 }
                 else
                 {
-                    char c = (i < temp.Length) ? temp[i] : '_';
-                    displayedText += c == '_'
-                        ? $"<color={COLOR_BEIGE}>_</color>"
-                        : $"<color={COLOR_BLUE}><b>{c}</b></color>";
+                    // Interactive gap - uses gapIndex to map to currentInputBuffer
+                    if (gapIndex < completed && gapIndex < data.correctGestureIDs.Length)
+                        displayedText += $"<color={COLOR_BLUE}><b>{currentInputBuffer[gapIndex]}</b></color>";
+                    else
+                        displayedText += $"<color={COLOR_BEIGE}>_</color>";
+                    
+                    gapIndex++;
                 }
-                if (i < fullWord.Length - 1) displayedText += " ";
             }
         }
         else
         {
-            for (int i = 0; i < fullWord.Length; i++)
+            // Standard spelling (no template)
+            for (int i = 0; i < data.correctGestureIDs.Length; i++)
             {
                 if (i < completed)
-                    displayedText += $"<color={COLOR_BLUE}><b>{fullWord[i]}</b></color>";
+                    displayedText += $"<color={COLOR_BLUE}><b>{data.correctGestureIDs[i]}</b></color>";
                 else if (i == completed)
-                    displayedText += $"<color={COLOR_BEIGE}>{fullWord[i]}</color>";
+                    displayedText += $"<color={COLOR_BEIGE}>{data.correctGestureIDs[i]}</color>";
                 else
-                    displayedText += $"<color=#FFFFFF55>{fullWord[i]}</color>";
+                    displayedText += $"<color=#FFFFFF55>{data.correctGestureIDs[i]}</color>";
 
-                if (i < fullWord.Length - 1) displayedText += " ";
+                if (i < data.correctGestureIDs.Length - 1) displayedText += " ";
             }
         }
 
@@ -478,29 +500,21 @@ public class QuizManager : MonoBehaviour
         if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
         {
             string answered = string.Join(" ", currentInputBuffer);
-            if (string.IsNullOrEmpty(answered)) answered = "____";
-            
             string templateStr = data.sentenceTemplate.Contains("{0}") ? data.sentenceTemplate : data.sentenceTemplate.Replace("_", "{0}");
-            string formattedTemplate = templateStr.Replace("{0}", $"<color={COLOR_BLUE}><b>{answered}</b></color>");
             
-            string title = string.IsNullOrEmpty(data.questionText) ? "" : $"{data.questionText}\n\n<size=200%>";
-            string endSize = string.IsNullOrEmpty(data.questionText) ? "" : "</size>";
+            string displayAnswer = string.IsNullOrEmpty(answered) ? "<color=#FFFFFF55>____</color>" : $"<color={COLOR_BLUE}><b>{answered}</b></color>";
+            string formattedTemplate = templateStr.Replace("{0}", displayAnswer);
             
-            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}{formattedTemplate}{endSize}</color></align>";
+            string title = string.IsNullOrEmpty(data.questionText) ? "Solve the math problem:" : data.questionText;
+            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}\n\n<size=200%>{formattedTemplate}</size></color></align>";
             return;
         }
 
         if (data.questionType != QuestionType.Ordering || string.IsNullOrEmpty(data.sentenceTemplate)) return;
 
-        string temp     = data.sentenceTemplate.Replace(" ", "");
-        string fullWord = string.Join("", data.correctGestureIDs);
-
-        while (currentInputBuffer.Count < temp.Length &&
-               currentInputBuffer.Count < fullWord.Length &&
-               temp[currentInputBuffer.Count] != '_')
-        {
-            currentInputBuffer.Add(fullWord[currentInputBuffer.Count].ToString());
-        }
+        // Note: For Ordering with template, we now only store the actual gap answers in the buffer.
+        // There is no need to auto-advance through the static characters in the template anymore
+        // as UpdateSpellingDisplay handles them as static visuals.
     }
 
     int GetScoreWeight(QuizData data)
