@@ -19,7 +19,6 @@ MonoBehaviour:
   questionAudio: {fileID: 0}
   topic: Numbers
   correctGestureIDs:
-  - 2
   - 0
   - 0
   - 0

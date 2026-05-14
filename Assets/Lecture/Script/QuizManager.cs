@@ -426,7 +426,8 @@ public class QuizManager : MonoBehaviour
     {
         if (data == null || data.correctGestureIDs == null) return;
 
-        string missingType = (data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase)) ? "numbers" : "letters";
+        bool isNumbers = data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase);
+        string missingType = isNumbers ? "numbers" : "letters";
         
         string title = "";
         if (!string.IsNullOrEmpty(data.questionText))
@@ -440,14 +441,13 @@ public class QuizManager : MonoBehaviour
                 : $"<color={COLOR_BEIGE}>Fill in the missing {missingType}:</color>";
         }
 
-        // Refined layout: beige title moved down, content at 180%
         string displayedText = $"\n\n{title}\n\n<size=180%>";
         int    completed     = currentInputBuffer.Count;
 
         if (!string.IsNullOrEmpty(data.sentenceTemplate))
         {
             string template = data.sentenceTemplate;
-            int bufferPointer = 0;
+            int bufferPointer = 0; // Maps to index in currentInputBuffer/IDs
 
             for (int i = 0; i < template.Length; i++)
             {
@@ -460,28 +460,34 @@ public class QuizManager : MonoBehaviour
 
                 if (c != '_')
                 {
-                    // Static character from template: 
-                    // If we have a matching ID in the data, use it for potential highlighting, 
-                    // otherwise just show the template character as-is.
-                    if (bufferPointer < completed && bufferPointer < data.correctGestureIDs.Length)
+                    // Static character from template
+                    if (!isNumbers && bufferPointer < completed && bufferPointer < data.correctGestureIDs.Length)
+                    {
+                        // Alphabet mode (Full Sequence): Highlighting the static char if completed
                         displayedText += $"<color={COLOR_BLUE}><b>{data.correctGestureIDs[bufferPointer]}</b></color>";
+                        bufferPointer++;
+                    }
                     else
+                    {
+                        // Numbers mode (Gap Only) or uncompleted Alphabet static char
                         displayedText += $"<color={COLOR_BLUE}><b>{c}</b></color>";
+                        if (!isNumbers) bufferPointer++;
+                    }
                 }
                 else
                 {
                     // Interactive gap
                     if (bufferPointer < completed && bufferPointer < data.correctGestureIDs.Length)
                     {
-                        // FIX: Show the TARGET letter from data even if a variant was detected (fixes Banana E/N bug)
+                        // FIX: Show the TARGET gesture from data (fixes Banana E/N bug)
                         displayedText += $"<color={COLOR_BLUE}><b>{data.correctGestureIDs[bufferPointer]}</b></color>";
                     }
                     else
                     {
                         displayedText += $"<color={COLOR_BEIGE}>_</color>";
                     }
+                    bufferPointer++;
                 }
-                bufferPointer++;
             }
         }
         else
@@ -521,7 +527,10 @@ public class QuizManager : MonoBehaviour
 
         if (data.questionType != QuestionType.Ordering || string.IsNullOrEmpty(data.sentenceTemplate)) return;
 
-        // Unified auto-advance: Fills static characters from template into buffer
+        bool isNumbers = data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase);
+        if (isNumbers) return; // Numbers mode is Gap-Only, no auto-advance needed.
+
+        // Alphabets mode: Full-Sequence auto-advance
         string temp = data.sentenceTemplate.Replace(" ", "");
         while (currentInputBuffer.Count < temp.Length && 
                currentInputBuffer.Count < data.correctGestureIDs.Length && 

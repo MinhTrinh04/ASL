@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionType: 1
   questionText: 'Fill in the missing letters:'
-  sentenceTemplate: L _ O _ N
+  sentenceTemplate: L _ O N
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
   topic: Alphabets
