@@ -431,7 +431,6 @@ public class QuizManager : MonoBehaviour
         string title = "";
         if (!string.IsNullOrEmpty(data.questionText))
         {
-            // Subtle header in beige, without bold black style
             title = $"<color={COLOR_BEIGE}><size=100%>{data.questionText}</size></color>";
         }
         else
@@ -441,17 +440,18 @@ public class QuizManager : MonoBehaviour
                 : $"<color={COLOR_BEIGE}>Fill in the missing {missingType}:</color>";
         }
 
-        // Move title down with newlines and reduce main template size
+        // Refined layout: beige title moved down, content at 180%
         string displayedText = $"\n\n{title}\n\n<size=180%>";
         int    completed     = currentInputBuffer.Count;
 
         if (!string.IsNullOrEmpty(data.sentenceTemplate))
         {
-            string temp = data.sentenceTemplate;
-            int gapIndex = 0; 
-            for (int i = 0; i < temp.Length; i++)
+            string template = data.sentenceTemplate;
+            int bufferPointer = 0;
+
+            for (int i = 0; i < template.Length; i++)
             {
-                char c = temp[i];
+                char c = template[i];
                 if (c == ' ')
                 {
                     displayedText += " ";
@@ -460,19 +460,28 @@ public class QuizManager : MonoBehaviour
 
                 if (c != '_')
                 {
-                    // Static character from template
-                    displayedText += $"<color={COLOR_BLUE}><b>{c}</b></color>";
+                    // Static character from template: 
+                    // If we have a matching ID in the data, use it for potential highlighting, 
+                    // otherwise just show the template character as-is.
+                    if (bufferPointer < completed && bufferPointer < data.correctGestureIDs.Length)
+                        displayedText += $"<color={COLOR_BLUE}><b>{data.correctGestureIDs[bufferPointer]}</b></color>";
+                    else
+                        displayedText += $"<color={COLOR_BLUE}><b>{c}</b></color>";
                 }
                 else
                 {
-                    // Interactive gap - uses gapIndex to map to currentInputBuffer
-                    if (gapIndex < completed && gapIndex < data.correctGestureIDs.Length)
-                        displayedText += $"<color={COLOR_BLUE}><b>{currentInputBuffer[gapIndex]}</b></color>";
+                    // Interactive gap
+                    if (bufferPointer < completed && bufferPointer < data.correctGestureIDs.Length)
+                    {
+                        // FIX: Show the TARGET letter from data even if a variant was detected (fixes Banana E/N bug)
+                        displayedText += $"<color={COLOR_BLUE}><b>{data.correctGestureIDs[bufferPointer]}</b></color>";
+                    }
                     else
+                    {
                         displayedText += $"<color={COLOR_BEIGE}>_</color>";
-                    
-                    gapIndex++;
+                    }
                 }
+                bufferPointer++;
             }
         }
         else
@@ -512,9 +521,14 @@ public class QuizManager : MonoBehaviour
 
         if (data.questionType != QuestionType.Ordering || string.IsNullOrEmpty(data.sentenceTemplate)) return;
 
-        // Note: For Ordering with template, we now only store the actual gap answers in the buffer.
-        // There is no need to auto-advance through the static characters in the template anymore
-        // as UpdateSpellingDisplay handles them as static visuals.
+        // Unified auto-advance: Fills static characters from template into buffer
+        string temp = data.sentenceTemplate.Replace(" ", "");
+        while (currentInputBuffer.Count < temp.Length && 
+               currentInputBuffer.Count < data.correctGestureIDs.Length && 
+               temp[currentInputBuffer.Count] != '_')
+        {
+            currentInputBuffer.Add(data.correctGestureIDs[currentInputBuffer.Count]);
+        }
     }
 
     int GetScoreWeight(QuizData data)
