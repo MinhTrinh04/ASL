@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
-  m_Name: Num_Read_2000
+  m_Name: Gap_HOUSE
   m_EditorClassIdentifier: 
   questionType: 1
-  questionText: Two thousand
-  sentenceTemplate: 2 _ _ _
+  questionText: 'Fill in the missing letters:'
+  sentenceTemplate: H _ U _ E
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
-  topic: Numbers
+  topic: Alphabets
   correctGestureIDs:
-  - 0
-  - 0
-  - 0
+  - H
+  - O
+  - U
+  - S
+  - E

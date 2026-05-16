@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
-  m_Name: Num_Seq_12
+  m_Name: Num_Read_123
   m_EditorClassIdentifier: 
   questionType: 1
-  questionText: 
-  sentenceTemplate: 10, 11, _, 13
+  questionText: One hundred and twenty-three
+  sentenceTemplate: _ _ _
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
   topic: Numbers
   correctGestureIDs:
-  - 12
+  - 1
+  - 2
+  - 3

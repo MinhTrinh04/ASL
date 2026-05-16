@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
-  m_Name: Audio_Gap_R
+  m_Name: Num_Read_2468
   m_EditorClassIdentifier: 
-  questionType: 2
-  questionText: 
-  sentenceTemplate: 'Listen to the name and sign the missing first letter: {0}ain'
+  questionType: 1
+  questionText: Two thousand four hundred and sixty-eight
+  sentenceTemplate: _ _ _ _
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
-  topic: Alphabets
+  topic: Numbers
   correctGestureIDs:
-  - P
+  - 2
+  - 4
+  - 6
+  - 8

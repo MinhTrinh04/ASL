@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
-  m_Name: Gap_FISH_Full
+  m_Name: Gap_PIZZA
   m_EditorClassIdentifier: 
   questionType: 1
   questionText: 'Fill in the missing letters:'
-  sentenceTemplate: _ _ _ _
+  sentenceTemplate: P _ Z _ A
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
   topic: Alphabets
   correctGestureIDs:
-  - F
+  - P
   - I
-  - S
-  - H
+  - Z
+  - Z
+  - A

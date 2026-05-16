@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
-  m_Name: Num_Seq_8
+  m_Name: Num_Read_789
   m_EditorClassIdentifier: 
   questionType: 1
-  questionText: 'What is the missing number?'
-  sentenceTemplate: 6, 7, _, 9
+  questionText: Seven hundred and eighty-nine
+  sentenceTemplate: _ _ _
   questionImage: {fileID: 0}
   questionAudio: {fileID: 0}
   topic: Numbers
   correctGestureIDs:
+  - 7
   - 8
+  - 9
