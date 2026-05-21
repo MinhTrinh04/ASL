@@ -1,0 +1,67 @@
+DANH MỤC HÌNH VẼ
+Hình 2.1 Các mốc thời gian quan trọng trong quá trình phát triển của
+
+```
+công nghệ giáo dục (xem bảng A.1 tại phụ lục A để biết thêm chi
+```
+
+```
+tiết). . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+```
+
+Hình 3.1 Logo của ứng dụng The VR Labs, biểu tượng của sự đổi mới
+trong giáo dục công nghệ thông tin qua thực tế ảo. . . . . . . . . . . 27
+Hình 3.2 Giao diện màn khởi đầu lựa chọn bài giảng của The VR Labs. 28
+
+```
+Hình 3.3 Kính thực tế ảo Pico 4. Nguồn: Pico (2024). [58] . . . . . . . . 30
+```
+
+```
+Hình 3.4 Kính thực tế ảo Meta Quest 2. Nguồn: Meta (2024). [59] . . . 31
+```
+
+Hình 3.5 Hình ảnh sử dụng để lựa chọn bài giảng Network Lab với
+logo của trải nghiệm Network Lab . . . . . . . . . . . . . . . . . . . 31
+Hình 3.6 Hình ảnh mô tả bài giảng Neo Terra với logo của trò chơi Neo
+Terra . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+Hình 3.7 Biểu đồ ca sử dụng của hệ thống The VR Labs . . . . . . . . . 44
+Hình 3.8 Biểu đồ ca sử dụng của bài giảng Network Lab . . . . . . . . . 45
+Hình 3.9 Biểu đồ ca sử dụng của bài giảng Neo Terra . . . . . . . . . . 45
+Hình 3.10 Biểu đồ hoạt động của The VR Labs . . . . . . . . . . . . . . 46
+Hình 4.1 Thử nghiệm các góc quay cầm kìm trong môi trường VR . . . 55
+Hình 4.2 Mô phỏng sắp xếp dây mạng trong VR . . . . . . . . . . . . . 56
+Hình 4.3 Điều chỉnh lực ném trong trò chơi Neo Terra . . . . . . . . . . 56
+Hình 5.1 Phác thảo giao diện chính của The VR Labs . . . . . . . . . . 59
+Hình 5.2 Giao diện đã triển khai trong môi trường VR . . . . . . . . . . 59
+Hình 5.3 Phác thảo giao diện cho bài giảng Network Lab . . . . . . . . 60
+Hình 5.4 Phác thảo giao diện cho bài giảng Neo Terra . . . . . . . . . . 60
+Hình 5.5 Giao diện đã triển khai cho bài giảng Network Lab . . . . . . 61
+Hình 5.6 Giao diện đã triển khai cho bài giảng Neo Terra . . . . . . . . 61
+Hình 5.7 Thiết kế kìm bấm mạng trong Network Lab . . . . . . . . . . . 62
+Hình 5.8 Thiết kế kìm dây mạng trong Network Lab . . . . . . . . . . . 63
+Hình 5.9 Quy trình thiết kế nhân vật 3D trong môi trường thực tế ảo
+với sự hỗ trợ của AI . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+Hình 5.10 Thiết kế Kael - Nhân vật chính . . . . . . . . . . . . . . . . . . 64
+Hình 5.11 Thiết kế Aethos - Robot đồng hành . . . . . . . . . . . . . . . 65
+Hình 5.12 Thiết kế thùng rác trong Neo Terra . . . . . . . . . . . . . . . 65
+Hình 5.13 Module InputManager . . . . . . . . . . . . . . . . . . . . . . 66
+i
+Hình 5.14 Module AudioTextManager . . . . . . . . . . . . . . . . . . . . 67
+Hình 5.15 Module AethosController . . . . . . . . . . . . . . . . . . . . . 68
+Hình 5.16 Gemini Module . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+Hình 5.17 Poster trình bày đề tài "Đề xuất giải pháp nâng cao chất lượng
+giảng dạy thực hành ứng dụng công nghệ thực tế ảo" tại Hội nghị
+Sinh viên Nghiên cứu khoa học lần thứ 40 . . . . . . . . . . . . . . 70
+Hình 5.18 Buổi triển lãm về bài giảng Network Lab tại Trường Công
+nghệ Thông tin và Truyền thông, Đại học Bách khoa Hà Nội, tháng
+6/2023. Nguồn: Fanpage DaoTao.ai [61] . . . . . . . . . . . . . . . . 71
+Hình 5.19 Poster hướng dẫn sử dụng ứng dụng Network Lab . . . . . . . 71
+Hình 5.20 Trình bày ý tưởng và một phần chương trình Neo Terra tại
+cuộc thi do Tổ chức Quốc tế Pháp ngữ tổ chức. [17] . . . . . . . . . 72
+Hình 5.21 Một số hình ảnh về việc thu thập khảo sát ứng dụng The VR
+Labs dưới sự tham gia và góp ý của giảng viên phụ trách học phần
+Thực hành Mạng máy tính vào tháng 6/2024. . . . . . . . . . . . . . 72
+Hình 5.22 Quy trình khảo sát và phân tích dữ liệu thực nghiệm . . . . . . 74
+Hình 6.1 Đề xuất phát triển hệ thống giáo dục thực tế ảo trong tương
+lai dài hạn . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 83
