@@ -5,56 +5,77 @@
 Ngôn ngữ là phương tiện giao tiếp cơ bản nhất của loài người, đóng vai trò quyết định trong việc truyền đạt thông tin, tư duy và kết nối xã hội. Đối với cộng đồng người khiếm thính và người gặp khó khăn trong việc nói, ngôn ngữ ký hiệu (Sign Language) là chiếc cầu nối duy nhất giúp họ hòa nhập với thế giới xung quanh. Trong số các hệ thống ngôn ngữ ký hiệu trên thế giới, Ngôn ngữ ký hiệu Mỹ (ASL - American Sign Language) là hệ thống phổ biến nhất, được sử dụng rộng rãi không chỉ ở Bắc Mỹ mà còn được coi là ngôn ngữ ký hiệu quốc tế trong nhiều hội thảo khoa học và giáo dục đặc biệt.
 
 Tuy nhiên, việc tiếp cận và học tập ngôn ngữ ký hiệu ASL đối với người nghe bình thường (người có mong muốn làm tình nguyện viên, người thân của người khiếm thính, hoặc nhà giáo dục đặc biệt) đang gặp rất nhiều rào cản. Các phương pháp giáo dục truyền thống hiện hành bộc lộ nhiều hạn chế lớn:
+
 1. **Thiếu tính đa chiều trực quan**: Việc học qua sách ảnh tĩnh hoặc video 2D trên Youtube/Website chỉ hiển thị cử chỉ tay trên một mặt phẳng dẹt. Ngôn ngữ ký hiệu ASL là một ngôn ngữ không gian phức tạp, yêu cầu sự phối hợp chính xác của ba yếu tố: hình dạng bàn tay (hand shape), vị trí tay so với cơ thể (hand position), và chuyển động động học của tay trong không gian ba chiều (hand movement). Các tài liệu 2D hoàn toàn thất bại trong việc mô tả chiều sâu và sự chuyển động liên tục này.
 2. **Thiếu cơ chế phản hồi tức thời (Feedback loop)**: Khi tự học qua video, người học tự thực hiện động tác nhưng không có giáo viên bên cạnh chỉnh sửa. Họ không thể biết cử chỉ của mình đã đúng độ gập ngón tay, hướng lòng bàn tay hay chưa. Sự sai lệch lâu ngày dẫn đến thói quen sai lầm, làm biến đổi hoàn toàn ngữ nghĩa của từ vựng ký hiệu.
 3. **Thiếu động lực học tập và dễ nản lòng**: Học ngôn ngữ ký hiệu đòi hỏi sự lặp đi lặp lại của các cơ ngón tay để tạo trí nhớ cơ bắp (muscle memory). Các giáo trình học chay hoặc bài tập giấy khô khan nhanh chóng tạo cảm giác nhàm chán, dẫn đến tỉ lệ bỏ cuộc cao ở người tự học.
 
-Sự phát triển vượt bậc của công nghệ Thực tế ảo (Virtual Reality - VR), đặc biệt là sự phổ cập của các thiết bị kính VR độc lập (standalone HMD) như Meta Quest 2 và Quest 3, đã mở ra cơ hội giải quyết triệt để các vấn đề trên. Với công nghệ cảm biến theo dõi tay vật lý trực tiếp không cần tay cầm điều khiển (**Controller-free Hand Tracking**), người học có thể đặt kính lên đầu, sử dụng chính đôi tay trần của mình để tương tác trực quan trong không gian ảo 3D. 
+Sự phát triển vượt bậc của công nghệ Thực tế ảo (Virtual Reality - VR), đặc biệt là sự phổ cập của các thiết bị kính VR độc lập (standalone HMD) như Meta Quest 2 và Quest 3, đã mở ra cơ hội giải quyết triệt để các vấn đề trên. Với công nghệ cảm biến theo dõi tay vật lý trực tiếp không cần tay cầm điều khiển (**Controller-free Hand Tracking**), người học có thể đặt kính lên đầu, sử dụng chính đôi tay trần của mình để tương tác trực quan trong không gian ảo 3D.
 
 Từ thực tiễn đó, đồ án lựa chọn nghiên cứu và phát triển đề tài **"Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo"**. Đây là một ứng dụng EdTech VR tiên phong tích hợp công nghệ theo dõi tay, mang lại một phương pháp học tập ASL hoàn toàn mới: học tập qua trải nghiệm tương tác trực tiếp 3D và nhận phản hồi đánh giá cử chỉ thời gian thực chính xác.
 
 ---
 
-## 1.2 Mục tiêu và phạm vi đề tài
+## 1.2 Mục tiêu đề tài
 
-### 1.2.1 Mục tiêu đề tài
-Mục tiêu tổng quát của đồ án là nghiên cứu và xây dựng một ứng dụng học ngôn ngữ ký hiệu ASL tương tác nhập vai trong môi trường Thực tế ảo, đạt được các mục tiêu cụ thể sau:
-* **Mục tiêu kỹ thuật**: Triển khai hệ thống nhận diện tư thế tay tĩnh và cử chỉ động chính xác cao, thời gian phản hồi nhanh (< 0.2s) dựa trên công nghệ Unity XR Hands SDK và thuật toán nhận dạng nét vẽ $1 Unistroke trên kính Meta Quest 2 độc lập.
-* **Mục tiêu sư phạm (EdTech)**: Thiết kế giao diện và luồng bài giảng dựa trên các lý luận giáo dục hiện đại (Nón trải nghiệm Edgar Dale, Thuyết tải nhận thức) để tối ưu hóa khả năng tiếp thu và ghi nhớ vận động của người học.
-* **Mục tiêu trò chơi hóa (Gamification)**: Tích hợp các cơ chế kiểm tra sinh động, bảng điểm lưu trữ tiến trình học tập, và các thuật toán giảm thiểu ức chế tâm lý làm bài thi (Hidden Mistakes, Invincibility Window) nhằm kích thích động lực học tập liên tục của người dùng.
+Mục tiêu của đề tài là phát triển một bài giảng ngôn ngữ ký hiệu tiên phong trong lĩnh vực thực tế ảo, mang lại trải nghiệm tương tác học tập chân thực và hấp dẫn. Đề tài tập trung khắc phục hoàn toàn những hạn chế của các phương pháp tự học truyền thống và việc lạm dụng tay cầm điều khiển trong môi trường ảo bằng cách tích hợp tương tác cử chỉ tay vật lý trần. Hệ thống cho phép người học thực hiện các hành động gõ phím chữ cái, đếm số, và thực hiện các câu từ chào hỏi thông qua các cử chỉ tự nhiên, bao gồm xoay ngửa lòng bàn tay, nắm ngón tay tạo cử chỉ tĩnh, hoặc chuyển đổi trạng thái tay theo thời gian. Các cử chỉ được thiết kế trực quan, dễ thực hiện, giúp người học nhanh chóng làm quen, tạo trí nhớ vận động cơ bắp (muscle memory) và tăng hứng thú khi trải nghiệm.
 
-### 1.2.2 Phạm vi đề tài
-* **Đối tượng thiết bị**: Kính thực tế ảo standalone Meta Quest 2 và Quest 3, chạy trên hệ điều hành Android (Oculus OS), sử dụng tương tác hoàn toàn bằng bàn tay vật lý của người chơi (không dùng controller).
-* **Nội dung giáo trình**: Hệ thống bài học được chuẩn hóa thành 3 chủ đề học tập cốt lõi bao gồm:
-  1. *Bảng chữ cái (Alphabets)*: 26 chữ cái tiếng Anh từ A đến Z, bao gồm cả các chữ cái tĩnh và các chữ cái động có nét vẽ phức tạp (J, Z).
-  2. *Chữ số (Numbers)*: Các chữ số cơ bản từ 0 đến 20 và các phép toán kiểm tra số học.
-  3. *Chào hỏi và từ vựng thông dụng (Greetings)*: Các từ vựng giao tiếp cơ bản (Hello, Thank you, Name, Goodbye, What's up...) sử dụng cả cử chỉ một tay, hai tay phối hợp (Dual Gesture) và cử chỉ động chuyển đổi trạng thái (Dynamic Gesture).
+Bên cạnh đó, đề tài mở rộng tính ứng dụng bằng việc tích hợp hệ thống điều khiển và tương tác với các thiết bị giảng dạy ảo độc đáo trong không gian 3D, cụ thể là bảng tiến trình học tập gắn trên cổ tay người học và nhân vật giảng viên ảo. Người học có thể nghiêng, lật cổ tay để mở menu trạng thái, theo dõi điểm số, hoặc bấm chọn teleport giữa các phòng học chuyên đề bằng các thao tác chạm tay vật lý trực tiếp lên nút bấm ảo. Tính năng này không chỉ tăng cường trải nghiệm nhập vai, tối ưu hóa tải nhận thức mà còn làm phong phú cơ chế bài học, tận dụng tối đa không gian ba chiều của VR. Bài giảng được xây dựng trên nền tảng phòng học **3D** sinh động, với công nghệ **VR** đảm bảo môi trường ảo đạt độ chân thực cao, tạo cảm giác hòa nhập cho người học.
 
----
+Phạm vi đề tài bao gồm các chức năng chính:
 
-## 1.3 Định hướng giải pháp
+- **(i) Tương tác cử chỉ tay**: Phát triển thư viện cử chỉ tay để thực hiện các hành động như đánh vần chữ cái, đếm số, giao tiếp thông dụng, và nhận diện nét vẽ quỹ đạo của các chữ cái động phức tạp, đảm bảo độ chính xác và phản hồi nhanh.
+- **(ii) Điều khiển và bài giảng kiểm tra**: Tích hợp cơ chế quản lý lộ trình học tập, mở khóa phòng thi và làm bài kiểm tra tại bảng thi **Quiz Board** 3D với đa dạng hình thức (đánh vần chuỗi từ, điền từ vào chỗ trống).
+- **(iii) Hệ thống giảng viên ảo và Phản hồi trực quan**: Xây dựng robot chỉ dẫn Kyle có khả năng thực hiện cử chỉ mẫu và chuyển đổi hoạt ảnh trạng thái linh hoạt đồng bộ với tiến trình của người học, kết hợp vòng lặp phản hồi siêu tốc bằng màu sắc tương phản trực quan.
 
-Để đạt được các mục tiêu trên, đồ án đề xuất giải pháp kỹ thuật và sư phạm đồng bộ như sau:
-
-### 1.3.1 Định hướng công nghệ phần mềm
-* **Unity Engine (2022.3 LTS)**: Sử dụng làm nền tảng phát triển cốt lõi để xây dựng thế giới 3D phòng học và quản lý các tài nguyên đồ họa, âm thanh.
-* **OpenXR & Unity XR Hands SDK**: Tận dụng các API theo dõi tay (Hand Tracking) chuẩn hóa để thu thập cấu hình xương bàn tay (26 khớp xương mỗi bàn tay) thời gian thực từ camera hồng ngoại của kính Meta Quest.
-* **Kiến trúc hướng sự kiện (Event-Driven)**: Tách rời module cảm biến tay và module xử lý logic thông qua bộ môi giới sự kiện tĩnh trung tâm `GestureHub`. Mọi cử chỉ tay sau khi được nhận dạng thành công sẽ kích hoạt các sự kiện toàn cục, giúp các thành phần như `QuizManager` hay `NPCKyleController` đăng ký sử dụng linh hoạt mà không bị chồng chéo mã nguồn.
-* **Thuật toán chiếu tọa độ và $1 Unistroke**: Phát triển module thu thập tọa độ ngón tay vẽ quỹ đạo `VRMagicTrajectory`, chiếu tọa độ 3D của ngón trỏ lên mặt phẳng 2D cục bộ song song với Camera người chơi và chuyển tiếp sang bộ thư viện toán học nhận diện nét vẽ $1 Unistroke tự phát triển để nhận diện các ký hiệu chuyển động vẽ như chữ J và Z.
-
-### 1.3.2 Thiết kế trải nghiệm EdTech
-* **Thiết kế phòng học ảo 3D**: Người học được teleport qua các phòng học chuyên biệt tương ứng với từng Topic để tăng tính nhập vai và tập trung nhận thức.
-* **Tương tác trực tiếp với NPC Kyle**: Người học xem Kyle (NPC ảo) thực hiện cử chỉ mẫu, nghe phát âm và thực hành theo. Hệ thống trực quan hóa kết quả ngay trên chữ cái bằng màu sắc (xanh dương là đúng, đỏ là sai).
-* **Bảng điều khiển cổ tay (Wrist Dashboard)**: Tận dụng chuyển động lật ngửa cổ tay để hiển thị menu trạng thái học tập nhanh, giúp giảm tải nhận thức giao diện (UI) chiếm không gian phòng học ảo.
+Đề tài không chỉ hướng đến việc nâng cao hiệu quả học ngôn ngữ ký hiệu chuyên biệt mà còn đặt nền móng cho các ứng dụng tương tác cử chỉ tay không cần thiết bị vật lý trong các lĩnh vực giáo dục đặc biệt khác, như hỗ trợ trẻ tự kỷ giao tiếp hoặc mô phỏng y tế. Hệ thống được thiết kế để dễ dàng tích hợp vào các nền tảng kính VR phổ biến, đảm bảo khả năng mở rộng và ứng dụng thực tế trong tương lai.
 
 ---
 
-## 1.4 Bố cục đồ án
+## 1.3 Phạm vi và đối tượng người sử dụng
+
+Ứng dụng Bài giảng ngôn ngữ ký hiệu VR được thiết kế để mang lại trải nghiệm học tập hấp dẫn cho người nghe bình thường từ 12 tuổi trở lên (học sinh, sinh viên, tình nguyện viên xã hội, giáo viên giáo dục đặc biệt hoặc người thân của người khiếm thính) có mong muốn học tập ASL, không phân biệt giới tính hay quốc tịch. Bối cảnh không gian phòng học ảo 3D mang phong cách hoạt hình ấm áp, đa dạng và hoàn toàn không chứa các yếu tố gây bạo lực, kích thích mạnh về thị giác hay tiếng ồn lớn, đảm bảo thân thiện với mọi lứa tuổi và phù hợp cho người có tình trạng sức khỏe bình thường. Yếu tố này giúp lớp học thu hút cả trẻ em, người lớn và những người yêu thích các trải nghiệm giáo dục nhẹ nhàng.
+
+Các thao tác cử chỉ tay khi thực hiện hoặc đánh vần từ khóa đòi hỏi sự khéo léo của các ngón tay và khả năng phối hợp cơ khớp, giúp tăng sự hứng thú cho người học đã quen hoặc chưa quen với cơ chế VR. Yếu tố nhập vai được củng cố bởi môi trường 3D chân thực, đặt người học ở vị trí đáy của **Nón trải nghiệm Edgar Dale** (tiếp thu qua thực hành trực tiếp), tạo ấn tượng sâu sắc và kích thích khả năng tự học tự khám phá.
+
+Tuy nhiên, do ứng dụng chạy trong môi trường thực tế ảo có thể gây ra hiện tượng chóng mặt nhẹ hoặc say VR đối với những người nhạy cảm hoặc lần đầu trải nghiệm VR. Để giải quyết triệt để rào cản này, hệ thống đã tích hợp cơ chế di chuyển thông qua mô hình tương tác XR Interaction Toolkit thay cho cơ chế lướt analog di chuyển liên tục, giúp triệt tiêu hoàn toàn hiện tượng say VR. Nhờ đó, ứng dụng hoàn toàn phù hợp cho cả người mới bắt đầu làm quen với công nghệ VR. Các trường học giáo dục đặc biệt, trung tâm ngôn ngữ ký hiệu, lab nghiên cứu EdTech hoặc các thư viện số là đối tượng triển khai tiềm năng, thu hút người học nhờ tính tương tác tự nhiên vượt trội và hiệu quả ghi nhớ lâu dài.
+
+- **Phạm vi bài giảng**: Hệ thống hóa tài liệu học tập thành 3 chương bài giảng có độ khó tăng dần phù hợp với sự phát triển vận động của cơ khớp tay người học:
+  1. _Module Chữ cái_: Dạy nhận diện 26 ký tự đơn trong bảng chữ cái tiếng Anh, bao gồm cả các chữ cái tĩnh và các cử chỉ động có chuyển động vẽ nét phức tạp (như chữ J và Z).
+  2. _Module Chữ số_: Thực hành các chữ số cơ bản và làm quen với các phép toán số học thực nghiệm trong môi trường ảo.
+  3. _Module Giao tiếp cơ bản_: Thực hành các từ vựng hội thoại thông dụng thông qua sự phối hợp của cử chỉ một tay, hai tay phối hợp và cử chỉ động có chuỗi biến đổi thời gian.
+
+---
+
+## 1.4 Định hướng giải pháp
+
+Để giải quyết bài toán thiếu tính đa chiều trực quan và thiếu vòng lặp phản hồi của phương pháp học truyền thống, đồ án đề xuất định hướng giải pháp tích hợp đồng bộ giữa Lý luận sư phạm EdTech và Công nghệ mô phỏng tương tác:
+
+### 1.4.1 Định hướng Sư phạm Tương tác Nhập vai
+
+- **Xây dựng Môi trường Lớp học Thực nghiệm Ảo**:
+  Phân tách nội dung học thành chuỗi 3 phòng học ảo 3D độc lập. Cơ chế này hoạt động như một phòng thực nghiệm chuyên sâu, giúp người học tách biệt không gian nhận thức giữa các bài học, tăng tính nhập vai và tự do tương tác mà không bị xao nhãng.
+- **Người giảng viên ảo thân thiện**:
+  Sử dụng mô hình robot Kyle làm bạn đồng hành trong suốt quá trình học. Kyle thực hiện ngôn ngữ hình thể, vẫy tay chào và biểu thị tư thế tay mẫu một cách sinh động, kết hợp với các hiệu ứng âm thanh phát âm trực quan. Sự hiện diện của NPC đồng hành giúp thu hẹp khoảng cách tâm lý, tạo cảm giác được chỉ dẫn trực tiếp như trong mô hình lớp học truyền thống.
+- **Vòng lặp Phản hồi Tương tác Siêu tốc**:
+  Ứng dụng trực quan hóa kết quả ngay trên dòng ký tự hiển thị bằng màu sắc tương phản cao (xanh dương là đúng, màu be mặc định là chờ đợi). Người học biết ngay kết quả tư thế tay mình vừa gập và tự điều chỉnh các cơ khớp ngón tay vật lý cho đến khi đạt độ chính xác cần thiết.
+
+### 1.4.2 Định hướng Tối ưu hóa Nhận thức & Thiết kế Cảm xúc
+
+- **Thiết kế hỗ trợ "thử và sai" thoải mái**:
+  Trong kiểm tra đánh giá, để ngăn ngừa cảm giác thất bại của người học do giới hạn phần cứng của cảm biến bắt khớp tay, hệ thống sẽ dung thứ cho các lỗi nhỏ qua cơ chế đệm sai lầm ẩn. Khi người học thực hiện lệch động tác, hệ thống cho phép thử lại nhiều lần và chỉ tính lỗi phạt khi vượt quá giới hạn đệm. Sau một lỗi, cửa sổ miễn phạt ngắn hạn được kích hoạt để người học có thời gian thư thái điều chỉnh cơ tay của mình.
+- **Trực quan hóa cử chỉ viết vẽ động thành trải nghiệm nghệ thuật**:
+  Đối với các chữ cái động có nét vẽ phức tạp (J, Z), hệ thống cho phép ngón trỏ vẽ trực tiếp một đường nét trong không gian ảo 3D. Giải pháp này chuyển hóa việc ghi nhớ cơ học một chuyển động động học phức tạp thành một trải nghiệm vẽ nghệ thuật sinh động, kích thích tư duy sáng tạo của người học.
+
+---
+
+## 1.5 Bố cục đồ án
 
 Nội dung thuyết minh đồ án tốt nghiệp được tổ chức thành 6 chương chính như sau:
-* **CHƯƠNG 1. GIỚI THIỆU ĐỀ TÀI**: Đặt vấn đề, mục tiêu, phạm vi nghiên cứu, định hướng giải pháp kỹ thuật - sư phạm và bố cục đồ án.
-* **CHƯƠNG 2. KHẢO SÁT VÀ PHÂN TÍCH YÊU CẦU**: Khảo sát các giải pháp học ngôn ngữ ký hiệu hiện hành, phân tích ca sử dụng (Use Case), biểu đồ hoạt động nghiệp vụ (Activity Diagram) và đặc tả chi tiết các chức năng học/thi cùng yêu cầu phi chức năng.
-* **CHƯƠNG 3. NỀN TẢNG LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG**: Cơ sở lý luận EdTech (Nón trải nghiệm Edgar Dale, Thuyết tải nhận thức), công nghệ Unity XR Hands, lý thuyết cử chỉ tay và cơ sở toán học của thuật toán $1 Unistroke.
-* **CHƯƠNG 4. PHÂN TÍCH THIẾT KẾ, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG**: Thiết kế kiến trúc phần mềm Event-Driven chi tiết, thiết kế sơ đồ lớp (Class Diagram), sơ đồ gói (Package Diagram), thiết kế giao diện UI/UX cổ tay, cấu trúc dữ liệu ScriptableObject, kết quả xây dựng ứng dụng thực tế và quy trình kiểm thử/triển khai.
-* **CHƯƠNG 5. CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT**: Phân tích chi tiết 3 đóng góp khoa học chính gồm giải pháp chiếu nét vẽ 2D cục bộ cho chữ cái J/Z, cơ chế Gamification giảm áp lực thi cử và đăng ký các Module có khả năng tái sử dụng cao (`GestureHub`, `TrajectoryRecognizer`, `QuizManager`).
-* **CHƯƠNG 6. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN**: Tổng kết các kết quả đạt được, tự đánh giá ưu khuyết điểm của ứng dụng và đề xuất các hướng phát triển nâng cao trong tương lai.
+
+- **CHƯƠNG 1. GIỚI THIỆU ĐỀ TÀI**: Đặt vấn đề, mục tiêu đề tài, phạm vi và đối tượng người sử dụng, định hướng giải pháp kỹ thuật - sư phạm và bố cục đồ án.
+- **CHƯƠNG 2. KHẢO SÁT VÀ PHÂN TÍCH YÊU CẦU**: Khảo sát các giải pháp học ngôn ngữ ký hiệu hiện hành, phân tích ca sử dụng, biểu đồ hoạt động nghiệp vụ và đặc tả chi tiết các chức năng học/thi cùng yêu cầu phi chức năng.
+- **CHƯƠNG 3. NỀN TẢNG LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG**: Cơ sở lý luận EdTech (Nón trải nghiệm Edgar Dale, Thuyết tải nhận thức), công nghệ Unity XR Hands, lý thuyết cử chỉ tay và cơ sở toán học của thuật toán $1 Unistroke.
+- **CHƯƠNG 4. PHÂN TÍCH THIẾT KẾ, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG**: Thiết kế kiến trúc phần mềm Event-Driven chi tiết, thiết kế sơ đồ lớp, sơ đồ gói, thiết kế giao diện bài giảng, kết quả xây dựng ứng dụng thực tế và quy trình kiểm thử.
+- **CHƯƠNG 5. CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT**: Phân tích chi tiết 3 đóng góp khoa học chính gồm giải pháp chiếu nét vẽ 2D cục bộ cho chữ cái J/Z, cơ chế Gamification giảm áp lực thi cử và đăng ký các Module có khả năng tái sử dụng cao.
+- **CHƯƠNG 6. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN**: Tổng kết các kết quả đạt được, tự đánh giá ưu khuyết điểm của ứng dụng và đề xuất các hướng phát triển nâng cao trong tương lai.
