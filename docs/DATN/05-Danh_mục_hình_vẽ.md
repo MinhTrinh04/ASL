@@ -1,9 +1,11 @@
 # DANH MỤC HÌNH VẼ
 
-* **Hình 2.1** Sơ đồ Use Case tổng quan hệ thống...................................................... 4
-* **Hình 2.2** Sơ đồ Use Case phân rã ca sử dụng "Học thực hành" (Practice Mode)........ 4
-* **Hình 2.3** Sơ đồ Use Case phân rã ca sử dụng "Làm bài kiểm tra" (Quiz Mode)........... 4
-* **Hình 2.4** Sơ đồ hoạt động (Activity Diagram) luồng nghiệp vụ của người học............ 4
+* **Hình 2.1** Chế độ Game Mode nhận diện cử chỉ trong Gesture Play................................. 4
+* **Hình 2.2** Chỉ dẫn khớp ngón tay 3D trong Sign Pose VR........................................... 4
+* **Hình 2.3** Sơ đồ Use Case tổng quan hệ thống...................................................... 4
+* **Hình 2.4** Sơ đồ Use Case phân rã ca sử dụng "Học thực hành" (Practice Mode)........ 4
+* **Hình 2.5** Sơ đồ Use Case phân rã ca sử dụng "Làm bài kiểm tra" (Quiz Mode)........... 4
+* **Hình 2.6** Sơ đồ hoạt động (Activity Diagram) luồng nghiệp vụ của người học............ 4
 * **Hình 3.1** Sơ đồ 4 bước chuẩn hóa nét vẽ của thuật toán $1 Unistroke.................... 6
 * **Hình 4.1** Sơ đồ khối kiến trúc Event-Driven của hệ thống tương tác ASL VR........... 7
 * **Hình 4.2** Sơ đồ gói (Package Diagram) phân rã 3 lớp của ứng dụng.......................... 7
