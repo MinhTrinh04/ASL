@@ -1,0 +1,18 @@
+# TÓM TẮT NỘI DUNG ĐỒ ÁN
+
+Ngôn ngữ ký hiệu Mỹ (ASL - American Sign Language) là công cụ giao tiếp thiết yếu đối với cộng đồng người khiếm thính. Tuy nhiên, việc tiếp cận và học tập ngôn ngữ này theo các phương pháp truyền thống như sách ảnh hay video 2D thường gặp nhiều khó khăn do tính chất ba chiều trực quan và chuyển động động học của các ký hiệu tay. Người học thiếu môi trường tương tác đa chiều thực tế và không có cơ chế phản hồi tức thời để biết mình đã thực hiện đúng hay sai.
+
+Đồ án tốt nghiệp đề xuất xây dựng hệ thống **"Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo"** trên thiết bị thực tế ảo Meta Quest 2 độc lập (standalone VR). Bằng cách khai thác tối đa công nghệ tương tác tự nhiên không sử dụng tay cầm (controller-free) thông qua bộ công cụ **Unity XR Hands**, ứng dụng cho phép người học sử dụng chính đôi tay vật lý của mình để tương tác và thực hiện các động tác ngôn ngữ ký hiệu.
+
+Kiến trúc phần mềm của ứng dụng được xây dựng theo mô hình **hướng sự kiện (Event-Driven)** xoay quanh một bộ môi giới sự kiện tĩnh trung tâm mang tên **`GestureHub`**. Hệ thống tổ chức lớp học học thuật bao gồm:
+* **`ProgressManager` và `ClassroomManager`**: Điều phối tiến trình học tập toàn cục của người chơi qua ba chủ đề cốt lõi (Bảng chữ cái - Alphabets, Chữ số - Numbers, Chào hỏi - Greetings). Hệ thống tự động khóa/mở khóa các phòng học dựa trên điểm số đánh giá kiểm tra của người học.
+* **Học thực hành với NPC Kyle (`NPCKyleController`)**: Cung cấp các từ vựng ngẫu nhiên, trực quan hóa tiến trình bằng màu sắc nổi bật và phản hồi sinh động qua các hoạt ảnh tương ứng của NPC hướng dẫn.
+* **Hệ thống kiểm tra chuẩn hóa (`QuizManager`)**: Tích hợp bảng thi **Quiz Board** 3D hỗ trợ đa dạng loại hình câu hỏi (Chọn ảnh cử chỉ tương ứng, Đánh vần chữ cái/Số, Điền từ vào chỗ trống sau khi nghe audio). Để nâng cao trải nghiệm và giảm tải ức chế tâm lý thi cử, hệ thống tích hợp các cơ chế độc đáo như **Sai lầm ẩn (Hidden Mistakes)**, **Cửa sổ vô địch (Invincibility Window)**, và danh sách các cử chỉ miễn phạt điểm (**No-Penalty Gestures**).
+
+Điểm đóng góp kỹ thuật nổi bật của đồ án là việc giải quyết bài toán nhận diện các cử chỉ tay động dạng nét vẽ có quỹ đạo phức tạp như chữ cái **`J`** và **`Z`**. Hệ thống đã triển khai thành công mô hình **`VRMagicTrajectory`** thu thập các điểm tọa độ 3D của đầu ngón trỏ (`IndexTip`), chiếu song song các điểm này lên không gian 2D cục bộ của Camera người chơi, và tích hợp thuật toán **$1 Unistroke Recognizer** để nhận dạng chính xác quỹ đạo vẽ nét tay.
+
+Về mặt lý thuyết EdTech, thiết kế tương tác của ứng dụng dựa trên nền tảng **Nón trải nghiệm Edgar Dale (Cone of Experience)** và **Thuyết tải nhận thức (Cognitive Load Theory)**: giao diện bảng điều khiển cổ tay (**`WristDashboardUI`**) và cơ chế Canvas hướng mặt người chơi (**`UIFaceCamera`**) giúp giảm tải trí nhớ làm việc (working memory), tập trung toàn bộ nhận thức của người học vào việc ghi nhớ vận động tay.
+
+Kết quả thử nghiệm thực tế cho thấy ứng dụng hoạt động ổn định ở mức hiệu suất cao (72 - 90 FPS), độ trễ nhận diện cử chỉ cực kỳ thấp (< 0.2s) và độ chính xác nhận dạng cử chỉ đạt tỉ lệ vượt trội. Đây không chỉ là một trò chơi giáo dục giải trí có tính tương tác cao mà còn mở ra một hướng tiếp cận mới mẻ trong việc ứng dụng công nghệ thực tế ảo tương tác tự nhiên phục vụ giáo dục đặc biệt và phát triển xã hội bền vững.
+
+**Từ khóa**: *Thực tế ảo (VR), Ngôn ngữ ký hiệu ASL, Nhận dạng cử chỉ tay (Gesture Recognition), Unity XR Hands, $1 Unistroke, Công nghệ giáo dục (EdTech), Tương tác không tay cầm (Controller-free).*
