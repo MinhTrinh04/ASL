@@ -11,7 +11,7 @@ The software architecture is built upon an **Event-Driven** paradigm centered ar
 
 A key technical contribution of this work is the successful recognition of complex, trajectory-based dynamic gestures such as the letters **`J`** and **`Z`**. The system implements the **`VRMagicTrajectory`** module to track the 3D coordinate path of the player's index fingertip (`IndexTip`), projects these points onto the camera's local 2D space, and utilizes a custom **$1 Unistroke Recognizer** algorithm to accurately classify the drawing gestures.
 
-From a pedagogical standpoint, the interaction design is grounded in **Edgar Dale's Cone of Experience** and **Cognitive Load Theory**. The introduction of a compact wrist-mounted interface (**`WristDashboardUI`**) and camera-facing billboards (**`UIFaceCamera`**) minimizes working memory load, focusing the learner's cognitive resources entirely on motor memory retention.
+From a pedagogical standpoint, the interaction design is grounded in **Edgar Dale's Cone of Experience** and **David Kolb's Experiential Learning Theory**. The introduction of a compact wrist-mounted interface (**`WristDashboardUI`**) and camera-facing billboards (**`UIFaceCamera`**) acts as a powerful catalyst for the reflective observation and self-adjustment phases of the learning loop, optimizing motor memory retention.
 
 Experimental results demonstrate that the application runs stably at high performance (72 - 90 FPS) with extremely low detection latency (< 0.2s) and high gesture recognition accuracy. This product serves not only as an engaging, highly interactive educational VR game but also introduces a new methodology for employing natural VR interfaces in special education and sustainable social development.
 

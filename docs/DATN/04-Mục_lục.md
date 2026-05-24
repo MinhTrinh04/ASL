@@ -22,11 +22,10 @@
 
 * **CHƯƠNG 3. NỀN TẢNG LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG..... 6**
   * 3.1 Các lý luận về phương pháp dạy học và nền tảng EdTech....................... 6
-    * 3.1.1 Nón trải nghiệm Edgar Dale.......................................................... 6
-    * 3.1.2 Thuyết tải nhận thức (Cognitive Load Theory)............................... 6
-    * 3.1.3 Thuyết học tập trải nghiệm (Experiential Learning)........................ 6
-  * 3.2 Cơ sở lý thuyết cử chỉ tay....................................................................... 6
-  * 3.3 Thuật toán $1 Unistroke....................................................................... 6
+    * 3.1.1 Nón trải nghiệm Edgar Dale (Edgar Dale's Cone of Experience).......... 6
+    * 3.1.2 Thuyết học tập trải nghiệm (Experiential Learning Theory).............. 6
+  * 3.2 Công nghệ theo dõi tay Unity XR Hands và nhận diện cử chỉ.................... 6
+  * 3.3 Thuật toán nhận diện quỹ đạo nét vẽ động $1 Unistroke......................... 6
 
 * **CHƯƠNG 4. PHÂN TÍCH THIẾT KẾ, TRIỂN KHAI VÀ ĐÁNH GIÁ
 HỆ THỐNG............................................................................................. 7**
@@ -47,7 +46,7 @@ HỆ THỐNG....................................................................
 
 * **CHƯƠNG 5. CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT...................... 11**
   * 5.1 Giải pháp chiếu nét vẽ 2D cục bộ trong không gian VR............................ 11
-  * 5.2 Giải pháp giảm tải nhận thức và tăng cường động lực học tập (Gamification)... 11
+  * 5.2 Giải pháp giảm xao nhãng thị giác và tăng cường động lực học tập (Gamification)... 11
   * 5.3 Các module có thể tái sử dụng trong EdTech VR...................................... 11
     * 5.3.1 Module GestureHub................................................................... 11
     * 5.3.2 Module TrajectoryRecognizer..................................................... 11

@@ -38,7 +38,7 @@ Sơ đồ luồng kết nối thông tin tổng quan của hệ thống được
 ## 4.2 Thiết kế chi tiết
 
 ### 4.2.1 Thiết kế giao diện (UI/UX Design)
-Do người dùng tương tác hoàn toàn bằng đôi bàn tay vật lý trần (Controller-free), giao diện trong môi trường thực tế ảo được thiết kế theo các tiêu chuẩn khắt khe để tránh gây quá tải nhận thức:
+Do người dùng tương tác hoàn toàn bằng đôi bàn tay vật lý trần (Controller-free), giao diện trong môi trường thực tế ảo được thiết kế theo các tiêu chuẩn tối giản để tránh gây xao nhãng thị giác:
 * **Bảng điều khiển cổ tay (`WristDashboardUI`)**: 
   * Menu được thiết kế ôm dọc theo xương cổ tay của người chơi. Tận dụng cảm biến góc xoay của bàn tay: khi người chơi ngửa lòng bàn tay hướng lên trên một góc từ 60 - 90 độ, menu sẽ tự động hiện lên (`ToggleDashboard()`).
   * Để tối ưu hóa hiệu năng render, ngay khi menu được bố trí sắp xếp các thành phần UI phẳng thành công, hệ thống sẽ gọi ép cập nhật Canvas và lập tức vô hiệu hóa thành phần Layout Group tĩnh (`VerticalLayoutGroup.enabled = false`) để tránh Unity phải tính toán lại lưới UI (UI Rebuild) liên tục mỗi khung hình gây sụt giảm FPS.

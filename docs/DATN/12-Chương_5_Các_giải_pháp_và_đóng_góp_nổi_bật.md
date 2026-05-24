@@ -27,13 +27,13 @@ Giải pháp này giúp hệ thống đạt tỉ lệ nhận dạng chữ **`J`*
 
 ---
 
-## 5.2 Giải pháp giảm thiểu tải nhận thức và tăng cường động lực học tập thông qua cơ chế Gamification phòng thi tinh tế
+## 5.2 Giải pháp giảm thiểu xao nhãng thị giác và tăng cường động lực học tập thông qua cơ chế Gamification phòng thi tinh tế
 
 ### 5.2.1 Đặt vấn đề
 Trong quá trình làm bài thi kiểm tra (Exam Mode), việc cảm biến tay của kính VR đôi khi bắt lệch góc ngón tay hoặc bị che khuất trong một mili-giây (gọi là nhiễu cảm biến) dễ khiến hệ thống hiểu nhầm người học làm sai cử chỉ. Nếu hệ thống trừ điểm phạt trực tiếp ngay lập tức, người học sẽ bị rơi vào trạng thái ức chế tâm lý nặng nề, phá vỡ động lực học tập nhập vai.
 
 ### 5.2.2 Giải pháp đề xuất
-Đồ án tích hợp cơ chế Gamification thông minh nhằm giảm thiểu tải nhận thức ngoại lai và bảo vệ tâm lý người chơi:
+Đồ án tích hợp cơ chế Gamification thông minh nhằm giảm thiểu áp lực thi cử và bảo vệ tâm lý người chơi:
 1. **Cơ chế Sai lầm ẩn (Hidden Mistakes)**: Người học làm sai cử chỉ không bị trừ điểm phạt ngay. Hệ thống cho phép gõ sai tối đa 3 lần (`hiddenMistakes++`) mới quy đổi thành 1 lỗi phạt chính thức (`currentQuestionMistakes++`). Trong lúc sai ẩn, hệ thống hoàn toàn im lặng, không đổi màu chữ đỏ để người học tự tin điều chỉnh ngón tay mà không bị phân tâm.
 2. **Cơ chế Cửa sổ vô địch (Invincibility Window)**: Ngay sau khi người học mắc 1 lỗi phạt chính thức đầu tiên, hệ thống kích hoạt cửa sổ vô địch ẩn trong vòng `invincibilityDuration` (2.5s). Trong khoảng thời gian này, mọi cử chỉ tay gõ sai do người chơi đang cuống cuồng điều chỉnh tay đều được hệ thống bỏ qua và miễn phạt điểm.
 3. **Cơ chế miễn phạt hoàn toàn cho chữ cái động (`noPenaltyGestures`)**: Hai chữ cái khó nhất là `J` và `Z` được xếp vào danh sách miễn phạt điểm. Người học có thể vẽ sai vô số lần tại câu hỏi này và thoải mái thử lại cho đến khi đúng mà không hề bị tính lỗi phạt.
