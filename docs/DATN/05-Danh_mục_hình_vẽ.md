@@ -2,7 +2,8 @@
 
 * **Hình 2.1** Chế độ Game Mode nhận diện cử chỉ trong Gesture Play................................. 4
 * **Hình 2.2** Chỉ dẫn khớp ngón tay 3D trong Sign Pose VR........................................... 4
-* **Hình 3.1** Sơ đồ 4 bước chuẩn hóa nét vẽ của thuật toán $1 Unistroke.................... 6
+* **Hình 3.1** Bộ xương bàn tay ảo và cấu trúc khớp xương được theo dõi bởi thư viện Unity XR Hands... 6
+* **Hình 3.2** Sơ đồ chuẩn hóa nét vẽ của thuật toán $1 Unistroke............................. 6
 * **Hình 4.1** Sơ đồ khối kiến trúc Event-Driven của hệ thống tương tác ASL VR........... 7
 * **Hình 4.2** Sơ đồ gói (Package Diagram) phân rã 3 lớp của ứng dụng.......................... 7
 * **Hình 4.3** Bản phác thảo thiết kế giao diện Wrist Dashboard trên cổ tay người chơi..... 8
