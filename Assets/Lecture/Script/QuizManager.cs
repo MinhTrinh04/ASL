@@ -554,4 +554,21 @@ public class QuizManager : MonoBehaviour
         }
         return count == 0 ? 1 : count;
     }
+
+    public void ReplayQuestionAudio()
+    {
+        if (currentQuestionIndex < questionList.Count)
+        {
+            QuizData currentData = questionList[currentQuestionIndex];
+            if (currentData != null && currentData.questionAudio != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(currentData.questionAudio);
+                Debug.Log($"[QuizManager] Replaying audio: {currentData.name}");
+            }
+            else
+            {
+                Debug.LogWarning("[QuizManager] Cannot replay: missing clip or source.");
+            }
+        }
+    }
 }

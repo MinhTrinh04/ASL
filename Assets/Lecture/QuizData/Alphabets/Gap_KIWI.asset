@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89951b508beb0604eaebbfa273ba61d1, type: 3}
   m_Name: Gap_KIWI
   m_EditorClassIdentifier: 
-  questionType: 1
+  questionType: 2
   questionText: 'Fill in the missing letters:'
   sentenceTemplate: _ I _ I
   questionImage: {fileID: 0}
-  questionAudio: {fileID: 0}
+  questionAudio: {fileID: 8300000, guid: 0df758310e701794885d66057836e254, type: 3}
   topic: Alphabets
   correctGestureIDs:
   - K
