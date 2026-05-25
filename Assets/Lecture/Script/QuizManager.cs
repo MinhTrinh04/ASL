@@ -138,7 +138,7 @@ public class QuizManager : MonoBehaviour
         AutoAdvanceGapFill(data);
 
         // ── Display question text ─────────────────────────────────────────────
-        if (data.questionType == QuestionType.Ordering)
+        if (data.questionType == QuestionType.Ordering || data.questionType == QuestionType.AudioFillInTheGap)
         {
             UpdateSpellingDisplay(data);
         }
@@ -149,19 +149,6 @@ public class QuizManager : MonoBehaviour
                         questionTextUI.text =
                 $"\n\n<align=center><color={COLOR_BEIGE}>Identify the correct hand sign for</color>\n" +
                 $"<size=180%><color={COLOR_BLUE}><b>{letter}</b></color></size></align>";
-        }
-        else if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
-        {
-            // Legacy/One-shot mode: Replaces {0} or _ with the entire buffer
-            string answered = string.Join(" ", currentInputBuffer);
-            if (string.IsNullOrEmpty(answered)) answered = "<color=#FFFFFF55>____</color>";
-            else answered = $"<color={COLOR_BLUE}><b>{answered}</b></color>";
-
-            string template = data.sentenceTemplate.Contains("{0}") ? data.sentenceTemplate : data.sentenceTemplate.Replace("_", "{0}");
-            string formattedTemplate = template.Replace("{0}", answered);
-            
-            string title = string.IsNullOrEmpty(data.questionText) ? "Solve the math problem:" : data.questionText;
-            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}\n\n<size=200%>{formattedTemplate}</size></color></align>";
         }
         else
         {
@@ -261,7 +248,7 @@ public class QuizManager : MonoBehaviour
         score += pointPerPart;
         UpdateScoreUI();
 
-        if (currentData.questionType == QuestionType.Ordering)
+        if (currentData.questionType == QuestionType.Ordering || currentData.questionType == QuestionType.AudioFillInTheGap)
             UpdateSpellingDisplay(currentData);
 
         PlayAudioIfAvailable(correctClip);
@@ -351,10 +338,8 @@ public class QuizManager : MonoBehaviour
             currentInputBuffer.RemoveAt(currentInputBuffer.Count - 1);
 
             QuizData currentData = questionList[currentQuestionIndex];
-            if (currentData.questionType == QuestionType.Ordering)
+            if (currentData.questionType == QuestionType.Ordering || currentData.questionType == QuestionType.AudioFillInTheGap)
                 UpdateSpellingDisplay(currentData);
-            else if (currentData.questionType == QuestionType.AudioFillInTheGap)
-                AutoAdvanceGapFill(currentData);
 
             feedbackTextUI.text  = "Deleted last sign.";
             feedbackTextUI.color = Color.yellow;
@@ -512,20 +497,7 @@ public class QuizManager : MonoBehaviour
 
     void AutoAdvanceGapFill(QuizData data)
     {
-        if (data.questionType == QuestionType.AudioFillInTheGap && !string.IsNullOrEmpty(data.sentenceTemplate))
-        {
-            string answered = string.Join(" ", currentInputBuffer);
-            string templateStr = data.sentenceTemplate.Contains("{0}") ? data.sentenceTemplate : data.sentenceTemplate.Replace("_", "{0}");
-            
-            string displayAnswer = string.IsNullOrEmpty(answered) ? "<color=#FFFFFF55>____</color>" : $"<color={COLOR_BLUE}><b>{answered}</b></color>";
-            string formattedTemplate = templateStr.Replace("{0}", displayAnswer);
-            
-            string title = string.IsNullOrEmpty(data.questionText) ? "Solve the math problem:" : data.questionText;
-            questionTextUI.text = $"<align=center><color={COLOR_BEIGE}>{title}\n\n<size=200%>{formattedTemplate}</size></color></align>";
-            return;
-        }
-
-        if (data.questionType != QuestionType.Ordering || string.IsNullOrEmpty(data.sentenceTemplate)) return;
+        if ((data.questionType != QuestionType.Ordering && data.questionType != QuestionType.AudioFillInTheGap) || string.IsNullOrEmpty(data.sentenceTemplate)) return;
 
         bool isNumbers = data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase);
         if (isNumbers) return; // Numbers mode is Gap-Only, no auto-advance needed.
@@ -542,7 +514,7 @@ public class QuizManager : MonoBehaviour
 
     int GetScoreWeight(QuizData data)
     {
-        if (data.questionType != QuestionType.Ordering) return 1;
+        if (data.questionType != QuestionType.Ordering && data.questionType != QuestionType.AudioFillInTheGap) return 1;
         if (data.correctGestureIDs == null) return 1;
         if (string.IsNullOrEmpty(data.sentenceTemplate)) return data.correctGestureIDs.Length;
 
