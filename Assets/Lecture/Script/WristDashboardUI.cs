@@ -111,4 +111,13 @@ public class WristDashboardUI : MonoBehaviour
             }
         }
     }
+
+    public void OnLobbySelected()
+    {
+        if (ProgressManager.Instance != null)
+        {
+            ProgressManager.Instance.EnterLobby();
+            if (targetMenu != null) targetMenu.SetActive(false);
+        }
+    }
 }
