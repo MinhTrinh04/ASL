@@ -12,9 +12,17 @@ public class ProgressManager : MonoBehaviour
     [Header("Settings")]
     public float passingGrade = 80f;
 
+    [Header("Lobby Orchestration")]
+    [Tooltip("Kéo transform SpawnPoint_Lobby vào đây")]
+    public Transform lobbySpawnPoint;
+    [Tooltip("Kéo object [System_GestureManager]/Pose Canvas/Gestures_Lobby vào đây")]
+    public GameObject lobbyGestureGroup;
+    [Tooltip("Kéo TeleportationProvider trong scene vào đây")]
+    public UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationProvider teleportProvider;
+
     [Header("Default Topic")]
-    [Tooltip("Topic sẽ được activate khi game khởi động (thường là 0 = Alphabets)")]
-    public int defaultTopicIndex = 0;
+    [Tooltip("Nếu set -1, người chơi sẽ bắt đầu ở Lobby.")]
+    public int defaultTopicIndex = -1;
 
     private void Awake()
     {
@@ -28,9 +36,52 @@ public class ProgressManager : MonoBehaviour
 
     private void Start()
     {
-        // Kích hoạt topic mặc định ngay khi game bắt đầu
-        // Đây là nguồn duy nhất kích hoạt gesture group lúc startup — không có race condition
-        ApplyTopicChange(defaultTopicIndex);
+        if (defaultTopicIndex == -1)
+        {
+            EnterLobby();
+        }
+        else
+        {
+            ApplyTopicChange(defaultTopicIndex);
+        }
+    }
+
+    public void EnterLobby()
+    {
+        if (lobbyGestureGroup != null) lobbyGestureGroup.SetActive(true);
+
+        // Tắt tất cả các classroom
+        if (classrooms != null)
+        {
+            for (int i = 0; i < classrooms.Count; i++)
+            {
+                if (classrooms[i] != null) classrooms[i].gameObject.SetActive(false);
+            }
+        }
+
+        // Tắt tất cả các topic gesture của phòng học
+        if (gestureTopicController != null)
+        {
+            for (int i = 0; i < gestureTopicController.topics.Count; i++)
+            {
+                if (gestureTopicController.topics[i].gestureGroupObject != null)
+                {
+                    gestureTopicController.topics[i].gestureGroupObject.SetActive(false);
+                }
+            }
+        }
+
+        // Teleport player tới spawn point của Lobby
+        if (teleportProvider != null && lobbySpawnPoint != null)
+        {
+            var request = new UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportRequest()
+            {
+                destinationPosition = lobbySpawnPoint.position,
+                destinationRotation = lobbySpawnPoint.rotation,
+                matchOrientation = UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.MatchOrientation.TargetUpAndForward
+            };
+            teleportProvider.QueueTeleportRequest(request);
+        }
     }
 
     public void SaveTopicScore(int topicIndex, float percentage)
@@ -64,6 +115,9 @@ public class ProgressManager : MonoBehaviour
             Debug.LogWarning($"[ProgressManager] Topic {newTopicIndex} is locked!");
             return false;
         }
+
+        // Tắt Lobby Gestures khi chuyển sang phòng học
+        if (lobbyGestureGroup != null) lobbyGestureGroup.SetActive(false);
 
         // Bước 1: Kích hoạt gesture group TRƯỚC
         // Đảm bảo gesture đúng đã active trước khi MovePlayerToSpawn() chạy
