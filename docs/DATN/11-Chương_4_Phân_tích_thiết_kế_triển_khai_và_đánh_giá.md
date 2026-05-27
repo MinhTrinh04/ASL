@@ -18,48 +18,44 @@ Chương này trình bày chi tiết về triết lý thiết kế bài giảng 
 
 Hành trình học tập của người học được tổ chức chặt chẽ theo cấu trúc phân bậc tiến trình sư phạm cá nhân hóa từ cơ bản đến nâng cao. Luồng hoạt động tổng thể diễn ra như sau:
 
-1.  **Giai đoạn khởi nhập (First Minutes)**: Ngay khi ứng dụng được tải thành công, người học xuất hiện tại khu vực **Hành lang chính (Main Lobby)** của trung tâm ngoại ngữ ảo. Tại đây, một bảng thông tin hướng dẫn tổng quan sẽ giới thiệu cơ chế bắt khớp tay trần và cách thức di chuyển bằng Teleport. Người học không cần thực hiện các cài đặt phức tạp mà có thể lập tức mở khóa phòng học đầu tiên (Classroom 1: Alphabets) để bắt đầu trải nghiệm.
+1.  **Giai đoạn khởi nhập**: Ngay khi ứng dụng được tải thành công, người học xuất hiện tại khu vực **Hành lang chính** của trung tâm ngoại ngữ ảo. Tại đây, một bảng thông tin hướng dẫn tổng quan sẽ giới thiệu cơ chế bắt khớp tay trần và cách thức di chuyển. Người học không cần thực hiện các cài đặt phức tạp mà có thể lập tức mở khóa phòng học đầu tiên **Alphabets** để bắt đầu trải nghiệm.
 2.  **Chu trình học tập trong phòng học chuyên đề**: Trong mỗi phòng học, tiến trình học tập được phân tách thành hai khu vực tương tác rõ ràng:
-    - **Khu vực Thực hành (Practice Area)**: Người học đứng đối diện với giảng viên ảo Kyle. Kyle sẽ đưa ra các thẻ từ vựng ngẫu nhiên, thực hiện động tác mẫu và đợi người học uốn nắn bàn tay làm theo. Khi người học gõ đúng cử chỉ tay trần, hệ thống lập tức báo đúng và Kyle sẽ chuyển sang từ vựng tiếp theo.
-    - **Khu vực Kiểm tra (Quiz Area)**: Sau khi thực hành tự tin, người học di chuyển tới bảng thi **Quiz Board** 3D để làm bài kiểm tra đánh giá tổng hợp gồm các câu hỏi trắc nghiệm cử chỉ, đánh vần chuỗi ký tự hoặc nghe audio điền từ vào chỗ trống.
+    - **Giai đoạn Thực hành**: Người học đứng đối diện với giảng viên ảo Kyle. Kyle sẽ đưa ra các thẻ từ vựng ngẫu nhiên, thực hiện động tác mẫu và đợi người học uốn nắn bàn tay làm theo. Khi người học gõ đúng cử chỉ tay trần, hệ thống lập tức báo đúng và Kyle sẽ chuyển sang từ vựng tiếp theo.
+    - **Giai đoạn Kiểm tra**: Sau khi thực hành tự tin, người học di chuyển tới bảng thi 3D để làm bài kiểm tra đánh giá tổng hợp gồm các câu hỏi trắc nghiệm cử chỉ, đánh vần chuỗi ký tự hoặc nghe audio điền từ vào chỗ trống.
 3.  **Cơ chế đánh giá và mở khóa tiến trình**: Khi hoàn thành toàn bộ câu hỏi trong bài kiểm tra, hệ thống sẽ tính toán điểm số.
-    - Nếu điểm số đạt từ **80% trở lên**, người học được công nhận là đã **Master (Làm chủ)** chủ đề này. Trạng thái của Topic trên Wrist Dashboard sẽ đổi sang màu vàng gold, đồng thời hệ thống tự động mở khóa phòng học chuyên đề tiếp theo.
-    - Nếu điểm số dưới **80%**, phòng học tiếp theo vẫn sẽ ở trạng thái khóa. Người học được khuyến khích quay lại khu vực thực hành để luyện tập thêm cùng Kyle và thực hiện lại bài kiểm tra để cải thiện điểm số.
-4.  **Kiểm soát luồng hoạt động**: Người học có thể tự do theo dõi tiến trình tổng thể, xem chi tiết điểm số từng phần hoặc bấm chọn teleport nhanh giữa các phòng học đã mở khóa bằng cách lật ngửa cổ tay từ 60 - 90 độ để kích hoạt **Wrist Dashboard** tại bất kỳ thời điểm nào.
+    - Nếu điểm số đạt từ **80% trở lên**, người học được công nhận là đã **Master** chủ đề này. Trạng thái của Topic trên cổ tay sẽ đổi sang màu vàng gold, đồng thời hệ thống tự động mở khóa phòng học chuyên đề tiếp theo.
+    - Nếu điểm số dưới **80%**, phòng học tiếp theo vẫn sẽ ở trạng thái khóa. Người học được khuyến khích quay lại khu vực thực hành để luyện tập thêm cùng giảng viên ảo Kyle và thực hiện lại bài kiểm tra để cải thiện điểm số.
+4.  **Kiểm soát luồng hoạt động**: Người học có thể tự do theo dõi tiến trình tổng thể, xem chi tiết điểm số từng phần hoặc bấm chọn teleport nhanh giữa các phòng học đã mở khóa bằng cách lật ngửa cổ tay từ 60 - 90 độ để kích hoạt **Menu** tại bất kỳ thời điểm nào.
 
 ---
 
-## 4.3 Cơ chế của bài giảng (Lecture Mechanics)
+## 4.3 Cơ chế của bài giảng
 
-### 4.3.1 Luật tương tác và cơ chế sư phạm tinh tế
+### 4.3.1 Luật tương tác và cơ chế sư phạm
 
 Để đảm bảo bài giảng diễn ra trơn tru, không gây ức chế tâm lý do giới hạn vật lý của cảm biến bắt khớp tay trần trên kính VR, hệ thống tích hợp 3 luật ngầm độc đáo:
 
-- **Cơ chế Sai lầm ẩn (Hidden Mistakes)**: Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức phạt điểm người học khi khớp tay bị lệch nhẹ ngoài ý muốn, hệ thống sử dụng một bộ đệm thời gian ngắn (từ 1.5 - 2 giây). Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới ghi nhận là một lỗi sai thực sự.
-- **Cửa sổ vô địch (Invincibility Window)**: Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi (đổi giao diện sang màu đỏ), một cửa sổ thời gian miễn phạt ngắn (1.0 giây) được kích hoạt. Giai đoạn này cho phép người học thả lỏng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo sợ bị hệ thống liên tục phạt điểm dồn dập.
-- **Danh sách cử chỉ miễn phạt (No-Penalty Gestures)**: Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện (như lật ngửa cổ tay mở menu hay trỏ ngón tay di chuyển) được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
+- **Cơ chế Sai lầm ẩn**: Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức phạt điểm người học khi khớp tay bị lệch nhẹ ngoài ý muốn, hệ thống sử dụng một bộ đệm thời gian ngắn (từ 1.5 - 2 giây). Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới ghi nhận là một lỗi sai thực sự.
+- **Cửa sổ vô địch**: Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi, một cửa sổ thời gian miễn phạt ngắn (1.0 giây) được kích hoạt. Giai đoạn này cho phép người học thả lỏng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo sợ bị hệ thống liên tục phạt điểm dồn dập.
+- **Danh sách cử chỉ miễn phạt**: Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện (như lật ngửa cổ tay mở menu hay trỏ ngón tay di chuyển) được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
 
 ### 4.3.2 Mô hình thế giới học tập ảo
 
-- **Vật lý tương tác (Physics)**: Không gian phòng học ảo triệt tiêu hoàn toàn trọng lực vật lý đối với các thành phần giao diện. Người học di chuyển bằng cơ chế phóng tia teleport từ cổ tay tới các điểm neo sàn nhà được thiết lập sẵn, giúp triệt tiêu hoàn toàn hiện tượng trễ hình hay say VR (motion sickness).
-- **Hệ thống điểm số học thuật (Economy)**: "Tiền tệ" duy nhất trong không gian học tập là điểm số phần trạng thái chính xác (0 - 100%). Người học tích lũy điểm bằng cách thực hiện đúng cử chỉ yêu cầu ngay trong lần thử đầu tiên của câu hỏi Quiz. Điểm số này được lưu trữ bền vững vào hệ thống `PlayerPrefs` để làm căn cứ mở khóa các màn học tiếp theo.
+- **Vật lý tương tác**: Không gian phòng học ảo triệt tiêu hoàn toàn trọng lực vật lý đối với các thành phần giao diện. Người học di chuyển bằng cơ chế phóng tia teleport từ cổ tay tới các điểm neo sàn nhà được thiết lập sẵn, giúp triệt tiêu hoàn toàn hiện tượng trễ hình hay say VR.
+- **Hệ thống điểm số học thuật**: "Tiền tệ" duy nhất trong không gian học tập là điểm số phần trạng thái chính xác (0 - 100%). Người học tích lũy điểm bằng cách thực hiện đúng cử chỉ yêu cầu ngay trong lần thử đầu tiên của câu hỏi. Điểm số này được lưu trữ bền vững vào hệ thống để làm căn cứ mở khóa các màn học tiếp theo.
 
 ### 4.3.3 Các hành động của người học
 
 - **Di chuyển**: Nhắm tia trỏ từ xa và thả tay để dịch chuyển tức thời qua các phòng học chuyên đề.
-- **Tương tác bảng điều khiển**: Dùng đầu ngón trỏ vật lý chạm trực tiếp vào các nút bấm 3D lơ lửng trên Quiz Board hoặc lật ngửa cổ tay để đóng/mở menu Wrist Dashboard.
-- **Thực hành ký hiệu**: Uốn nắn bàn tay trần trước camera kính VR để tạo ra các hình dạng tay khớp với mẫu, hoặc giữ tư thế nền (`baseHandShape`) di chuyển ngón trỏ trong không gian để vẽ nét chữ `J` và `Z`.
+- **Tương tác bảng điều khiển**: Dùng đầu ngón trỏ vật lý chạm trực tiếp vào các nút bấm 3D lơ lửng trên Quiz Board hoặc lật ngửa cổ tay để đóng/mở menu Bài giảng.
+- **Thực hành ký hiệu**: Uốn nắn bàn tay trần trước camera kính VR để tạo ra các hình dạng tay khớp với mẫu, hoặc giữ tư thế nền và di chuyển ngón trỏ trong không gian để vẽ nét chữ `J` và `Z`.
 
-### 4.3.4 Luồng màn hình (Screen Flow)
+### 4.3.4 Luồng màn hình
 
 Hệ thống chuyển đổi qua các không gian học tập lập thể 3D trực quan bao gồm:
-`Hành lang chính (Lobby Menu)` $\rightarrow$ `Phòng học bảng chữ cái (Alphabets Classroom)` $\rightarrow$ `Phòng học chữ số (Numbers Classroom)` $\rightarrow$ `Phòng học giao tiếp (Greetings Classroom)`. Mỗi không gian là một scene 3D riêng biệt được tối ưu hóa tài nguyên phần cứng.
+`Hành lang chính` $\rightarrow$ `Phòng học bảng chữ cái` $\rightarrow$ `Phòng học chữ số` $\rightarrow$ `Phòng học giao tiếp`. Mỗi không gian là một scene 3D riêng biệt được tối ưu hóa tài nguyên phần cứng.
 
-### 4.3.5 Các tùy chọn học tập
-
-Người học có thể tùy chỉnh chế độ tay thuận (Left-handed / Right-handed mode) trong bảng Settings để phù hợp với bàn tay tương tác chính của mình, thay đổi âm lượng nhạc nền hoặc giọng đọc phát âm chuẩn của giảng viên ảo Kyle.
-
-### 4.3.6 Phản hồi cho người học
+### 4.3.5 Phản hồi cho người học
 
 - **Phản hồi màu sắc khớp tay ảo**: Khi người học uốn tay, bộ xương bàn tay ảo trên màn hình sẽ đổi màu sắc thời gian thực: màu xanh dương báo hiệu đúng, màu đỏ cam báo hiệu sai lệch góc khớp, và màu be mặc định báo hiệu trạng thái chờ đợi bắt khớp.
 - **Phản hồi âm thanh**: Âm thanh "ting" vui tai khi thực hiện đúng và âm thanh báo lỗi nhẹ nhàng khi thực hiện sai, kết hợp giọng đọc phát âm tiếng Anh trực quan của từ vựng.
@@ -67,13 +63,13 @@ Người học có thể tùy chỉnh chế độ tay thuận (Left-handed / Rig
 
 ---
 
-## 4.4 Điều khiển (Controls)
+## 4.4 Điều khiển
 
-Hệ thống điều khiển tay trần tự nhiên (Controller-free) ánh xạ trực tiếp các hành động cơ thể vật lý của người học vào không gian ảo 3D:
+Hệ thống điều khiển tay trần tự nhiên ánh xạ trực tiếp các hành động cơ thể vật lý của người học vào không gian ảo 3D:
 
 - **Mở/Đóng Wrist Dashboard**: Xoay ngửa cổ tay một góc từ 60 - 90 độ hướng lên phía mắt kính VR.
 - **Nhận dạng chữ cái tĩnh**: Uốn nắn hình dạng tay theo bảng ký tự mẫu ASL.
-- **Nhận dạng nét vẽ động (J, Z)**: Giữ bàn tay ở tư thế ra lệnh vẽ (`baseHandShape`), dùng đầu ngón trỏ (`XRHandJointID.IndexTip`) di chuyển vẽ quỹ đạo trong không gian, hệ thống sẽ kích hoạt thành phần `LineRenderer` vẽ đường nét sáng neon bám theo tay. Thả tư thế tay để kết thúc và đánh giá nét vẽ.
+- **Nhận dạng nét vẽ động (J, Z)**: Giữ bàn tay ở tư thế ra lệnh vẽ, dùng đầu ngón trỏ di chuyển vẽ quỹ đạo trong không gian, hệ thống sẽ kích hoạt thành phần vẽ đường nét sáng neon bám theo tay. Thả tư thế tay để kết thúc và đánh giá nét vẽ.
 - **Teleport**: Trỏ ngón tay về phía điểm neo dịch chuyển dưới sàn nhà và bấm nút ảo để di chuyển.
 
 ---
