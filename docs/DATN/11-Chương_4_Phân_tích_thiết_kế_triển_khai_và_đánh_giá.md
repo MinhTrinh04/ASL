@@ -1,65 +1,154 @@
-# CHƯƠNG 4. THIẾT KẾ BÀI GIẢNG, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG
+# CHƯƠNG 4. THIẾT KẾ BÀI GIẢNG, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG
 
-Chương này trình bày chi tiết về triết lý thiết kế bài giảng tương tác, các cơ chế sư phạm trực quan, hệ thống điều khiển tay trần tự nhiên, kiến trúc phần mềm hướng sự kiện, kết quả triển khai thực tế và quy trình kiểm thử đánh giá hiệu năng hệ thống trên kính Meta Quest 2.
-
----
-
-## 4.1 Mục tiêu của bài giảng
-
-Định hướng sư phạm cốt lõi của bài giảng **"Ngôn ngữ ký hiệu trong Thực tế ảo"** không chỉ dừng lại ở việc cung cấp kiến thức lý thuyết thụ động mà hướng tới việc giúp người học làm chủ các kỹ năng thực hành ngôn ngữ ký hiệu thông qua phản xạ vận động tự nhiên. Các mục tiêu cụ thể bao gồm:
-
-- **Về mặt kiến thức**: Giúp người học nhận diện, ghi nhớ và thực hiện chính xác 26 ký tự đơn trong bảng chữ cái tiếng Anh, các chữ số cơ bản từ 0 đến 9 và các từ vựng giao tiếp thông dụng trong đời sống hàng ngày.
-- **Về mặt vận động cơ bắp**: Loại bỏ sự phụ thuộc vào các phím bấm cơ học của tay cầm VR, bắt buộc người học sử dụng chính đôi bàn tay vật lý trần của mình để uốn nắn các khớp ngón tay theo cấu trúc không gian 3D. Từ đó, hình thành vùng ký ức vận động dài hạn một cách tự nhiên và chính xác.
-- **Về mặt tương tác sư phạm**: Tạo ra một môi trường học tập lập thể 3D sinh động, nơi người học có thể tự chủ động tương tác với giảng viên ảo, tham gia các bài kiểm tra trực quan và nhận phản hồi sửa sai tức thời mà không phải chịu áp lực thi cử căng thẳng.
+Chương này trình bày chi tiết về thiết kế bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR), lối chơi/tương tác, các cơ chế sư phạm, thiết kế giao diện và kiến trúc kỹ thuật.
 
 ---
 
-## 4.2 Diễn tiến và luồng bài giảng
+## 4.1 Tổng quan bài giảng
 
-Hành trình học tập của người học được tổ chức chặt chẽ theo cấu trúc phân bậc tiến trình sư phạm cá nhân hóa từ cơ bản đến nâng cao. Luồng hoạt động tổng thể diễn ra như sau:
+* **Tên bài giảng:** Bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR)
+* **Bản sắc bài giảng:** Bài giảng là một không gian thực nghiệm tương tác tay trần 3D sinh động, nơi người học sử dụng đôi bàn tay vật lý tự uốn nắn khớp ngón tay chuẩn hóa và tự do trải nghiệm lý thuyết EdTech trực quan mà không bị cản trở bởi tay cầm vật lý.
+* **Trụ cột bài giảng:**
+  * Chân thực (Immersive).
+  * Tự nhiên (Natural).
+  * Thấu cảm (Empowering).
+* **Điểm độc đáo:**
+  * Cơ chế uốn nắn bàn tay trần tự nhiên, trực quan hóa khớp tay ảo thời gian thực không cần tay cầm.
+  * Nhận dạng nét vẽ phát sáng neon bám theo đầu ngón trỏ đối với các chữ cái động có quỹ đạo (J và Z).
+  * Giảng viên ảo Kyle phản hồi sinh học thời gian thực sinh động, giúp thu hẹp khoảng cách giao tiếp với cộng đồng khiếm thính.
+* **Phong cách đồ họa:** Bài giảng sử dụng tông màu be và xanh pastel dịu nhẹ, phong cách nghệ thuật stylized, lowpoly tối giản tạo cảm giác thoáng đãng và giảm mỏi mắt nhận thức.
 
-1.  **Giai đoạn khởi nhập**: Ngay khi ứng dụng được tải thành công, người học xuất hiện tại khu vực **Hành lang chính** của trung tâm ngoại ngữ ảo. Tại đây, một bảng thông tin hướng dẫn tổng quan sẽ giới thiệu cơ chế bắt khớp tay trần và cách thức di chuyển. Người học không cần thực hiện các cài đặt phức tạp mà có thể lập tức mở khóa phòng học đầu tiên **Alphabets** để bắt đầu trải nghiệm.
-2.  **Chu trình học tập trong phòng học chuyên đề**: Trong mỗi phòng học, tiến trình học tập được phân tách thành hai khu vực tương tác rõ ràng:
-    - **Giai đoạn Thực hành**: Người học đứng đối diện với giảng viên ảo Kyle. Kyle sẽ đưa ra các thẻ từ vựng ngẫu nhiên, thực hiện động tác mẫu và đợi người học uốn nắn bàn tay làm theo. Khi người học gõ đúng cử chỉ tay trần, hệ thống lập tức báo đúng và Kyle sẽ chuyển sang từ vựng tiếp theo.
-    - **Giai đoạn Kiểm tra**: Sau khi thực hành tự tin, người học di chuyển tới bảng thi 3D để làm bài kiểm tra đánh giá tổng hợp gồm các câu hỏi trắc nghiệm cử chỉ, đánh vần chuỗi ký tự hoặc nghe audio điền từ vào chỗ trống.
-3.  **Cơ chế đánh giá và mở khóa tiến trình**: Khi hoàn thành toàn bộ câu hỏi trong bài kiểm tra, hệ thống sẽ tính toán điểm số.
-    - Nếu điểm số đạt từ **80% trở lên**, người học được công nhận là đã **Master** chủ đề này. Trạng thái của Topic trên cổ tay sẽ đổi sang màu vàng gold, đồng thời hệ thống tự động mở khóa phòng học chuyên đề tiếp theo.
-    - Nếu điểm số dưới **80%**, phòng học tiếp theo vẫn sẽ ở trạng thái khóa. Người học được khuyến khích quay lại khu vực thực hành để luyện tập thêm cùng giảng viên ảo Kyle và thực hiện lại bài kiểm tra để cải thiện điểm số.
-4.  **Kiểm soát luồng hoạt động**: Người học có thể tự do theo dõi tiến trình tổng thể, xem chi tiết điểm số từng phần hoặc bấm chọn teleport nhanh giữa các phòng học đã mở khóa bằng cách lật ngửa cổ tay từ 60 - 90 độ để kích hoạt **Menu** tại bất kỳ thời điểm nào.
+---
+
+## 4.2 Lối tương tác
+
+### 4.2.1 Ấn tượng ban đầu
+
+Khởi đầu người học sẽ ở trong Hành lang chính, nhìn xung quanh sẽ thấy khung cảnh thoáng đãng, hiện đại của một phòng nghiên cứu ngôn ngữ ảo. Phía đối diện, giảng viên ảo Kyle sẽ vẫy tay chào để tạo cảm giác thân thiện và chào mừng học viên. Tại đây, người học sẽ được nhìn thấy đôi bàn tay ảo của mình hiển thị khung xương mờ 26 khớp xương thời gian thực và được tập làm quen với cơ chế di chuyển: chỉ tay trỏ bám tia sáng xuống sàn nhà để teleport đi xung quanh khám phá phòng học.
+
+Sau đó một khoảng thời gian ngắn, một bảng hướng dẫn lơ lửng sẽ tự động hướng camera hiển thị thông tin hướng dẫn lật ngửa cổ tay để đóng/mở bảng đeo tay. Người học sẽ thực hiện xoay ngửa cổ tay một góc từ 60 đến 90 độ để mở menu hiển thị tiến trình cá nhân. 
+
+Sau khi làm quen thành công với các thao tác tương tác cơ bản, người học sẽ bấm chọn dịch chuyển (Teleport) mở khóa phòng học đầu tiên là phòng học Bảng chữ cái để bắt đầu bài học đầu tiên.
+
+### 4.2.2 Mục tiêu
+
+Sự thử thách và động lực trong bài giảng bắt nguồn từ việc đối mặt với các bài kiểm tra đánh giá năng lực đa dạng sau khi thực hành cùng giảng viên ảo Kyle. Người học phải không ngừng luyện tập các cử chỉ tay trần tĩnh và nét vẽ động J/Z trong không gian ảo.
+
+Do đó, người học phải tập trung uốn ngón tay chính xác, phối hợp các thao tác nét vẽ bám tia sáng để trả lời các câu đố trên bảng câu đố 3D. Họ có thể thành công bằng cách hoàn thành bài thi với điểm số đạt từ 80% trở lên. Mỗi phòng học hoàn thành xuất sắc giúp người học mở khóa phòng học chuyên đề mới, sở hữu thêm các kỹ năng giao tiếp phức tạp hơn, từ đó tiến xa hơn trên hành trình làm chủ ngôn ngữ ký hiệu ASL.
+
+### 4.2.3 Tiến trình và luồng bài giảng
+
+Luồng tiến trình học tập của bài giảng tương tác ASL VR được đặc tả chi tiết dưới dạng mã sơ đồ Mermaid dưới đây:
+
+```mermaid
+graph TD
+    A[Welcome Screen / Sảnh chờ] --> B[Main Lobby / Hành lang chính]
+    B -->|Lật ngửa cổ tay 60-90°| C[Bảng thông tin đeo cổ tay / Xem tiến trình]
+    B -->|Dịch chuyển| D[Phòng học 1: Bảng chữ cái]
+    B -->|Dịch chuyển - Khóa/Mở khóa| E[Phòng học 2: Chữ số]
+    B -->|Dịch chuyển - Khóa/Mở khóa| F[Phòng học 3: Hội thoại]
+    
+    D --> D1[Chế độ Thực hành: Luyện tập với Kyle]
+    D1 -->|Tập uốn ngón tay theo mẫu| D1
+    D1 -->|Di chuyển| D2[Chế độ Kiểm tra: Bảng câu đố 3D]
+    D2 -->|Giải câu đố trắc nghiệm & đánh vần| D3{Hệ thống chấm điểm}
+    D3 -->|Điểm < 80%| D4[Yêu cầu học lại / Replay]
+    D4 --> D1
+    D3 -->|Điểm >= 80%| D5[Đạt Master / Mở khóa phòng tiếp theo]
+    D5 --> B
+    
+    E --> E1[Chế độ Thực hành: Luyện tập với Kyle]
+    E1 --> E2[Chế độ Kiểm tra: Bảng đố phép tính]
+    E2 --> E3{Hệ thống chấm điểm}
+    E3 -->|Điểm < 80%| E4[Yêu cầu học lại]
+    E4 --> E1
+    E3 -->|Điểm >= 80%| E5[Đạt Master / Mở khóa phòng Hội thoại]
+    E5 --> B
+    
+    F --> F1[Chế độ Thực hành: Luyện tập với Kyle]
+    F1 --> F2[Chế độ Kiểm tra: Tình huống giao tiếp]
+    F2 --> F3{Hệ thống chấm điểm}
+    F3 -->|Điểm < 80%| F4[Yêu cầu học lại]
+    F4 --> F1
+    F3 -->|Điểm >= 80%| F5[Đạt Master / Hoàn thành bài giảng]
+    F5 --> B
+```
+
+### 4.2.4 Nhiệm vụ, thử thách
+
+Trong bài giảng này, nhiệm vụ chính của người học là chinh phục ba chủ đề học tập cốt lõi (Bảng chữ cái, Chữ số học thuật, Hội thoại giao tiếp). Để mở khóa từng phòng học, người học phải vượt qua các đợt thi đánh giá năng lực đa dạng do bộ điều khiển kiểm tra tự động nạp từ dữ liệu cấu trúc đã chuẩn bị sẵn.
+
+Người học cần rèn luyện sự dẻo dai của ngón tay, phối hợp phản xạ và độ chính xác của cơ tay qua từng bài học thực hành, từ đó tự tin làm chủ ngôn ngữ ký hiệu. Mỗi bài thi trên bảng kiểm tra 3D là cơ hội để học viên tự thử và sai, củng cố trí nhớ vận động nhằm đạt trạng thái Master hoàn toàn bài giảng.
 
 ---
 
 ## 4.3 Cơ chế của bài giảng
 
-### 4.3.1 Luật tương tác và cơ chế sư phạm
+### 4.3.1 Luật
 
-Để đảm bảo bài giảng diễn ra trơn tru, không gây ức chế tâm lý do giới hạn vật lý của cảm biến bắt khớp tay trần trên kính VR, hệ thống tích hợp 3 luật ngầm độc đáo:
+Trong bài giảng, người học sẽ thực hiện các hành động tương tác như dịch chuyển vị trí học tập, chạm các nút ảo trực quan, lật ngửa cổ tay hiển thị bảng thông tin đeo tay, uốn nắn bàn tay trần tạo các tư thế tay tĩnh, và vẽ nét ngón trỏ trong không gian để mô phỏng ký tự động. Người học được tự do điều chỉnh bàn tay ảo và luyện tập thử sai liên tục mà không bị giới hạn.
 
-- **Cơ chế Sai lầm ẩn**: Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức phạt điểm người học khi khớp tay bị lệch nhẹ ngoài ý muốn, hệ thống sử dụng một bộ đệm thời gian ngắn (từ 1.5 - 2 giây). Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới ghi nhận là một lỗi sai thực sự.
-- **Cửa sổ vô địch**: Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi, một cửa sổ thời gian miễn phạt ngắn (1.0 giây) được kích hoạt. Giai đoạn này cho phép người học thả lỏng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo sợ bị hệ thống liên tục phạt điểm dồn dập.
-- **Danh sách cử chỉ miễn phạt**: Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện (như lật ngửa cổ tay mở menu hay trỏ ngón tay di chuyển) được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
+Mỗi phòng học chuyên đề mang đến những thử thách thực hành độc đáo:
+* **Ở phòng học 1 (Bảng chữ cái):** Người học tập uốn 26 tư thế tay tĩnh đơn lẻ và 2 chữ cái động có nét vẽ quỹ đạo (J, Z) bám theo nét vẽ phát sáng của đầu ngón tay.
+* **Ở phòng học 2 (Chữ số):** Người học thực hành đếm các số từ 0 - 9 và giải các bài đố phép toán trực quan trên bảng.
+* **Ở phòng học 3 (Hội thoại):** Người học thực hiện ghép các từ vựng giao tiếp thông dụng đòi hỏi phối hợp đồng bộ cử chỉ của cả hai bàn tay vật lý.
 
-### 4.3.2 Mô hình thế giới học tập ảo
+Để vượt qua bài kiểm tra năng lực và hoàn thành mục tiêu của mỗi phòng học chuyên đề, học viên bắt buộc phải đạt tỷ lệ chính xác tối thiểu là 80% trong các chuỗi thực hành (đạt cấp độ Master). Việc tích lũy đủ 80% điểm số này là luật cốt lõi để kích hoạt điều kiện mở khóa cánh cửa dẫn vào phòng học chuyên đề tiếp theo trên sảnh hành lang chính. Nếu học viên đạt điểm dưới mức 80% (bao gồm cả mức Đạt chuẩn từ 50% đến dưới 80%), cửa phòng tiếp theo vẫn khóa, buộc học viên phải thực hiện chế độ học lại để cải thiện kết quả.
 
-- **Vật lý tương tác**: Không gian phòng học ảo triệt tiêu hoàn toàn trọng lực vật lý đối với các thành phần giao diện. Người học di chuyển bằng cơ chế phóng tia teleport từ cổ tay tới các điểm neo sàn nhà được thiết lập sẵn, giúp triệt tiêu hoàn toàn hiện tượng trễ hình hay say VR.
-- **Hệ thống điểm số học thuật**: "Tiền tệ" duy nhất trong không gian học tập là điểm số phần trạng thái chính xác (0 - 100%). Người học tích lũy điểm bằng cách thực hiện đúng cử chỉ yêu cầu ngay trong lần thử đầu tiên của câu hỏi. Điểm số này được lưu trữ bền vững vào hệ thống để làm căn cứ mở khóa các màn học tiếp theo.
+Học viên có thể chủ động học lại nhiều lần để cải thiện năng lực của mình. Càng thực hiện chính xác các câu hỏi ngay từ lượt uốn tay đầu tiên, điểm số kiểm tra tích lũy càng cao, nâng cao tinh thần chủ động tự học.
 
-### 4.3.3 Các hành động của người học
+### 4.3.2 Mô hình thế giới
 
-- **Di chuyển**: Nhắm tia trỏ từ xa và thả tay để dịch chuyển tức thời qua các phòng học chuyên đề.
-- **Tương tác bảng điều khiển**: Dùng đầu ngón trỏ vật lý chạm trực tiếp vào các nút bấm 3D lơ lửng trên Quiz Board hoặc lật ngửa cổ tay để đóng/mở menu Bài giảng.
-- **Thực hành ký hiệu**: Uốn nắn bàn tay trần trước camera kính VR để tạo ra các hình dạng tay khớp với mẫu, hoặc giữ tư thế nền và di chuyển ngón trỏ trong không gian để vẽ nét chữ `J` và `Z`.
+#### a, Cơ chế vật lý của thế giới
+* **Sảnh Hành lang chính:** Là khu vực xuất phát điểm tràn ngập ánh sáng tự nhiên với sàn gỗ ấm áp và các bức tường màu be pastel dịu mắt. Tại đây, giảng viên ảo Kyle đứng ở trung tâm để chào mừng, và có ba cánh cửa lớn dẫn vào ba phòng học chuyên đề đang bị khóa. Người học có thể tự do di chuyển bằng cách phóng tia trỏ dịch chuyển tức thời xuống nền nhà để làm quen với không gian và lật ngửa cổ tay để tương tác với menu cá nhân.
+* **Phòng học Bảng chữ cái:** Một phòng học mô phỏng không gian nghiên cứu ngôn ngữ ấm cúng. Tại đây bố trí bục giảng của Kyle ở trung tâm, bảng kiểm tra 3D hiển thị câu hỏi đố chữ ở phía bên phải, và các bảng mẫu hướng dẫn ký tự trực quan. Người học có thể uốn 26 tư thế ngón tay tĩnh hoặc vẽ các ký tự động J và Z bám theo đường nét phát sáng trong không gian để học bảng chữ cái ASL.
+* **Phòng học Chữ số:** Không gian phòng học toán học sinh động với các phương trình số học đơn giản vẽ cách điệu trên tường. Trong phòng có giảng viên Kyle hỗ trợ uốn tay và các mô hình chữ số từ 0 đến 9 lơ lửng phát sáng nhẹ. Người học có thể thực hành uốn tay đếm số và dịch chuyển đến bảng câu đố để giải các phép tính số học trực quan, nhập đáp án bằng cách uốn ngón tay theo phương pháp nhận dạng khớp tay tối giản.
+* **Phòng học Hội thoại:** Không gian mô phỏng phòng khách hoặc quán cà phê ảo thân thiện, gần gũi. Phòng học được bố trí bảng kiểm tra 3D nâng cao và bục giao tiếp lớn. Người học có thể thực hành các chủ đề đối thoại đời thường phức tạp, phối hợp đồng bộ cả hai bàn tay để ghép thành từ vựng hoàn chỉnh và tham gia trả lời các câu hỏi tình huống giao tiếp thực tế.
 
-### 4.3.4 Luồng màn hình
+#### b, Hệ thống tiến trình và đánh giá năng lực học thuật
+Hệ thống tiến trình và đánh giá năng lực học thuật trong bài giảng được xây dựng chặt chẽ nhằm phản ánh chính xác mức độ tiếp thu và độ thành thạo ngôn ngữ ký hiệu của học viên thông qua từng giai đoạn học tập. Thay vì sử dụng các cơ chế thăng cấp hay điểm số tiền tệ của các trò chơi giải trí thông thường, bài giảng tập trung vào việc đo lường năng lực thực tế. Học viên khi tham gia học tập sẽ thực hiện các bài thi trắc nghiệm và đánh giá thực hành trực tiếp tại bảng kiểm tra 3D của mỗi phòng học. Điểm số đánh giá được tính dựa trên tỷ lệ phần trăm mức độ chính xác của các tư thế tay và nét vẽ được uốn nắn thành công ngay từ những lượt thử đầu tiên, dao động từ 0% đến 100%.
 
-Hệ thống chuyển đổi qua các không gian học tập lập thể 3D trực quan bao gồm:
-`Hành lang chính` $\rightarrow$ `Phòng học bảng chữ cái` $\rightarrow$ `Phòng học chữ số` $\rightarrow$ `Phòng học giao tiếp`. Mỗi không gian là một scene 3D riêng biệt được tối ưu hóa tài nguyên phần cứng.
+Trong đó, nhằm đảm bảo công bằng và phản ánh đúng thực chất năng lực mà không gây ức chế tâm lý do giới hạn vật lý của cảm biến bắt khớp tay trần trên kính VR, hệ thống đánh giá tích hợp các cơ chế bảo vệ học tập đặc thù:
+* **Cơ chế Sai lầm ẩn:** Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức trừ điểm hay ghi nhận lỗi sai khi khớp tay bị lệch nhẹ ngoài ý muốn trong quá trình đánh giá, hệ thống sử dụng một bộ đệm thời gian ngắn (từ 1.5 - 2 giây). Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới chính thức ghi nhận lỗi và áp dụng vào kết quả đánh giá thực tế.
+* **Cửa sổ vô địch:** Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi, một cửa sổ thời gian miễn phạt ngắn (1.0 giây) được kích hoạt. Giai đoạn này cho phép người học thả lòng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo sợ bị hệ thống liên tục phạt điểm dồn dập trong kết quả tiến trình.
+* **Danh sách cử chỉ miễn phạt:** Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện (như lật ngửa cổ tay mở menu hay trỏ ngón tay di chuyển) được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
 
-### 4.3.5 Phản hồi cho người học
+Toàn bộ kết quả và mức độ thông thạo này sẽ được ghi nhận và cập nhật trực tiếp lên bảng thông tin tiến trình cá nhân gắn trên cổ tay của học viên dưới dạng ba trạng thái trực quan: Màu xám đại diện cho những phòng học hoặc chủ đề chưa mở khóa; Màu xanh lá đại diện cho trạng thái Đạt chuẩn; Màu vàng kim đại diện cho trạng thái Master - Đỉnh cao Xuất sắc (được đồng bộ theo quy định hoàn thành tối thiểu 80% điểm số tại phần Luật bài giảng). Để đảm bảo tính bền vững của tiến trình tự học dài hạn, điểm số đánh giá cao nhất của mỗi học viên cho từng chủ đề sẽ được tự động ghi nhớ và lưu trữ vĩnh viễn trên hệ thống của thiết bị, giúp học viên có thể tiếp tục hành trình học tập cá nhân hóa của mình vào bất kỳ lúc nào mà không lo bị mất dữ liệu tiến độ.
 
-- **Phản hồi màu sắc khớp tay ảo**: Khi người học uốn tay, bộ xương bàn tay ảo trên màn hình sẽ đổi màu sắc thời gian thực: màu xanh dương báo hiệu đúng, màu đỏ cam báo hiệu sai lệch góc khớp, và màu be mặc định báo hiệu trạng thái chờ đợi bắt khớp.
-- **Phản hồi âm thanh**: Âm thanh "ting" vui tai khi thực hiện đúng và âm thanh báo lỗi nhẹ nhàng khi thực hiện sai, kết hợp giọng đọc phát âm tiếng Anh trực quan của từ vựng.
-- **Phản hồi từ Kyle**: Giảng viên Kyle sẽ vỗ tay chúc mừng khi người học hoàn thành xuất sắc hoặc làm động tác hướng dẫn chậm lại khi người học gặp khó khăn.
+### 4.3.3 Luồng màn hình
+
+> **Hình 4.2:** *Screen Chart*
+
+```mermaid
+graph TD
+    Start((Bắt đầu bài giảng)) --> Lobby[Sảnh Hành lang chính]
+    Lobby <-->|Lật ngửa cổ tay 60-90°| WristMenu[Bảng điều khiển đeo tay]
+    Lobby <-->|Tia chỉ trỏ di chuyển| Classroom1[Phòng Bảng chữ cái]
+    Lobby <-->|Tia chỉ trỏ di chuyển - Khóa/Mở khóa| Classroom2[Phòng Chữ số]
+    Lobby <-->|Tia chỉ trỏ di chuyển - Khóa/Mở khóa| Classroom3[Phòng Hội thoại]
+    
+    WristMenu -->|Chọn Cài đặt| Settings[Bảng Cài đặt]
+    WristMenu -->|Chọn Thoát| End(((Thoát ứng dụng)))
+    
+    style Lobby fill:#d4edda,stroke:#28a745,stroke-width:2px;
+    style Classroom1 fill:#d4edda,stroke:#28a745,stroke-width:2px;
+    style Classroom2 fill:#d4edda,stroke:#28a745,stroke-width:2px;
+    style Classroom3 fill:#d4edda,stroke:#28a745,stroke-width:2px;
+    
+    style WristMenu fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
+    style Settings fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
+    
+    style Start fill:#000,stroke:#000;
+    style End fill:#000,stroke:#000,stroke-width:3px;
+```
+
+Hình 4.2 thể hiện luồng giao diện của bài giảng. Luồng giao diện này được điều khiển bởi chuyển động chỉ ngón trỏ hoặc lật ngửa cổ tay của người học để hiển thị và di chuyển giữa các không gian chính.
+
+Người học sẽ bắt đầu bài giảng trực tiếp tại **Sảnh Hành lang chính (Lobby)**. Tại đây, không gian ảo sẽ hiển thị bối cảnh nghiên cứu ngôn ngữ hiện đại, giảng viên ảo Kyle chào mừng và các cánh cửa dẫn đến ba phòng học chuyên đề.
+
+Từ **Sảnh Hành lang chính (Lobby)**, người học thực hiện hành động lật ngửa cổ tay từ 60 đến 90 độ để hiển thị **Bảng điều khiển đeo cổ tay**. Bảng điều khiển này hiển thị các thông tin tiến độ, thành tựu học tập và nút thiết lập. Từ bảng điều khiển này, người học có thể chọn mục *Cài đặt* để cấu hình tay thuận sinh học, chỉnh âm lượng, hoặc chọn nút *Thoát* để dừng bài học và đóng ứng dụng.
+
+Từ **Sảnh Hành lang chính (Lobby)**, người học sử dụng tia chỉ trỏ di chuyển (teleport) chạm vào các điểm dịch chuyển trước các cánh cửa để bước vào các phòng học chuyên đề tương ứng gồm: **Phòng học Bảng chữ cái**, **Phòng học Chữ số**, và **Phòng học Hội thoại** (các phòng học sau yêu cầu đạt điểm chuẩn từ phòng học trước mới có thể mở khóa). Học viên có thể tự do quay lại sảnh chính bất kỳ lúc nào để chuyển đổi chủ đề hoặc kiểm tra tiến độ học tập.
 
 ---
 
