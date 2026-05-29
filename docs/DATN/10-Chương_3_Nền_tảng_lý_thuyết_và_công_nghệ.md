@@ -4,17 +4,13 @@
 
 Để xây dựng một ứng dụng công nghệ giáo dục (EdTech) thực tế ảo thực sự hiệu quả và có cơ sở lý luận vững chắc, đồ án đã nghiên cứu và tích hợp đồng bộ hai học thuyết giáo dục cốt lõi vào thiết kế tương tác người dùng. Đây là các lý thuyết nền tảng đã được đề cập xuyên suốt trong việc đặt vấn đề và phân tích yêu cầu tại các chương trước nhằm định hình phương thức học tập trực quan tay trần.
 
-### 3.1.1 Nón trải nghiệm Edgar Dale (Edgar Dale's Cone of Experience)
+### 3.1.1 Nón trải nghiệm Edgar Dale
 
-Học thuyết Nón trải nghiệm của Edgar Dale mô tả trực quan mối quan hệ giữa các hình thức tiếp nhận thông tin và hiệu quả ghi nhớ của não bộ con người. Mô hình phân cấp các trải nghiệm học tập từ thụ động nhất ở đỉnh nón (chỉ tiếp nhận ký hiệu ngôn từ, hình ảnh) đến chủ động nhất ở đáy nón (thực nghiệm thực tế, thực hành trực tiếp).
+Học thuyết nón trải nghiệm của Edgar Dale mô tả trực quan mối quan hệ biện chứng giữa các hình thức tiếp nhận thông tin và hiệu quả lưu giữ kiến thức của não bộ con người. Mô hình này phân cấp các hoạt động nhận thức từ trạng thái thụ động nhất ở đỉnh nón, nơi người học chỉ tiếp nhận các ký hiệu ngôn từ và hình ảnh tĩnh, đến trạng thái chủ động nhất ở đáy nón, nơi diễn ra các hoạt động thực nghiệm thực tế và thực hành trực tiếp. 
 
-Theo nghiên cứu thực nghiệm của Edgar Dale, hiệu quả ghi nhớ sau hai tuần được phân bậc rõ rệt:
+Theo các nghiên cứu thực nghiệm của Edgar Dale, khả năng lưu giữ kiến thức của người học sau hai tuần được phân bậc vô cùng rõ rệt dựa trên mức độ tham gia vào bài học. Cụ thể, học viên chỉ có thể nhớ được mười phần trăm lượng thông tin nếu chỉ tiếp nhận qua việc đọc, tương ứng với phương pháp tự học truyền thống qua giáo trình in ấn hoặc các tài liệu sách ảnh ngôn ngữ ký hiệu tĩnh. Tỷ lệ này chỉ tăng lên mức hai mươi phần trăm đối với hình thức nghe và ba mươi phần trăm đối với hình thức nhìn, phản ánh thực trạng học tập thụ động qua các video hướng dẫn dạng hai chiều trên màn hình phẳng. Ngược lại, hiệu quả ghi nhớ có thể đạt tới chín mươi phần trăm lượng kiến thức nếu người học được trực tiếp thảo luận và thực hành thông qua các trải nghiệm thực tế có mục đích rõ rệt.
 
-- Người học chỉ lưu giữ được **10%** những gì họ **đọc** (tương ứng với phương pháp tự học qua giáo trình in ấn, sách ảnh ngôn ngữ ký hiệu tĩnh).
-- Người học chỉ lưu giữ được **20%** những gì họ **nghe** và **30%** những gì họ **nhìn thấy** (tương ứng với phương pháp tự học thụ động qua video hướng dẫn 2D trên màn hình phẳng).
-- Ngược lại, người học ghi nhớ đến **90%** lượng kiến thức nếu họ được trực tiếp **nói và làm** thông qua các **trải nghiệm thực tế có mục đích (Direct, Purposeful Experiences)**.
-
-Ứng dụng **"Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo"** định vị người học ở vị trí đáy nón trải nghiệm. Bằng cách loại bỏ hoàn toàn các thiết bị điều khiển vật lý (controller) và bắt buộc người học sử dụng chính đôi bàn tay trần của mình để uốn nắn, thực hiện các tư thế ASL trước cảm biến kính HMD, hệ thống đã kích hoạt mạnh mẽ **trí nhớ vận động cơ bắp (muscle memory)**. Trải nghiệm học qua hành động trực tiếp này giúp người học cảm thụ rõ nét cấu trúc hình học 3D của cử chỉ, nâng cao hiệu quả lưu giữ kiến thức dài hạn lên gấp 9 lần so với học chay truyền thống.
+Từ cơ sở khoa học trên, hệ thống bài giảng tương tác ngôn ngữ ký hiệu trong thực tế ảo định vị người học ở vị trí đáy của nón trải nghiệm nhằm tối ưu hóa hiệu quả giáo dục đặc biệt. Bằng việc loại bỏ hoàn toàn các thiết bị điều khiển vật lý cầm tay và bắt buộc học viên phải sử dụng chính đôi bàn tay trần để uốn nắn các tư thế ký hiệu trước cảm biến của kính thực tế ảo, hệ thống đã kích hoạt mạnh mẽ trí nhớ vận động cơ bắp. Trải nghiệm học tập thông qua hành động trực tiếp này giúp người học cảm thụ sâu sắc và trực quan cấu trúc không gian ba chiều của từng cử chỉ tay, đồng thời nâng cao hiệu quả lưu giữ kiến thức dài hạn lên gấp chín lần so với phương pháp học lý thuyết truyền thống.
 
 ### 3.1.2 Thuyết học tập trải nghiệm (Experiential Learning Theory)
 
