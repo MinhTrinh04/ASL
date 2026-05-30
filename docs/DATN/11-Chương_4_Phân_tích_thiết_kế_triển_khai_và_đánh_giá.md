@@ -1,22 +1,20 @@
-# CHƯƠNG 4. THIẾT KẾ BÀI GIẢNG, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG
-
-Chương này trình bày chi tiết về thiết kế bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR), lối chơi/tương tác, các cơ chế sư phạm, thiết kế giao diện và kiến trúc kỹ thuật.
+# CHƯƠNG 4. THIẾT KẾ BÀI GIẢNG, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG
 
 ---
 
 ## 4.1 Tổng quan bài giảng
 
-* **Tên bài giảng:** Bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR)
-* **Bản sắc bài giảng:** Bài giảng là một không gian thực nghiệm tương tác tay trần 3D sinh động, nơi người học sử dụng đôi bàn tay vật lý tự uốn nắn khớp ngón tay chuẩn hóa và tự do trải nghiệm lý thuyết EdTech trực quan mà không bị cản trở bởi tay cầm vật lý.
-* **Trụ cột bài giảng:**
-  * Chân thực (Immersive).
-  * Tự nhiên (Natural).
-  * Thấu cảm (Empowering).
-* **Điểm độc đáo:**
-  * Cơ chế uốn nắn bàn tay trần tự nhiên, trực quan hóa khớp tay ảo thời gian thực không cần tay cầm.
-  * Nhận dạng nét vẽ phát sáng neon bám theo đầu ngón trỏ đối với các chữ cái động có quỹ đạo (J và Z).
-  * Giảng viên ảo Kyle phản hồi sinh học thời gian thực sinh động, giúp thu hẹp khoảng cách giao tiếp với cộng đồng khiếm thính.
-* **Phong cách đồ họa:** Bài giảng sử dụng tông màu be và xanh pastel dịu nhẹ, phong cách nghệ thuật stylized, lowpoly tối giản tạo cảm giác thoáng đãng và giảm mỏi mắt nhận thức.
+- **Tên bài giảng:** Bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR)
+- **Bản sắc bài giảng:** Bài giảng là một không gian thực nghiệm tương tác tay trần 3D sinh động, nơi người học sử dụng đôi bàn tay vật lý tự uốn nắn khớp ngón tay chuẩn hóa và tự do trải nghiệm lý thuyết EdTech trực quan mà không bị cản trở bởi tay cầm vật lý.
+- **Trụ cột bài giảng:**
+  - Chân thực (Immersive).
+  - Tự nhiên (Natural).
+  - Thấu cảm (Empowering).
+- **Điểm độc đáo:**
+  - Cơ chế uốn nắn bàn tay trần tự nhiên, trực quan hóa khớp tay ảo thời gian thực không cần tay cầm.
+  - Nhận dạng quỹ đạo nét vẽ của đầu ngón trỏ đối với các chữ cái động như J và Z.
+  - Giảng viên ảo Kyle phản hồi sinh học thời gian thực sinh động, giúp thu hẹp khoảng cách giao tiếp với cộng đồng khiếm thính.
+- **Phong cách đồ họa:** Bài giảng sử dụng tông màu be và xanh pastel dịu nhẹ, phong cách nghệ thuật stylized, lowpoly tối giản tạo cảm giác thoáng đãng và giảm mỏi mắt nhận thức.
 
 ---
 
@@ -26,7 +24,7 @@ Chương này trình bày chi tiết về thiết kế bài giảng tương tác
 
 Khởi đầu người học sẽ ở trong Hành lang chính, nhìn xung quanh sẽ thấy khung cảnh thoáng đãng, hiện đại của một phòng nghiên cứu ngôn ngữ ảo. Phía đối diện, giảng viên ảo Kyle sẽ vẫy tay chào để tạo cảm giác thân thiện và chào mừng học viên. Tại đây, người học sẽ được nhìn thấy đôi bàn tay ảo của mình hiển thị khung xương mờ 26 khớp xương thời gian thực và được tập làm quen với cơ chế di chuyển: chỉ tay trỏ bám tia sáng xuống sàn nhà để teleport đi xung quanh khám phá phòng học.
 
-Sau đó một khoảng thời gian ngắn, một bảng hướng dẫn lơ lửng sẽ tự động hướng camera hiển thị thông tin hướng dẫn lật ngửa cổ tay để đóng/mở bảng đeo tay. Người học sẽ thực hiện xoay ngửa cổ tay một góc từ 60 đến 90 độ để mở menu hiển thị tiến trình cá nhân. 
+Sau đó một khoảng thời gian ngắn, một bảng hướng dẫn lơ lửng sẽ tự động hiển thị thông tin hướng dẫn học viên cách xem và tương tác với bảng đeo tay. Học viên chỉ cần đưa cổ tay lên ngang tầm mắt để dễ dàng quan sát tiến trình cá nhân của mình.
 
 Sau khi làm quen thành công với các thao tác tương tác cơ bản, người học sẽ bấm chọn dịch chuyển (Teleport) mở khóa phòng học đầu tiên là phòng học Bảng chữ cái để bắt đầu bài học đầu tiên.
 
@@ -43,11 +41,11 @@ Luồng tiến trình học tập của bài giảng tương tác ASL VR đượ
 ```mermaid
 graph TD
     A[Welcome Screen / Sảnh chờ] --> B[Main Lobby / Hành lang chính]
-    B -->|Lật ngửa cổ tay 60-90°| C[Bảng thông tin đeo cổ tay / Xem tiến trình]
+    B -->|Xem và chạm bảng cổ tay| C[Bảng thông tin đeo cổ tay / Xem tiến trình]
     B -->|Dịch chuyển| D[Phòng học 1: Bảng chữ cái]
     B -->|Dịch chuyển - Khóa/Mở khóa| E[Phòng học 2: Chữ số]
     B -->|Dịch chuyển - Khóa/Mở khóa| F[Phòng học 3: Hội thoại]
-    
+
     D --> D1[Chế độ Thực hành: Luyện tập với Kyle]
     D1 -->|Tập uốn ngón tay theo mẫu| D1
     D1 -->|Di chuyển| D2[Chế độ Kiểm tra: Bảng câu đố 3D]
@@ -56,7 +54,7 @@ graph TD
     D4 --> D1
     D3 -->|Điểm >= 80%| D5[Đạt Master / Mở khóa phòng tiếp theo]
     D5 --> B
-    
+
     E --> E1[Chế độ Thực hành: Luyện tập với Kyle]
     E1 --> E2[Chế độ Kiểm tra: Bảng đố phép tính]
     E2 --> E3{Hệ thống chấm điểm}
@@ -64,7 +62,7 @@ graph TD
     E4 --> E1
     E3 -->|Điểm >= 80%| E5[Đạt Master / Mở khóa phòng Hội thoại]
     E5 --> B
-    
+
     F --> F1[Chế độ Thực hành: Luyện tập với Kyle]
     F1 --> F2[Chế độ Kiểm tra: Tình huống giao tiếp]
     F2 --> F3{Hệ thống chấm điểm}
@@ -86,12 +84,13 @@ Người học cần rèn luyện sự dẻo dai của ngón tay, phối hợp p
 
 ### 4.3.1 Luật
 
-Trong bài giảng, người học sẽ thực hiện các hành động tương tác như dịch chuyển vị trí học tập, chạm các nút ảo trực quan, lật ngửa cổ tay hiển thị bảng thông tin đeo tay, uốn nắn bàn tay trần tạo các tư thế tay tĩnh, và vẽ nét ngón trỏ trong không gian để mô phỏng ký tự động. Người học được tự do điều chỉnh bàn tay ảo và luyện tập thử sai liên tục mà không bị giới hạn.
+Trong bài giảng, người học sẽ thực hiện các hành động tương tác như dịch chuyển vị trí học tập, chạm các nút ảo trực quan trên bảng thông tin đeo tay, uốn nắn bàn tay trần tạo các tư thế tay tĩnh, và vẽ nét ngón trỏ trong không gian để mô phỏng ký tự động. Người học được tự do điều chỉnh bàn tay ảo và luyện tập thử sai liên tục mà không bị giới hạn.
 
 Mỗi phòng học chuyên đề mang đến những thử thách thực hành độc đáo:
-* **Ở phòng học 1 (Bảng chữ cái):** Người học tập uốn 26 tư thế tay tĩnh đơn lẻ và 2 chữ cái động có nét vẽ quỹ đạo (J, Z) bám theo nét vẽ phát sáng của đầu ngón tay.
-* **Ở phòng học 2 (Chữ số):** Người học thực hành đếm các số từ 0 - 9 và giải các bài đố phép toán trực quan trên bảng.
-* **Ở phòng học 3 (Hội thoại):** Người học thực hiện ghép các từ vựng giao tiếp thông dụng đòi hỏi phối hợp đồng bộ cử chỉ của cả hai bàn tay vật lý.
+
+- **Ở phòng học 1 (Bảng chữ cái):** Người học thực hành uốn nắn hai mươi sáu tư thế tay tĩnh đơn lẻ và hai chữ cái động như J và Z bằng cách di chuyển đầu ngón tay vẽ nét quỹ đạo trong không gian.
+- **Ở phòng học 2 (Chữ số):** Người học thực hành đếm các số từ 0 - 9 và giải các bài đố phép toán trực quan trên bảng.
+- **Ở phòng học 3 (Hội thoại):** Người học thực hiện ghép các từ vựng giao tiếp thông dụng đòi hỏi phối hợp đồng bộ cử chỉ của cả hai bàn tay vật lý.
 
 Để vượt qua bài kiểm tra năng lực và hoàn thành mục tiêu của mỗi phòng học chuyên đề, học viên bắt buộc phải đạt tỷ lệ chính xác tối thiểu là 80% trong các chuỗi thực hành (đạt cấp độ Master). Việc tích lũy đủ 80% điểm số này là luật cốt lõi để kích hoạt điều kiện mở khóa cánh cửa dẫn vào phòng học chuyên đề tiếp theo trên sảnh hành lang chính. Nếu học viên đạt điểm dưới mức 80% (bao gồm cả mức Đạt chuẩn từ 50% đến dưới 80%), cửa phòng tiếp theo vẫn khóa, buộc học viên phải thực hiện chế độ học lại để cải thiện kết quả.
 
@@ -100,66 +99,85 @@ Học viên có thể chủ động học lại nhiều lần để cải thiệ
 ### 4.3.2 Mô hình thế giới
 
 #### a, Cơ chế vật lý của thế giới
-* **Sảnh Hành lang chính:** Là khu vực xuất phát điểm tràn ngập ánh sáng tự nhiên với sàn gỗ ấm áp và các bức tường màu be pastel dịu mắt. Tại đây, giảng viên ảo Kyle đứng ở trung tâm để chào mừng, và có ba cánh cửa lớn dẫn vào ba phòng học chuyên đề đang bị khóa. Người học có thể tự do di chuyển bằng cách phóng tia trỏ dịch chuyển tức thời xuống nền nhà để làm quen với không gian và lật ngửa cổ tay để tương tác với menu cá nhân.
-* **Phòng học Bảng chữ cái:** Một phòng học mô phỏng không gian nghiên cứu ngôn ngữ ấm cúng. Tại đây bố trí bục giảng của Kyle ở trung tâm, bảng kiểm tra 3D hiển thị câu hỏi đố chữ ở phía bên phải, và các bảng mẫu hướng dẫn ký tự trực quan. Người học có thể uốn 26 tư thế ngón tay tĩnh hoặc vẽ các ký tự động J và Z bám theo đường nét phát sáng trong không gian để học bảng chữ cái ASL.
-* **Phòng học Chữ số:** Không gian phòng học toán học sinh động với các phương trình số học đơn giản vẽ cách điệu trên tường. Trong phòng có giảng viên Kyle hỗ trợ uốn tay và các mô hình chữ số từ 0 đến 9 lơ lửng phát sáng nhẹ. Người học có thể thực hành uốn tay đếm số và dịch chuyển đến bảng câu đố để giải các phép tính số học trực quan, nhập đáp án bằng cách uốn ngón tay theo phương pháp nhận dạng khớp tay tối giản.
-* **Phòng học Hội thoại:** Không gian mô phỏng phòng khách hoặc quán cà phê ảo thân thiện, gần gũi. Phòng học được bố trí bảng kiểm tra 3D nâng cao và bục giao tiếp lớn. Người học có thể thực hành các chủ đề đối thoại đời thường phức tạp, phối hợp đồng bộ cả hai bàn tay để ghép thành từ vựng hoàn chỉnh và tham gia trả lời các câu hỏi tình huống giao tiếp thực tế.
+
+**Sảnh hành lang chính**
+Sảnh hành lang chính là khu vực xuất phát điểm của học viên, một không gian tràn ngập ánh sáng tự nhiên với sàn gỗ ấm áp và các bức tường mang màu sắc dịu nhẹ. Tại trung tâm sảnh, giảng viên ảo Kyle đứng chào mừng học viên trước ba cánh cửa lớn dẫn vào các phòng học chuyên đề đang ở trạng thái khóa. Học viên có thể tự do dịch chuyển bằng cách phóng tia chỉ trỏ xuống nền nhà để làm quen với không gian, đồng thời dễ dàng chạm trực tiếp vào bảng đeo tay để tương tác với bảng thông tin cá nhân.
+
+**Phòng học bảng chữ cái**
+Phòng học bảng chữ cái mô phỏng một không gian nghiên cứu ngôn ngữ ấm cúng và tĩnh lặng. Nơi đây bố trí bục giảng của giảng viên Kyle ở trung tâm để hướng dẫn làm mẫu, bảng câu đố thi hiển thị câu hỏi ở phía bên phải, cùng các bảng mẫu hướng dẫn ký tự trực quan xung quanh. Người học sử dụng đôi bàn tay trần ảo để thực hành uốn nắn hai mươi sáu tư thế ngón tay tĩnh, hoặc di chuyển đầu ngón trỏ vẽ nét trong không gian để mô phỏng các chữ cái động có quỹ đạo như J và Z.
+
+**Phòng học chữ số**
+Phòng học chữ số là một không gian học tập toán học sinh động với các phương trình số học đơn giản được vẽ cách điệu trên tường. Trong phòng học này, học viên thực hành uốn nắn bàn tay để đếm các số từ không đến chín dưới sự hỗ trợ của giảng viên Kyle, đồng thời dịch chuyển đến bảng câu đố để giải các phép tính số học trực quan và nhập đáp án bằng cách uốn ngón tay theo phương pháp nhận dạng tối giản.
+
+**Phòng học hội thoại**
+Phòng học hội thoại mô phỏng một không gian phòng khách hoặc quán cà phê ảo thân thiện và gần gũi. Phòng học được bố trí bảng câu đố thi nâng cao và bục giao tiếp lớn để học viên thực hành các chủ đề đối thoại đời thường phức tạp. Tại đây, người học cần phối hợp đồng bộ cử chỉ của cả hai bàn tay để ghép thành từ vựng hoàn chỉnh và tham gia trả lời các câu hỏi tình huống giao tiếp thực tế với giảng viên.
 
 #### b, Hệ thống tiến trình và đánh giá năng lực học thuật
+
 Hệ thống tiến trình và đánh giá năng lực học thuật trong bài giảng được xây dựng chặt chẽ nhằm phản ánh chính xác mức độ tiếp thu và độ thành thạo ngôn ngữ ký hiệu của học viên thông qua từng giai đoạn học tập. Thay vì sử dụng các cơ chế thăng cấp hay điểm số tiền tệ của các trò chơi giải trí thông thường, bài giảng tập trung vào việc đo lường năng lực thực tế. Học viên khi tham gia học tập sẽ thực hiện các bài thi trắc nghiệm và đánh giá thực hành trực tiếp tại bảng kiểm tra 3D của mỗi phòng học. Điểm số đánh giá được tính dựa trên tỷ lệ phần trăm mức độ chính xác của các tư thế tay và nét vẽ được uốn nắn thành công ngay từ những lượt thử đầu tiên, dao động từ 0% đến 100%.
 
 Trong đó, nhằm đảm bảo công bằng và phản ánh đúng thực chất năng lực mà không gây ức chế tâm lý do giới hạn vật lý của cảm biến bắt khớp tay trần trên kính VR, hệ thống đánh giá tích hợp các cơ chế bảo vệ học tập đặc thù:
-* **Cơ chế Sai lầm ẩn:** Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức trừ điểm hay ghi nhận lỗi sai khi khớp tay bị lệch nhẹ ngoài ý muốn trong quá trình đánh giá, hệ thống sử dụng một bộ đệm thời gian ngắn (từ 1.5 - 2 giây). Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới chính thức ghi nhận lỗi và áp dụng vào kết quả đánh giá thực tế.
-* **Cửa sổ vô địch:** Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi, một cửa sổ thời gian miễn phạt ngắn (1.0 giây) được kích hoạt. Giai đoạn này cho phép người học thả lòng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo sợ bị hệ thống liên tục phạt điểm dồn dập trong kết quả tiến trình.
-* **Danh sách cử chỉ miễn phạt:** Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện (như lật ngửa cổ tay mở menu hay trỏ ngón tay di chuyển) được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
+
+- **Cơ chế Sai lầm ẩn:** Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức trừ điểm hay ghi nhận lỗi sai khi khớp tay bị lệch nhẹ ngoài ý muốn trong quá trình đánh giá, hệ thống sử dụng một bộ đệm thời gian ngắn (từ 1.5 - 2 giây). Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới chính thức ghi nhận lỗi và áp dụng vào kết quả đánh giá thực tế.
+- **Cửa sổ vô địch:** Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi, một cửa sổ thời gian miễn phạt ngắn (1.0 giây) được kích hoạt. Giai đoạn này cho phép người học thả lòng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo sợ bị hệ thống liên tục phạt điểm dồn dập trong kết quả tiến trình.
+- **Danh sách cử chỉ miễn phạt:** Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện (như đưa ngón trỏ để chạm các nút trên bảng đeo tay hay trỏ ngón tay di chuyển) được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
 
 Toàn bộ kết quả và mức độ thông thạo này sẽ được ghi nhận và cập nhật trực tiếp lên bảng thông tin tiến trình cá nhân gắn trên cổ tay của học viên dưới dạng ba trạng thái trực quan: Màu xám đại diện cho những phòng học hoặc chủ đề chưa mở khóa; Màu xanh lá đại diện cho trạng thái Đạt chuẩn; Màu vàng kim đại diện cho trạng thái Master - Đỉnh cao Xuất sắc (được đồng bộ theo quy định hoàn thành tối thiểu 80% điểm số tại phần Luật bài giảng). Để đảm bảo tính bền vững của tiến trình tự học dài hạn, điểm số đánh giá cao nhất của mỗi học viên cho từng chủ đề sẽ được tự động ghi nhớ và lưu trữ vĩnh viễn trên hệ thống của thiết bị, giúp học viên có thể tiếp tục hành trình học tập cá nhân hóa của mình vào bất kỳ lúc nào mà không lo bị mất dữ liệu tiến độ.
 
 ### 4.3.3 Luồng màn hình
 
-> **Hình 4.2:** *Screen Chart*
+> **Hình 4.2:** _Screen Chart_
 
 ```mermaid
 graph TD
     Start((Bắt đầu bài giảng)) --> Lobby[Sảnh Hành lang chính]
-    Lobby <-->|Lật ngửa cổ tay 60-90°| WristMenu[Bảng điều khiển đeo tay]
+    Lobby <-->|Chạm trực tiếp| WristMenu[Bảng điều khiển đeo tay]
     Lobby <-->|Tia chỉ trỏ di chuyển| Classroom1[Phòng Bảng chữ cái]
     Lobby <-->|Tia chỉ trỏ di chuyển - Khóa/Mở khóa| Classroom2[Phòng Chữ số]
     Lobby <-->|Tia chỉ trỏ di chuyển - Khóa/Mở khóa| Classroom3[Phòng Hội thoại]
-    
-    WristMenu -->|Chọn Cài đặt| Settings[Bảng Cài đặt]
-    WristMenu -->|Chọn Thoát| End(((Thoát ứng dụng)))
-    
+
     style Lobby fill:#d4edda,stroke:#28a745,stroke-width:2px;
     style Classroom1 fill:#d4edda,stroke:#28a745,stroke-width:2px;
     style Classroom2 fill:#d4edda,stroke:#28a745,stroke-width:2px;
     style Classroom3 fill:#d4edda,stroke:#28a745,stroke-width:2px;
-    
+
     style WristMenu fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
-    style Settings fill:#f8d7da,stroke:#dc3545,stroke-width:2px;
-    
+
     style Start fill:#000,stroke:#000;
-    style End fill:#000,stroke:#000,stroke-width:3px;
 ```
 
-Hình 4.2 thể hiện luồng giao diện của bài giảng. Luồng giao diện này được điều khiển bởi chuyển động chỉ ngón trỏ hoặc lật ngửa cổ tay của người học để hiển thị và di chuyển giữa các không gian chính.
+Hình 4.2 thể hiện luồng giao diện của bài giảng. Luồng giao diện này được điều khiển bởi chuyển động chỉ ngón trỏ hoặc việc chạm trực tiếp vào bảng đeo tay của người học để hiển thị và di chuyển giữa các không gian chính.
 
 Người học sẽ bắt đầu bài giảng trực tiếp tại **Sảnh Hành lang chính (Lobby)**. Tại đây, không gian ảo sẽ hiển thị bối cảnh nghiên cứu ngôn ngữ hiện đại, giảng viên ảo Kyle chào mừng và các cánh cửa dẫn đến ba phòng học chuyên đề.
 
-Từ **Sảnh Hành lang chính (Lobby)**, người học thực hiện hành động lật ngửa cổ tay từ 60 đến 90 độ để hiển thị **Bảng điều khiển đeo cổ tay**. Bảng điều khiển này hiển thị các thông tin tiến độ, thành tựu học tập và nút thiết lập. Từ bảng điều khiển này, người học có thể chọn mục *Cài đặt* để cấu hình tay thuận sinh học, chỉnh âm lượng, hoặc chọn nút *Thoát* để dừng bài học và đóng ứng dụng.
-
-Từ **Sảnh Hành lang chính (Lobby)**, người học sử dụng tia chỉ trỏ di chuyển (teleport) chạm vào các điểm dịch chuyển trước các cánh cửa để bước vào các phòng học chuyên đề tương ứng gồm: **Phòng học Bảng chữ cái**, **Phòng học Chữ số**, và **Phòng học Hội thoại** (các phòng học sau yêu cầu đạt điểm chuẩn từ phòng học trước mới có thể mở khóa). Học viên có thể tự do quay lại sảnh chính bất kỳ lúc nào để chuyển đổi chủ đề hoặc kiểm tra tiến độ học tập.
+Từ **Sảnh Hành lang chính (Lobby)**, người học chỉ cần đưa tay lên để quan sát **Bảng điều khiển đeo cổ tay** hiển thị phía trên cổ tay. Bảng điều khiển này cung cấp thông tin trực quan thời gian thực về tiến trình học tập cá nhân, bao gồm trạng thái mở khóa của từng phòng học chuyên đề, điểm số thi cao nhất đạt được, và các thành tựu tích lũy trong suốt bài giảng.
+Người học có thể thao tác với bảng điều khiển để bước vào các phòng học chuyên đề tương ứng gồm: **Phòng học Bảng chữ cái**, **Phòng học Chữ số**, và **Phòng học Hội thoại**. Người học có thể tự do quay lại sảnh chính bất kỳ lúc nào để chuyển đổi chủ đề hoặc kiểm tra tiến độ học tập.
 
 ---
 
 ## 4.4 Điều khiển
 
-Hệ thống điều khiển tay trần tự nhiên ánh xạ trực tiếp các hành động cơ thể vật lý của người học vào không gian ảo 3D:
+Bài giảng sử dụng đôi bàn tay vật lý của người học để thực hiện các thao tác điều khiển trực tiếp, thông qua công nghệ **theo dõi bàn tay (hand tracking)** tích hợp trên kính để ghi nhận và chuyển đổi các cử chỉ thành hành động tương tác thời gian thực trong không gian ảo 3D. Mỗi cử chỉ ngón tay và chuyển động khớp trong bài giảng đều được thiết kế tương ứng với một lệnh điều hướng, học tập hoặc tương tác sư phạm cụ thể, giúp người học kiểm soát các không gian phòng học ảo và giao tiếp với giảng viên ảo Kyle một cách trực quan, hiệu quả. Hệ thống điều khiển tay trần tự nhiên này giúp triệt tiêu hoàn toàn sự phức tạp trong việc ghi nhớ các nút bấm vật lý của tay cầm VR, đồng thời mở ra khả năng tự do uốn nắn tay trần để rèn luyện vùng ký ức vận động dài hạn.
 
-- **Mở/Đóng Wrist Dashboard**: Xoay ngửa cổ tay một góc từ 60 - 90 độ hướng lên phía mắt kính VR.
-- **Nhận dạng chữ cái tĩnh**: Uốn nắn hình dạng tay theo bảng ký tự mẫu ASL.
-- **Nhận dạng nét vẽ động (J, Z)**: Giữ bàn tay ở tư thế ra lệnh vẽ, dùng đầu ngón trỏ di chuyển vẽ quỹ đạo trong không gian, hệ thống sẽ kích hoạt thành phần vẽ đường nét sáng neon bám theo tay. Thả tư thế tay để kết thúc và đánh giá nét vẽ.
-- **Teleport**: Trỏ ngón tay về phía điểm neo dịch chuyển dưới sàn nhà và bấm nút ảo để di chuyển.
+> **Hình 4.3:** _Bảng điều khiển đeo tay_
+
+Hình 4.3 minh họa bảng điều khiển đeo tay được thiết kế ngay phía trên khớp cổ tay như một chiếc đồng hồ thông minh. Trong quá trình học tập, bảng điều khiển này luôn hiển thị trực quan trên khớp cổ tay trái hoặc phải. Người học chỉ cần đưa tay lên để kiểm tra tiến trình học tập cá nhân, theo dõi tỷ lệ phần trăm hoàn thành bài kiểm tra và các cấp độ thành thạo tích lũy của mình.
+
+> **Hình 4.4:** _Cử chỉ tay Point Gesture_
+
+Hình 4.4 thể hiện cử chỉ tay trỏ bằng cách duỗi thẳng ngón trỏ hướng về phía trước, trong khi các ngón tay khác thu lại tự nhiên. Khi thực hiện cử chỉ này, hệ thống sẽ kích hoạt một tia sáng định vị hoặc đầu ngón trỏ ảo để người học bấm chạm trực tiếp vào các nút ảo 3D lơ lửng trên bảng kiểm tra 3D (Quiz Board). Ngoài ra, cử chỉ này còn dùng để nhắm các điểm neo dịch chuyển dưới sàn nhà để teleport tự do khám phá các phòng học chuyên đề.
+
+> **Hình 4.5:** _Cử chỉ uốn ngón tay tĩnh (Static Hand Shape)_
+
+Hình 4.5 mô tả cử chỉ uốn nắn bàn tay trần tạo thành các hình dạng tay tĩnh đại diện cho các ký tự trong bảng chữ cái (A - Z) và các chữ số (0 - 9). Đây là tương tác cốt lõi trong các bài thực hành và kiểm tra nhận dạng ngôn ngữ ký hiệu. Người học sẽ sử dụng chính các khớp ngón tay thật để uốn theo hình ảnh giảng viên Kyle hướng dẫn; hệ thống sẽ ghi nhận 26 khớp xương của bàn tay ảo và gửi vào bộ nhận dạng cử chỉ tĩnh để so khớp góc khớp ngón tay thời gian thực.
+
+> **Hình 4.6:** _Tư thế sẵn sàng vẽ nét động (Gesture Draw State)_
+
+Hình 4.6 minh họa tư thế sẵn sàng vẽ nét không gian bằng cách duỗi thẳng ngón trỏ của bàn tay thuận và thu các ngón khác lại trong trạng thái ra lệnh vẽ. Cử chỉ này được thiết kế chuyên biệt để thực hiện vẽ các chữ cái động có quỹ đạo như J và Z. Người học di chuyển đầu ngón trỏ trong không gian để vẽ nét quỹ đạo mong muốn, hệ thống sẽ ghi nhận và vẽ đường nét bám sát theo chuyển động thực tế của đầu ngón tay. Học viên thả lỏng tư thế tay để kết thúc nét vẽ và kích hoạt bộ so khớp quỹ đạo.
+
+> **Hình 4.7:** _Cử chỉ vẫy tay chào (Wave Gesture)_
+
+Hình 4.7 thể hiện cử chỉ giơ bàn tay lên cao và lắc nhẹ sang hai bên một cách tự nhiên. Khi thực hành ở sảnh hành lang chính hoặc lúc mới bước vào các phòng học chuyên đề, cử chỉ này được hệ thống nhận dạng để tạo ra tương tác chào hỏi thân thiện ban đầu với giảng viên ảo Kyle, kích hoạt chuỗi hội thoại chào mừng và hướng dẫn bài học sinh động từ Kyle.
 
 ---
 
@@ -199,8 +217,8 @@ Hệ thống bài học được phân chia thành 3 phòng học tương ứng 
 
 Hệ thống giao diện 3D lập thể được thiết kế hướng mục tiêu tối ưu tầm nhìn và giảm thiểu hiện tượng che khuất camera:
 
-- **Wrist Dashboard UI**: Giao diện phẳng 2D được đặt trên Canvas World Space gắn trực tiếp vào xương cổ tay trái/phải. Hệ thống tự động vô hiệu hóa thành phần Layout Group tĩnh ngay sau khi sắp xếp UI xong (`VerticalLayoutGroup.enabled = false`) để loại bỏ việc Unity rebuild UI liên tục mỗi khung hình, đảm bảo FPS tối đa.
-  - _Hình 4.3_: Bản phác thảo thiết kế giao diện Wrist Dashboard trên cổ tay người học.
+- **Bảng điều khiển đeo tay**: Giao diện phẳng 2D được đặt trên Canvas World Space gắn trực tiếp vào phía trên xương cổ tay trái/phải như một mặt đồng hồ thông minh. Hệ thống tự động vô hiệu hóa thành phần Layout Group tĩnh ngay sau khi sắp xếp UI xong (`VerticalLayoutGroup.enabled = false`) để loại bỏ việc Unity rebuild UI liên tục mỗi khung hình, đảm bảo FPS tối đa.
+  - _Hình 4.3_: Bản phác thảo thiết kế giao diện bảng đeo tay trên cổ tay người học.
 - **Quiz Board**: Bảng giao diện 3D lớn hiển thị câu hỏi kiểm tra, hình ảnh minh họa sắc nét và dòng ô trống đáp án thời gian thực. Các ký tự hiển thị được tăng kích thước lớn từ `<size=180%>` đến `<size=200%>` với màu be chủ đạo tạo cảm giác premium dễ chịu.
   - _Hình 4.4_: Thiết kế giao diện Quiz Board khi thực hiện đánh vần từ.
 - **Billboard tự hướng mặt người chơi (UIFaceCamera)**: Các nhãn Canvas lơ lửng hướng dẫn được lập trình tự động xoay quanh trục Y để luôn hướng vuông góc thẳng trực diện về phía Camera kính HMD của người học, giúp thông tin luôn hiển thị rõ ràng ở mọi góc đứng thực hành.
@@ -239,7 +257,7 @@ Sơ đồ kết nối thông tin tổng quan của hệ thống tương tác Eve
 - **[Hình 4.2]**: _Sơ đồ gói (Package Diagram) phân rã 3 lớp của ứng dụng._
   1.  _Gói Tầng Cảm Biến/Input Layer (`Input & Sensoring Gói`)_: Gồm `XR Origin`, `XR Hand Tracking Events`, các bộ bắt khớp `StaticHandGesture` và `VRMagicTrajectory`.
   2.  _Gói Tầng Điều Khiển/Broker Layer (`Core Control & Broker Gói`)_: Trái tim xử lý dữ liệu gồm bộ trung chuyển sự kiện `GestureHub`, bộ quản lý tiến trình mở khóa `ProgressManager`, bộ chuyển pha phòng học `ClassroomManager`.
-  3.  _Gói Tầng Giao Diện/Presentation Layer (`UI & View Presentation Gói`)_: Quản lý giao diện hiển thị 3D gồm bảng thi `Quiz Board` (chứa `QuizManager`), menu cổ tay `WristDashboardUI`, bảng xoay hướng camera `UIFaceCamera` và mô hình hoạt ảnh hướng dẫn `NPC Kyle Controller`.
+  3.  _Gói Tầng Giao Diện/Presentation Layer (`UI & View Presentation Gói`)_: Quản lý giao diện hiển thị 3D gồm bảng thi `Quiz Board` (chứa `QuizManager`), bảng đeo tay `WristDashboardUI`, bảng xoay hướng camera `UIFaceCamera` và mô hình hoạt ảnh hướng dẫn `NPC Kyle Controller`.
 
 ---
 
