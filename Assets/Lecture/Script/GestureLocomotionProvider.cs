@@ -153,16 +153,10 @@ public class GestureLocomotionProvider : MonoBehaviour
 
         Vector3 moveDirection = Vector3.zero;
 
-        // Add Left Hand pointing direction
-        if (m_LeftHandPointing)
+        // Only move if BOTH hands are actively performing the pointing gesture!
+        if (m_LeftHandPointing && m_RightHandPointing)
         {
-            moveDirection += m_LeftHandDirection;
-        }
-
-        // Add Right Hand pointing direction
-        if (m_RightHandPointing)
-        {
-            moveDirection += m_RightHandDirection;
+            moveDirection = (m_LeftHandDirection + m_RightHandDirection).normalized;
         }
 
         // Apply movement if any hand is actively pointing
