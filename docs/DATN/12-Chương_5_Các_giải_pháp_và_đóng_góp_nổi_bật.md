@@ -1,35 +1,18 @@
 # CHƯƠNG 5. THỰC NGHIỆM VÀ ĐÁNH GIÁ
 
-## 5.2 Thiết kế kiến trúc
+## 5.1 Thiết kế kiến trúc
 
-### 5.2.1 Lựa chọn kiến trúc phần mềm
+### 5.1.1 Lựa chọn kiến trúc phần mềm
 
-Hệ thống bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo được xây dựng dựa trên mô hình Kiến trúc dựa trên thành phần (Component-Based Architecture), một phương pháp tiếp cận phổ biến và được hỗ trợ tự nhiên bởi môi trường phát triển Unity Engine. Nguyên tắc cốt lõi của kiến trúc này là xây dựng các đối tượng ảo phức tạp (GameObjects) bằng cách tổng hợp từ nhiều thành phần độc lập (Components), mỗi thành phần đóng gói một logic hoặc tập dữ liệu cụ thể. Để tách biệt rõ ràng giữa xử lý logic nghiệp vụ và giao diện trình diễn, đồng thời tối ưu hóa tính năng tương tác hand tracking, hệ thống được tinh chỉnh và phân chia thành bốn lớp logic chính:
+Hệ thống bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR) được xây dựng dựa trên mô hình Kiến trúc dựa trên thành phần (Component-Based Architecture), một phương pháp tiếp cận phổ biến và được hỗ trợ tự nhiên bởi môi trường phát triển Unity Engine. Nguyên tắc cốt lõi của kiến trúc này là xây dựng các đối tượng (GameObjects) bằng cách tổng hợp từ nhiều thành phần độc lập (Components), mỗi thành phần đóng gói một logic hoặc tập dữ liệu cụ thể. Để tách biệt rõ ràng giữa xử lý logic nghiệp vụ và giao diện trình diễn, đồng thời tối ưu hóa tính năng tương tác hand tracking, hệ thống được tinh chỉnh và phân chia thành bốn lớp logic chính hoạt động độc lập nhằm phân tách các mối quan tâm khác nhau.
 
-**Lớp Dữ liệu Học thuật (Academic Data Layer):**
-Chịu trách nhiệm định nghĩa các cấu trúc dữ liệu tĩnh phục vụ cho chương trình giảng dạy. Trái tim của lớp này là các lớp kế thừa từ ScriptableObject bao gồm PracticeData (lưu trữ từ vựng đích và chuỗi các cử chỉ tay cần thực hiện tuần tự) và QuizData (định nghĩa câu hỏi thi, hình ảnh ký hiệu mẫu, âm thanh phát âm và mảng đáp án cử chỉ chuẩn correctGestureIDs). Thiết kế này tách rời hoàn toàn nội dung bài học ra khỏi logic lập trình, cho phép bổ sung, chỉnh sửa học liệu trực tiếp từ Editor của Unity mà không cần biên dịch lại mã nguồn.
+Lớp Dữ liệu Học thuật (Academic Data Layer) chịu trách nhiệm định nghĩa các cấu trúc dữ liệu tĩnh phục vụ cho chương trình giảng dạy. Trái tim của lớp này bao gồm PracticeData dùng để lưu trữ từ vựng đích và chuỗi các cử chỉ tay cần thực hiện tuần tự và QuizData dùng để định nghĩa câu hỏi thi, hình ảnh ký hiệu mẫu, âm thanh phát âm và đáp án cử chỉ. Thiết kế này tách rời hoàn toàn nội dung bài học ra khỏi logic lập trình, cho phép bổ sung, chỉnh sửa học liệu trực tiếp từ Editor của Unity mà không cần biên dịch lại mã nguồn.
 
-**Lớp Thu thập và Nhận dạng Cử chỉ (Gesture Capture & Recognition Layer):**
-Có nhiệm vụ thu nhận dữ liệu khớp xương tay thô (26 khớp xương của bàn tay vật lý) từ cảm biến camera của thiết bị đeo đầu (Head-Mounted Display - HMD) thông qua bộ công cụ Unity XR Hands (XRHandTrackingEvents). Lớp này xử lý nhận dạng qua hai kênh:
+Lớp Thu thập và Nhận dạng Cử chỉ (Gesture Capture & Recognition Layer) có nhiệm vụ thu nhận dữ liệu 26 khớp xương tay của bàn tay vật lý từ cảm biến camera của thiết bị đeo đầu thông qua bộ công cụ Unity XR Hands. Lớp này xử lý nhận dạng qua hai kênh song song bao gồm nhận dạng tĩnh để so khớp các góc gập khớp ngón tay vật lý với các mẫu tư thế tay đã cấu hình sẵn baseHandShape, và nhận dạng động sử dụng lớp VRMagicTrajectory để bắt tọa độ di chuyển của đầu ngón trỏ IndexTip (đầu ngón trỏ) khi người học uốn tay ở một tư thế nền nhất định. Toàn bộ cử chỉ nhận dạng thành công được đồng bộ và xuất bản thông qua lớp trung gian GestureHub hoạt động như một Bộ trung chuyển sự kiện bằng sự kiện tĩnh toàn cục OnGestureDetected.
 
-- _Nhận dạng tĩnh (Static Gesture):_ So khớp các góc gập khớp ngón tay vật lý với các mẫu tư thế tay đã cấu hình sẵn baseHandShape.
-- _Nhận dạng động (Dynamic Gesture):_ Sử dụng lớp VRMagicTrajectory để bắt tọa độ di chuyển của đầu ngón trỏ IndexTip khi người học uốn tay ở một tư thế nền nhất định. Tọa độ 3D này được chiếu song song lên mặt phẳng 2D cục bộ trước mắt camera người dùng bằng phương pháp Chiếu tọa độ cục bộ (Local Space Projection) nhằm loại bỏ sai lệch vị trí đứng, sau đó được đưa vào giải thuật $1 Unistroke (VRMagicUnistroke) sử dụng giải thuật tìm kiếm tỷ lệ vàng (Golden Section Search) để so khớp nét vẽ chữ cái J và Z.
-- _Đồng bộ sự kiện:_ Toàn bộ cử chỉ nhận dạng thành công được xuất bản thông qua lớp trung gian GestureHub hoạt động như một Bộ trung chuyển sự kiện (Event Broker) bằng sự kiện tĩnh toàn cục OnGestureDetected.
+Lớp Logic Sư phạm và Đánh giá (Pedagogical Logic & Evaluation Layer) đóng vai trò là bộ não điều phối các quy tắc học tập và chấm điểm. Trong lớp này, lớp GestureLesson đăng ký lắng nghe sự kiện của GestureHub để kiểm tra thời gian người học giữ đúng cử chỉ tay theo mẫu và cập nhật vòng tiến trình. Lớp QuizManager quản lý quá trình thi cử, tự động nạp câu hỏi từ QuizData, kiểm tra đáp án, và áp dụng các cơ chế sư phạm giảm áp lực phòng thi bằng phương pháp Trò chơi hóa (Gamification) như lỗi sai ẩn (hiddenMistakes), thời gian vô địch tạm thời (invincibilityDuration), và danh sách cử chỉ được miễn phạt (noPenaltyGestures). Lớp ProgressManager thiết kế theo mẫu Thiết kế đơn thể (Singleton) quản lý tiến trình tổng thể của người học, thực hiện lưu trữ điểm số cao nhất của mỗi chủ đề thông qua PlayerPrefs và xử lý mở khóa phòng học mới khi người học đạt tối thiểu 80% điểm số ở chủ đề trước.
 
-**Lớp Logic Sư phạm và Đánh giá (Pedagogical Logic & Evaluation Layer):**
-Đóng vai trò là bộ não điều phối các quy tắc học tập và chấm điểm.
-
-- Lớp GestureLesson đăng ký lắng nghe sự kiện của GestureHub để kiểm tra thời gian người học giữ đúng cử chỉ tay theo mẫu (required hold time) và cập nhật vòng tiến trình.
-- Lớp QuizManager quản lý quá trình thi cử, tự động nạp câu hỏi từ QuizData, kiểm tra đáp án, và áp dụng các cơ chế sư phạm giảm áp lực phòng thi bằng phương pháp Trò chơi hóa (Gamification) như lỗi sai ẩn (hiddenMistakes), cửa sổ vô địch tạm thời (invincibilityDuration), và danh sách cử chỉ được miễn phạt (noPenaltyGestures).
-- Lớp ProgressManager thiết kế theo mẫu Thiết kế đơn thể (Singleton) quản lý tiến trình tổng thể của người học, thực hiện lưu trữ điểm số cao nhất của mỗi chủ đề thông qua PlayerPrefs và xử lý mở khóa phòng học mới khi người học đạt tối thiểu 80% điểm số ở chủ đề trước.
-
-**Lớp Điều khiển và Trình diễn (Control & Presentation Layer):**
-Chịu trách nhiệm tương tác vật lý và hiển thị trực quan cho người học.
-
-- Lớp GestureLocomotionProvider thực hiện di chuyển mượt mà (Smooth Locomotion) cho người học trong môi trường 3D khi cả hai bàn tay cùng thực hiện cử chỉ chỉ tay trỏ về phía trước.
-- Lớp ClassroomManager quản lý các giai đoạn hiển thị của từng phòng học ảo (Lecture Phase và Quiz Phase) và kích hoạt bục dịch chuyển.
-- Lớp WristDashboardUI xử lý giao diện bảng tiến trình học gắn trên cổ tay người học.
-- Lớp NPCKyleController quản lý hoạt ảnh cử chỉ mẫu của giảng viên Kyle dựa trên Máy trạng thái hữu hạn (Finite State Machine - FSM) bao gồm vẫy tay chào và vỗ tay khích lệ.
+Lớp Điều khiển và Trình diễn (Control & Presentation Layer) chịu trách nhiệm tương tác vật lý và hiển thị trực quan cho người học. Lớp GestureLocomotionProvider thực hiện di chuyển mượt mà (Smooth Locomotion) cho người học trong môi trường 3D khi cả hai bàn tay cùng thực hiện cử chỉ chỉ tay trỏ về phía trước. Lớp ClassroomManager quản lý các giai đoạn hiển thị của từng phòng học ảo (Lecture Phase và Quiz Phase) và kích hoạt bục dịch chuyển. Lớp WristDashboardUI xử lý giao diện bảng tiến trình học gắn trên cổ tay người học. Lớp NPCKyleController quản lý hoạt ảnh cử chỉ mẫu của giảng viên Kyle dựa trên Máy trạng thái hữu hạn (Finite State Machine - FSM) bao gồm vẫy tay chào và vỗ tay khích lệ.
 
 ---
 
@@ -471,3 +454,49 @@ graph LR
 ```
 
 Mỗi khi người học hoàn thành bài thi tại QuizManager, điểm số phần trăm mới sẽ được so sánh với giá trị tốt nhất hiện tại. Nếu điểm số mới cao hơn, phương thức SaveTopicScore sẽ thực hiện lưu đè giá trị mới vào PlayerPrefs và gọi hàm Save để ghi nhận vĩnh viễn vào bộ nhớ flash của kính VR, đảm bảo tiến trình tự học của người học không bị mất khi tắt ứng dụng hoặc khởi động lại thiết bị.
+
+---
+
+## 5.4 Xây dựng ứng dụng
+
+### 5.4.1 Thư viện và công cụ sử dụng
+
+Dưới đây là danh sách chi tiết các công cụ phần mềm, ngôn ngữ lập trình, bộ phát triển phần mềm (Software Development Kit - SDK) và thư viện liên kết được sử dụng xuyên suốt quá trình xây dựng bài giảng tương tác ASL VR:
+
+| Mục đích                     | Công cụ / Thư viện     | Phiên bản   | Địa chỉ URL                                                |
+| :--------------------------- | :--------------------- | :---------- | :--------------------------------------------------------- |
+| **Môi trường phát triển**    | Unity Editor           | 2022.3.50f1 | unity.com                                                  |
+| **Trình soạn thảo mã nguồn** | Visual Studio Code     | 1.85        | code.visualstudio.com                                      |
+| **Giao tiếp kính VR**        | OpenXR Plugin          | 1.10.0      | docs.unity3d.com/Packages/com.unity.xr.openxr              |
+| **Theo dõi bàn tay**         | Unity XR Hands         | 1.4.3       | docs.unity3d.com/Packages/com.unity.xr.hands               |
+| **Tương tác thực tế ảo**     | XR Interaction Toolkit | 2.5.2       | docs.unity3d.com/Packages/com.unity.xr.interaction.toolkit |
+| **Hiển thị văn bản 3D**      | TextMesh Pro           | 3.0.6       | docs.unity3d.com/Packages/com.unity.textmeshpro            |
+
+> **Bảng 5.2:** _Danh sách thư viện và công cụ sử dụng_
+
+---
+
+### 5.4.2 Kết quả đạt được
+
+Quá trình phát triển đã xây dựng thành công ứng dụng bài giảng tương tác ASL VR hoàn chỉnh dưới dạng tệp cài đặt chạy trực tiếp trên thiết bị kính. Mã nguồn được tổ chức chặt chẽ thành 5 gói chính như đã thiết kế ở phần thiết kế kiến trúc, mỗi gói đóng gói một nhóm chức năng chuyên biệt:
+
+1. **GestureRecognition_Package:** Chứa toàn bộ logic nhận diện các cử chỉ tay tĩnh và động cùng bộ trung chuyển sự kiện. Gói này có tính mô-đun hóa cao, có thể tái sử dụng trực tiếp cho các dự án game thực tế ảo khác có yêu cầu tương tác tay trần.
+2. **QuizSystem_Package:** Quản lý logic nạp câu hỏi, chấm điểm, áp dụng các cơ chế trò chơi hóa thi cử và điều khiển bảng thi 3D.
+3. **Orchestration_Package:** Quản lý các trạng thái phòng học ảo, bục dịch chuyển và tiến trình mở khóa bài học dựa trên kết quả thi lưu trữ.
+4. **InteractionLocomotion_Package:** Điều khiển cơ chế di chuyển rẽ hướng theo cử chỉ chỉ tay trỏ của người học và quản lý giao diện bảng đeo cổ tay.
+5. **NPC_Package:** Quản lý hoạt ảnh và máy trạng thái hành vi phản hồi của giảng viên ảo Kyle.
+
+Dưới đây là bảng thông số thống kê chi tiết về số lượng lớp, số lượng dòng code (Lines of Code - LOC) và dung lượng mã nguồn của từng gói logic trong dự án:
+
+| Tên gói (Package Name)            | Số lượng lớp | Số dòng code (LOC) | Kích thước gói |
+| :-------------------------------- | :----------: | :----------------: | :------------: |
+| **GestureRecognition_Package**    |      5       |        526         |    18,0 KB     |
+| **QuizSystem_Package**            |      3       |        488         |    24,0 KB     |
+| **Orchestration_Package**         |      3       |        265         |    11,0 KB     |
+| **InteractionLocomotion_Package** |      5       |        466         |    20,6 KB     |
+| **NPC_Package**                   |      3       |        339         |    12,2 KB     |
+| **Tổng cộng**                     |    **19**    |     **2.084**      |  **85,8 KB**   |
+
+> **Bảng 5.3:** _Thông số chi tiết các gói mã nguồn của ứng dụng_
+
+Việc module hóa sâu sắc các gói mã nguồn giúp tổng thể ứng dụng đạt hiệu suất xử lý tối ưu, dễ bảo trì và mở rộng thêm nhiều phòng học chuyên đề hoặc từ vựng mới trong tương lai mà không làm ảnh hưởng đến cấu trúc nền tảng của hệ thống.
