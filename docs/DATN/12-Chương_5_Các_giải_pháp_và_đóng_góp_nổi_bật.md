@@ -1,60 +1,473 @@
-# CHƯƠNG 5. CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT
+# CHƯƠNG 5. THỰC NGHIỆM VÀ ĐÁNH GIÁ
 
-Đồ án tốt nghiệp **"Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo"** không chỉ dừng lại ở việc lắp ghép các bộ công cụ có sẵn, mà đã nghiên cứu, thử nghiệm và đóng góp 3 giải pháp công nghệ - sư phạm nổi bật cho lĩnh vực công nghệ giáo dục EdTech VR.
+## 5.2 Thiết kế kiến trúc
 
----
+### 5.2.1 Lựa chọn kiến trúc phần mềm
 
-## 5.1 Giải pháp chiếu nét vẽ 2D cục bộ trong không gian thực tế ảo phục vụ nhận dạng cử chỉ chữ viết động (J, Z)
+Hệ thống bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo được xây dựng dựa trên mô hình Kiến trúc dựa trên thành phần (Component-Based Architecture), một phương pháp tiếp cận phổ biến và được hỗ trợ tự nhiên bởi môi trường phát triển Unity Engine. Nguyên tắc cốt lõi của kiến trúc này là xây dựng các đối tượng ảo phức tạp (GameObjects) bằng cách tổng hợp từ nhiều thành phần độc lập (Components), mỗi thành phần đóng gói một logic hoặc tập dữ liệu cụ thể. Để tách biệt rõ ràng giữa xử lý logic nghiệp vụ và giao diện trình diễn, đồng thời tối ưu hóa tính năng tương tác hand tracking, hệ thống được tinh chỉnh và phân chia thành bốn lớp logic chính:
 
-### 5.1.1 Đặt vấn đề
-Trong ngôn ngữ ký hiệu ASL, các chữ cái **`J`** và **`Z`** bắt buộc phải sử dụng chuyển động vẽ nét tay (ngón trỏ di chuyển vẽ hình cái móc hoặc hình chữ Z trong không gian). Nhận diện các chữ cái này bằng công nghệ so khớp tư thế ngón tay tĩnh (Static Hand Shape) của XR Hands hoàn toàn thất bại vì:
-* Hình dạng các ngón tay liên tục thay đổi trong suốt quá trình vẽ nét.
-* Cảm biến camera hồng ngoại của kính VR dễ bị mất dấu khớp xương ngón tay khi tay di chuyển nhanh ngoài vùng bắt tiêu chuẩn.
-* Người học có thể đứng ở bất kỳ vị trí và hướng nhìn nào trong phòng học ảo, dẫn đến tọa độ nét vẽ 3D trong không gian thế giới (World Space Coordinates) của mỗi lần vẽ hoàn toàn khác xa nhau, không thể dùng làm dữ liệu so khớp mẫu.
+**Lớp Dữ liệu Học thuật (Academic Data Layer):**
+Chịu trách nhiệm định nghĩa các cấu trúc dữ liệu tĩnh phục vụ cho chương trình giảng dạy. Trái tim của lớp này là các lớp kế thừa từ ScriptableObject bao gồm PracticeData (lưu trữ từ vựng đích và chuỗi các cử chỉ tay cần thực hiện tuần tự) và QuizData (định nghĩa câu hỏi thi, hình ảnh ký hiệu mẫu, âm thanh phát âm và mảng đáp án cử chỉ chuẩn correctGestureIDs). Thiết kế này tách rời hoàn toàn nội dung bài học ra khỏi logic lập trình, cho phép bổ sung, chỉnh sửa học liệu trực tiếp từ Editor của Unity mà không cần biên dịch lại mã nguồn.
 
-### 5.1.2 Giải pháp đề xuất
-Đồ án đề xuất giải pháp kỹ thuật đột phá thông qua bộ nhận dạng nét vẽ **`VRMagicTrajectory`** kết hợp chiếu tọa độ cục bộ (Local Space Projection):
-1. **Lấy ngón trỏ làm bút vẽ**: Sử dụng đầu ngón trỏ `XRHandJointID.IndexTip` làm điểm bắt tọa độ. Hệ thống chỉ ghi nhận điểm khi người học giữ tay ở một tư thế nền nhất định (`baseHandShape`).
-2. **Chiếu tọa độ song song 2D cục bộ**: Thay vì lấy tọa độ thế giới 3D, hệ thống chiếu song song các tọa độ này lên hệ trục tọa độ cục bộ của Camera người chơi (`playerCamera` đại diện cho góc nhìn HMD) bằng phương thức:
-   ```csharp
-   Vector3 localPoint = playerCamera.InverseTransformPoint(wp);
-   ```
-   Tọa độ `localPoint.x` và `localPoint.y` biểu diễn hoàn hảo quỹ đạo nét vẽ trên một mặt phẳng phẳng 2D giả tưởng luôn song song thẳng đứng ngay trước mắt người học, bất kể người học đang đứng ở đâu hay quay mặt về hướng nào trong phòng 3D.
-3. **Chuẩn hóa nét vẽ đơn ($1 Unistroke)**: Chuỗi các điểm 2D cục bộ này được đưa vào bộ nhận diện $1 Unistroke để chuẩn hóa về kích thước và trọng tâm, sau đó so khớp bằng giải thuật tìm kiếm tỉ lệ vàng (Golden Section Search) với nét vẽ chữ mẫu J hoặc Z.
+**Lớp Thu thập và Nhận dạng Cử chỉ (Gesture Capture & Recognition Layer):**
+Có nhiệm vụ thu nhận dữ liệu khớp xương tay thô (26 khớp xương của bàn tay vật lý) từ cảm biến camera của thiết bị đeo đầu (Head-Mounted Display - HMD) thông qua bộ công cụ Unity XR Hands (XRHandTrackingEvents). Lớp này xử lý nhận dạng qua hai kênh:
 
-### 5.1.3 Kết quả đạt được
-Giải pháp này giúp hệ thống đạt tỉ lệ nhận dạng chữ **`J`** và **`Z`** chính xác vượt trội (**87.3%**), giải quyết triệt để hạn chế kỹ thuật nhận diện cử chỉ động mà hầu hết các ứng dụng ASL VR hiện tại trên cửa hàng Meta Horizon Store bỏ qua.
+- _Nhận dạng tĩnh (Static Gesture):_ So khớp các góc gập khớp ngón tay vật lý với các mẫu tư thế tay đã cấu hình sẵn baseHandShape.
+- _Nhận dạng động (Dynamic Gesture):_ Sử dụng lớp VRMagicTrajectory để bắt tọa độ di chuyển của đầu ngón trỏ IndexTip khi người học uốn tay ở một tư thế nền nhất định. Tọa độ 3D này được chiếu song song lên mặt phẳng 2D cục bộ trước mắt camera người dùng bằng phương pháp Chiếu tọa độ cục bộ (Local Space Projection) nhằm loại bỏ sai lệch vị trí đứng, sau đó được đưa vào giải thuật $1 Unistroke (VRMagicUnistroke) sử dụng giải thuật tìm kiếm tỷ lệ vàng (Golden Section Search) để so khớp nét vẽ chữ cái J và Z.
+- _Đồng bộ sự kiện:_ Toàn bộ cử chỉ nhận dạng thành công được xuất bản thông qua lớp trung gian GestureHub hoạt động như một Bộ trung chuyển sự kiện (Event Broker) bằng sự kiện tĩnh toàn cục OnGestureDetected.
 
----
+**Lớp Logic Sư phạm và Đánh giá (Pedagogical Logic & Evaluation Layer):**
+Đóng vai trò là bộ não điều phối các quy tắc học tập và chấm điểm.
 
-## 5.2 Giải pháp giảm thiểu xao nhãng thị giác và tăng cường động lực học tập thông qua cơ chế Gamification phòng thi tinh tế
+- Lớp GestureLesson đăng ký lắng nghe sự kiện của GestureHub để kiểm tra thời gian người học giữ đúng cử chỉ tay theo mẫu (required hold time) và cập nhật vòng tiến trình.
+- Lớp QuizManager quản lý quá trình thi cử, tự động nạp câu hỏi từ QuizData, kiểm tra đáp án, và áp dụng các cơ chế sư phạm giảm áp lực phòng thi bằng phương pháp Trò chơi hóa (Gamification) như lỗi sai ẩn (hiddenMistakes), cửa sổ vô địch tạm thời (invincibilityDuration), và danh sách cử chỉ được miễn phạt (noPenaltyGestures).
+- Lớp ProgressManager thiết kế theo mẫu Thiết kế đơn thể (Singleton) quản lý tiến trình tổng thể của người học, thực hiện lưu trữ điểm số cao nhất của mỗi chủ đề thông qua PlayerPrefs và xử lý mở khóa phòng học mới khi người học đạt tối thiểu 80% điểm số ở chủ đề trước.
 
-### 5.2.1 Đặt vấn đề
-Trong quá trình làm bài thi kiểm tra (Exam Mode), việc cảm biến tay của kính VR đôi khi bắt lệch góc ngón tay hoặc bị che khuất trong một mili-giây (gọi là nhiễu cảm biến) dễ khiến hệ thống hiểu nhầm người học làm sai cử chỉ. Nếu hệ thống trừ điểm phạt trực tiếp ngay lập tức, người học sẽ bị rơi vào trạng thái ức chế tâm lý nặng nề, phá vỡ động lực học tập nhập vai.
+**Lớp Điều khiển và Trình diễn (Control & Presentation Layer):**
+Chịu trách nhiệm tương tác vật lý và hiển thị trực quan cho người học.
 
-### 5.2.2 Giải pháp đề xuất
-Đồ án tích hợp cơ chế Gamification thông minh nhằm giảm thiểu áp lực thi cử và bảo vệ tâm lý người chơi:
-1. **Cơ chế Sai lầm ẩn (Hidden Mistakes)**: Người học làm sai cử chỉ không bị trừ điểm phạt ngay. Hệ thống cho phép gõ sai tối đa 3 lần (`hiddenMistakes++`) mới quy đổi thành 1 lỗi phạt chính thức (`currentQuestionMistakes++`). Trong lúc sai ẩn, hệ thống hoàn toàn im lặng, không đổi màu chữ đỏ để người học tự tin điều chỉnh ngón tay mà không bị phân tâm.
-2. **Cơ chế Cửa sổ vô địch (Invincibility Window)**: Ngay sau khi người học mắc 1 lỗi phạt chính thức đầu tiên, hệ thống kích hoạt cửa sổ vô địch ẩn trong vòng `invincibilityDuration` (2.5s). Trong khoảng thời gian này, mọi cử chỉ tay gõ sai do người chơi đang cuống cuồng điều chỉnh tay đều được hệ thống bỏ qua và miễn phạt điểm.
-3. **Cơ chế miễn phạt hoàn toàn cho chữ cái động (`noPenaltyGestures`)**: Hai chữ cái khó nhất là `J` và `Z` được xếp vào danh sách miễn phạt điểm. Người học có thể vẽ sai vô số lần tại câu hỏi này và thoải mái thử lại cho đến khi đúng mà không hề bị tính lỗi phạt.
-
-### 5.2.3 Ý nghĩa EdTech
-Về mặt EdTech, giải pháp này giúp duy trì trạng thái tập trung cao độ (**Flow state**) của người học. Người học không bị ức chế bởi các hạn chế vật lý của cảm biến kính VR, tạo ra trải nghiệm thi cử mang tính xây dựng và động lực học tập bền vững.
+- Lớp GestureLocomotionProvider thực hiện di chuyển mượt mà (Smooth Locomotion) cho người học trong môi trường 3D khi cả hai bàn tay cùng thực hiện cử chỉ chỉ tay trỏ về phía trước.
+- Lớp ClassroomManager quản lý các giai đoạn hiển thị của từng phòng học ảo (Lecture Phase và Quiz Phase) và kích hoạt bục dịch chuyển.
+- Lớp WristDashboardUI xử lý giao diện bảng tiến trình học gắn trên cổ tay người học.
+- Lớp NPCKyleController quản lý hoạt ảnh cử chỉ mẫu của giảng viên Kyle dựa trên Máy trạng thái hữu hạn (Finite State Machine - FSM) bao gồm vẫy tay chào và vỗ tay khích lệ.
 
 ---
 
-## 5.3 Các module có thể tái sử dụng trong EdTech VR
+### 5.2.2 Thiết kế tổng quan
 
-Để hỗ trợ cộng đồng phát triển game VR giáo dục tương tự trong tương lai, đồ án đã module hóa sâu sắc các lớp lập trình cốt lõi, biến chúng thành các khối xây dựng độc lập (Reusable Modules) có khả năng tái sử dụng tức thì:
+Mã nguồn của hệ thống tương tác ASL VR được tổ chức thành năm gói chính: GestureRecognition_Package, Orchestration_Package, QuizSystem_Package, InteractionLocomotion_Package, và NPC_Package. Cấu trúc này tuân thủ nguyên tắc thiết kế phân lớp, đảm bảo tính phụ thuộc một chiều từ các lớp tương tác, trình diễn cấp cao xuống các lớp xử lý logic cốt lõi và dữ liệu cấp thấp, giảm thiểu tối đa hiện tượng liên kết vòng.
 
-### 5.3.1 Module GestureHub (Event Broker & Equivalence)
-* **Chức năng**: Cung cấp bộ trung chuyển sự kiện cử chỉ tĩnh toàn cục độc lập. Đã lập trình sẵn cơ chế AreEquivalent gom nhóm cử chỉ tay tương đương cho các chữ cái dễ nhầm lẫn như `M`, `N`, `T`, `S`, `E`.
-* **Khả năng tái sử dụng**: Nhà phát triển khác có thể import module này vào bất kỳ dự án Unity VR nào khác có sử dụng Hand Tracking để thu nhận sự kiện gõ phím cử chỉ mà không cần viết lại hệ thống sự kiện từ đầu.
+Biểu đồ gói UML dưới đây mô tả cấu trúc phân rã các gói và mối quan hệ phụ thuộc giữa chúng:
 
-### 5.3.2 Module TrajectoryRecognizer (Generic VR Drawing Engine)
-* **Chức năng**: Module trọn gói gồm tệp `TrajectoryRecognizer.cs` và `UnistrokeRecognizer.cs` quản lý toàn bộ quy trình: Bắt đầu vẽ bám theo xương tay -> Hiển thị nét vẽ LineRenderer -> Chiếu tọa độ cục bộ Camera 2D -> Chuẩn hóa toán học và chạy so khớp $1 Unistroke.
-* **Khả năng tái sử dụng**: Module có thể tái sử dụng để xây dựng các trò chơi VR vẽ phép thuật, vẽ ký hiệu mở cửa mật mã, vẽ hình học dạy toán học, hoặc nhận diện chữ số động bất kỳ bằng cách chỉ cần định nghĩa thêm tọa độ mẫu Template trong mã nguồn.
+```mermaid
+graph TD
+    %% Định nghĩa các gói chính
+    subgraph InteractionLocomotion_Package [Interaction & UI Package]
+        loc[GestureLocomotionProvider]
+        wrist[WristDashboardUI]
+        follow[WristFollower]
+        face[UIFaceCamera]
+    end
 
-### 5.3.3 Module QuizManager (SO-based VR Quiz Engine)
-* **Chức năng**: Bộ engine quản lý bài thi VR 3D cực kỳ linh hoạt. Điều phối toàn bộ luồng: Tải câu hỏi từ Scriptable Object, hiển thị hình ảnh/âm thanh phát âm, điền từ chỗ trống tự động (`AutoAdvanceGapFill`), và chạy 3 cơ chế giảm áp lực phòng thi (Hidden, Invincibility, No-penalty).
-* **Khả năng tái sử dụng**: Nhà phát triển khác chỉ cần kéo prefab Quiz Board vào Scene mới, tạo các file dữ liệu câu hỏi `QuizData` (.asset) của riêng họ (ví dụ: thi học từ vựng tiếng Anh, thi toán học số học) nạp vào QuizManager là đã có ngay một hệ thống thi VR lập thể 3D chuyên nghiệp mà không cần sửa đổi một dòng code logic nào.
+    subgraph NPC_Package [NPC Controller Package]
+        kyle[NPCKyleController]
+        lobby[NPCLobbyInstructorController]
+        prompter[RecordingPrompter]
+    end
+
+    subgraph Orchestration_Package [Progration & Orchestration Package]
+        progress[ProgressManager - Singleton]
+        classroom[ClassroomManager]
+        topic[GestureTopicController]
+    end
+
+    subgraph QuizSystem_Package [Quiz System Package]
+        quiz[QuizManager]
+        trigger[GestureTrigger]
+    end
+
+    subgraph GestureRecognition_Package [Gesture Recognition Package]
+        hub[GestureHub - Event Broker]
+        lesson[GestureLesson]
+        traj[VRMagicTrajectory]
+        uni[VRMagicUnistroke]
+    end
+
+    subgraph Data_Package [Data Package]
+        qdata[QuizData - ScriptableObject]
+        pdata[PracticeData - ScriptableObject]
+    end
+
+    %% Mối quan hệ phụ thuộc
+    InteractionLocomotion_Package --> Orchestration_Package
+    InteractionLocomotion_Package --> GestureRecognition_Package
+    NPC_Package --> Orchestration_Package
+    Orchestration_Package --> QuizSystem_Package
+    QuizSystem_Package --> GestureRecognition_Package
+    QuizSystem_Package --> Data_Package
+    GestureRecognition_Package --> Data_Package
+
+    style InteractionLocomotion_Package fill:#d4edda,stroke:#28a745,stroke-width:1px;
+    style NPC_Package fill:#fff3cd,stroke:#ffc107,stroke-width:1px;
+    style Orchestration_Package fill:#f8d7da,stroke:#dc3545,stroke-width:1px;
+    style QuizSystem_Package fill:#cce5ff,stroke:#004085,stroke-width:1px;
+    style GestureRecognition_Package fill:#e2e3e5,stroke:#383d41,stroke-width:1px;
+    style Data_Package fill:#fefefe,stroke:#999,stroke-width:1px,stroke-dasharray: 5 5;
+```
+
+- **GestureRecognition_Package:** Đóng vai trò là nền tảng nhận dạng và phân phối cử chỉ tay. Gói này cung cấp sự kiện tĩnh thông qua GestureHub để tất cả các gói khác đăng ký sử dụng.
+- **QuizSystem_Package:** Quản lý logic chấm điểm, nạp dữ liệu thi. Gói này phụ thuộc vào GestureRecognition_Package để lấy đáp án cử chỉ nhập vào và phụ thuộc vào Data_Package để lấy nội dung câu hỏi.
+- **Orchestration_Package:** Đóng vai trò điều phối tiến trình và trạng thái phòng học ảo. Gói này quản lý việc kích hoạt phòng học và giao tiếp với QuizSystem_Package để bắt đầu bài thi.
+- **InteractionLocomotion_Package:** Quản lý tương tác UI của người chơi và cơ chế di chuyển trong thế giới 3D. Gói này phụ thuộc vào Orchestration_Package để lấy spawn point và cập nhật điểm số lên Wrist UI.
+- **NPC_Package:** Điều khiển giảng viên Kyle, nhận các tín hiệu trạng thái từ Orchestration_Package để thay đổi trạng thái hoạt ảnh.
+
+---
+
+### 5.2.3 Thiết kế chi tiết gói
+
+Biểu đồ lớp UML chi tiết dưới đây mô tả cấu trúc và mối quan hệ giữa các lớp cốt lõi thuộc ba gói quan trọng nhất trong hệ thống: Orchestration_Package, QuizSystem_Package và GestureRecognition_Package.
+
+Thiết kế này thể hiện rõ ràng nguyên tắc hướng sự kiện để giảm liên kết chặt và thiết kế đơn thể để quản lý trạng thái tập trung:
+
+```mermaid
+classDiagram
+    %% Gói Orchestration
+    class ProgressManager {
+        +static ProgressManager Instance
+        +List~ClassroomManager~ classrooms
+        +GestureTopicController gestureTopicController
+        +float passingGrade
+        +Transform lobbySpawnPoint
+        +GameObject lobbyGestureGroup
+        +TeleportationProvider teleportProvider
+        +int defaultTopicIndex
+        +EnterLobby() void
+        +SaveTopicScore(int topicIndex, float percentage) void
+        +GetHighestScore(int topicIndex) float
+        +IsTopicUnlocked(int topicIndex) bool
+        +ApplyTopicChange(int newTopicIndex) bool
+    }
+
+    class ClassroomManager {
+        +int topicIndex
+        +GameObject lecturePhase
+        +GameObject quizPhase
+        +GameObject examEntranceUI
+        +TeleportationProvider teleportProvider
+        +GestureTopicController gestureTopicController
+        +NPCKyleController kyleController
+        +List~GameObject~ quizBoards
+        +EnterLectureMode() void
+        +EnterQuizMode() void
+        -MovePlayerToSpawn() void
+    }
+
+    class GestureTopicController {
+        +List~TopicGroup~ topics
+        +EnableTopicByIndex(int index) void
+        +GetSpawnPointByIndex(int index) Transform
+        +EnableTopic(string topicName) void
+    }
+
+    %% Gói Quiz System
+    class QuizManager {
+        +TMP_Text questionTextUI
+        +Image questionImageUI
+        +TMP_Text feedbackTextUI
+        +TMP_Text scoreTextUI
+        +GameObject examCanvas
+        +int topicIndex
+        +List~QuizData~ questionList
+        +float interQuestionDelay
+        +float interCharCooldown
+        +string[] noPenaltyGestures
+        +float invincibilityDuration
+        +AudioSource audioSource
+        +UnityEvent onExamFinished
+        -int currentQuestionIndex
+        -float score
+        -bool isExamActive
+        -List~string~ currentInputBuffer
+        -int currentQuestionMistakes
+        -int hiddenMistakes
+        +StartExam() void
+        +SubmitAnswer(string gestureID) void
+        +HandleDelete() void
+        -LoadQuestion(int index) void
+        -HandleCorrectPart(string gestureID) void
+        -HandleWrongInput(string expected, string gestureID) void
+        -EndExam() void
+    }
+
+    %% Gói Gesture Recognition
+    class GestureHub {
+        +static event Action~string~ OnGestureDetected
+        +static event Action~string~ OnGestureEnded
+        +static Publish(string gestureID, bool isDetected) void
+        +static AreEquivalent(string gestureA, string gestureB) bool
+    }
+
+    class GestureLesson {
+        +Image progressRing
+        +TMP_Text statusText
+        +float requiredHoldTime
+        +string targetGestureID
+        +string defaultMessage
+        +UnityEvent OnLessonFinished
+        -float currentHoldTime
+        -bool isGestureDetected
+        +SetGestureDetected(bool detected) void
+        -HandleGestureDetected(string id) void
+    }
+
+    class VRMagicTrajectory {
+        +string gestureID
+        +XRHandShape baseHandShape
+        +float matchThreshold
+        +LineRenderer lineRenderer
+        +Transform playerCamera
+        -bool isDrawing
+        -List~Vector3~ worldPoints
+        -StartDrawing() void
+        -RecordPoint(XRHandJointsUpdatedEventArgs args) void
+        -StopDrawingAndEvaluate() void
+    }
+
+    class VRMagicUnistroke {
+        +const int NumPoints
+        +const float SquareSize
+        +static Recognize(List~Point~ points, Template template) float
+        +static Normalize(List~Point~ points) List~Point~
+    }
+
+    %% Mối quan hệ giữa các lớp
+    ProgressManager "1" o-- "many" ClassroomManager : quản lý
+    ProgressManager "1" --> "1" GestureTopicController : điều phối
+    ClassroomManager "1" --> "1" GestureTopicController : lấy spawn point
+    ClassroomManager "1" o-- "many" QuizManager : chứa bảng thi
+
+    QuizManager ..> GestureHub : lắng nghe sự kiện cử chỉ
+    GestureLesson ..> GestureHub : lắng nghe sự kiện cử chỉ
+    VRMagicTrajectory ..> GestureHub : xuất bản sự kiện cử chỉ
+    VRMagicTrajectory --> VRMagicUnistroke : sử dụng giải thuật
+
+    %% Annotation/Mối quan hệ kết hợp/phụ thuộc
+    class TopicGroup {
+        +string topicName
+        +GameObject gestureGroupObject
+        +Transform topicSpawnPoint
+    }
+    GestureTopicController +-- TopicGroup
+```
+
+---
+
+## 5.3 Thiết kế chi tiết
+
+### 5.3.1 Thiết kế lớp
+
+Để làm rõ phương thức hoạt động và tương tác giữa các thực thể phần mềm trong bài giảng ASL VR, mục này trình bày chi tiết các thuộc tính và phương thức xử lý chính của ba lớp chủ đạo trong hệ thống, bao gồm QuizManager, VRMagicTrajectory và ProgressManager.
+
+#### a, Lớp QuizManager
+
+Lớp này chịu trách nhiệm điều phối toàn bộ quá trình thi cử của mỗi phòng học ảo, xử lý logic kiểm tra cử chỉ, cập nhật điểm số và áp dụng các cơ chế trò chơi hóa để giảm áp lực phòng thi cho học viên.
+
+- **Các thuộc tính quan trọng:**
+  - `questionTextUI`: Thành phần TMP_Text hiển thị nội dung câu hỏi hiện tại lên bảng thi 3D.
+  - `questionImageUI`: Thành phần Image hiển thị hình ảnh ký hiệu hoặc sơ đồ gợi ý tương ứng.
+  - `feedbackTextUI`: Thành phần TMP_Text hiển thị các phản hồi trực quan thời gian thực (như đúng, sai hoặc số lượt làm sai còn lại).
+  - `scoreTextUI`: Thành phần TMP_Text hiển thị điểm số tích lũy của học viên.
+  - `questionList`: Danh sách chứa các đối tượng câu hỏi QuizData nạp vào từ ScriptableObject.
+  - `currentQuestionIndex`: Chỉ số nguyên đại diện cho câu hỏi hiện tại đang xử lý.
+  - `score`: Giá trị thực lưu trữ điểm số tích lũy của người học trong bài thi hiện tại.
+  - `currentInputBuffer`: Bộ đệm danh sách chuỗi ký tự chứa các cử chỉ đã nhập đúng của câu hỏi hiện tại (phục vụ cho chế độ đánh vần).
+  - `currentQuestionMistakes`: Số lỗi phạt chính thức học viên đã mắc phải ở câu hỏi hiện tại (tối đa là 3 lỗi).
+  - `hiddenMistakes`: Số lỗi gõ sai ẩn tích lũy (3 lỗi ẩn quy đổi thành 1 lỗi phạt chính thức).
+  - `invincibilityEndTime`: Thời điểm kết thúc cửa sổ vô địch (sau khi mắc lỗi phạt đầu tiên, người học có 2.5 giây miễn phạt).
+- **Các phương thức chính:**
+  - `StartExam()`: Khởi động bài thi, reset điểm số và nạp câu hỏi đầu tiên.
+  - `LoadQuestion(index: int)`: Tải dữ liệu câu hỏi từ danh sách theo chỉ số chỉ định, xóa bộ đệm nhập liệu và cập nhật giao diện hiển thị câu hỏi.
+  - `SubmitAnswer(gestureID: string)`: Phương thức lắng nghe sự kiện từ GestureHub. Tiếp nhận cử chỉ tay của người học, kiểm tra điều kiện thời gian trễ giữa các ký tự, so sánh với đáp án mong muốn để quyết định xử lý đúng hoặc sai.
+  - `HandleCorrectPart(gestureID: string)`: Xử lý khi học viên thực hiện đúng một ký tự hoặc từ mục tiêu. Cập nhật bộ đệm, tính toán điểm số cộng thêm và kiểm tra xem đã hoàn thành toàn bộ câu hỏi chưa.
+  - `HandleWrongInput(expected: string, gestureID: string)`: Xử lý khi học viên thực hiện sai cử chỉ. Phương thức kiểm tra danh sách miễn phạt noPenaltyGestures và trạng thái cửa sổ vô địch. Nếu không thỏa mãn, tăng chỉ số lỗi ẩn. Khi lỗi ẩn đạt ngưỡng 3, tăng số lỗi phạt chính thức và kích hoạt cửa sổ vô địch.
+  - `HandleDelete()`: Cho phép học viên xóa cử chỉ vừa nhập sai trong chuỗi đánh vần để nhập lại.
+  - `EndExam()`: Kết thúc bài thi, tính toán phần trăm điểm đạt được, gửi kết quả về ProgressManager để lưu trữ và kích hoạt thông báo hoàn thành chủ đề.
+
+#### b, Lớp VRMagicTrajectory
+
+Lớp này chịu trách nhiệm thu nhận tọa độ chuyển động của ngón trỏ để vẽ nét trên không gian, chiếu tọa độ và kích hoạt thuật toán nhận diện cử chỉ động cho chữ J và Z.
+
+- **Các thuộc tính quan trọng:**
+  - `gestureID`: Chuỗi định danh chữ cái động cần nhận diện (J hoặc Z).
+  - `baseHandShape`: Đối tượng XRHandShape cấu hình tư thế bàn tay trần chuẩn để kích hoạt trạng thái vẽ (ngón trỏ duỗi thẳng, các ngón khác nắm lại).
+  - `matchThreshold`: Ngưỡng điểm số tối thiểu để công nhận nét vẽ khớp với mẫu (mặc định 0.3).
+  - `lineRenderer`: Thành phần vẽ nét LineRenderer hiển thị quỹ đạo vẽ trực quan trong không gian 3D.
+  - `playerCamera`: Transform tham chiếu camera của người học để làm mốc chiếu tọa độ.
+  - `worldPoints`: Danh sách lưu trữ chuỗi các tọa độ 3D thu được từ đầu ngón trỏ trong không gian thế giới.
+  - `isDrawing`: Trạng thái Boolean xác định người học có đang thực hiện thao tác vẽ nét hay không.
+- **Các phương thức chính:**
+  - `OnJointsUpdated(args: XRHandJointsUpdatedEventArgs)`: Lắng nghe sự kiện cập nhật vị trí khớp xương tay từ camera HMD. Kiểm tra xem tư thế bàn tay người học có khớp với baseHandShape hay không để bắt đầu hoặc kết thúc vẽ nét.
+  - `StartDrawing()`: Khởi động trạng thái vẽ nét, dọn dẹp danh sách tọa độ cũ và bật hiển thị LineRenderer.
+  - `RecordPoint(args: XRHandJointsUpdatedEventArgs)`: Truy xuất tọa độ đầu ngón trỏ IndexTip. Nếu khoảng cách dịch chuyển so với điểm liền trước vượt quá ngưỡng tối thiểu pointDistanceMin (1cm), ghi nhận tọa độ này vào worldPoints và cập nhật hiển thị nét vẽ.
+  - `StopDrawingAndEvaluate()`: Dừng trạng thái vẽ nét. Chuyển đổi toàn bộ tọa độ thế giới 3D trong worldPoints thành tọa độ 2D trên mặt phẳng song song trước mắt camera camera-local space thông qua InverseTransformPoint, sau đó gửi danh sách điểm 2D này sang lớp VRMagicUnistroke để tính toán điểm số khớp mẫu. Nếu điểm số vượt quá matchThreshold, gọi GestureHub.Publish để phát đi sự kiện phát hiện thành công chữ cái động.
+  - `ClearTrail()`: Tắt hiển thị nét vẽ và reset số điểm vẽ về không.
+
+#### c, Lớp ProgressManager
+
+Lớp quản lý đơn thể điều phối tiến trình mở khóa bài học và dịch chuyển người chơi giữa các không gian.
+
+- **Các thuộc tính quan trọng:**
+  - `Instance`: Thực thể đơn thể duy nhất để truy cập toàn cục.
+  - `classrooms`: Danh sách các ClassroomManager quản lý trạng thái của từng phòng học chuyên đề tương ứng.
+  - `gestureTopicController`: Lớp điều khiển bật tắt các nhóm cử chỉ nhận diện tĩnh theo từng chủ đề.
+  - `passingGrade`: Điểm số tối thiểu để được công nhận Master và mở khóa chủ đề tiếp theo (mặc định 80%).
+  - `lobbySpawnPoint`: Vị trí dịch chuyển xuất phát tại Sảnh hành lang chính.
+- **Các phương thức chính:**
+  - `EnterLobby()`: Tắt tất cả các phòng học ảo và nhóm cử chỉ nhận diện chuyên đề, chỉ bật nhóm cử chỉ mặc định của sảnh và dịch chuyển người học về sảnh chính.
+  - `SaveTopicScore(topicIndex: int, percentage: float)`: Lưu trữ điểm số thi cao nhất của học viên ở chủ đề tương ứng vào bộ nhớ PlayerPrefs của thiết bị.
+  - `IsTopicUnlocked(topicIndex: int)`: Kiểm tra xem chủ đề hiện tại có được mở khóa hay không bằng cách truy vấn điểm số cao nhất của chủ đề liền trước từ PlayerPrefs và so sánh với passingGrade.
+  - `ApplyTopicChange(newTopicIndex: int)`: Thực hiện chuyển đổi phòng học ảo. Phương thức kiểm tra điều kiện mở khóa thông qua IsTopicUnlocked, tắt nhóm cử chỉ cũ, kích hoạt nhóm cử chỉ chuyên đề mới, kích hoạt GameObject của phòng học tương ứng và đưa phòng học vào Lecture Mode.
+
+---
+
+#### d, Sơ đồ hoạt động truyền thông điệp (Sequence Diagrams)
+
+Để minh họa luồng xử lý thông điệp thời gian thực giữa các lớp đối tượng, dưới đây là biểu đồ trình tự của ba Use Case cốt lõi trong hệ thống:
+
+##### Use Case 1: Học viên thực hiện bài kiểm tra và trả lời câu hỏi tĩnh
+
+Biểu đồ mô tả quy trình khi người học thực hiện uốn nắn bàn tay trần để trả lời một câu hỏi nhận diện tư thế tay tĩnh trên bảng thi:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as Người học
+    participant SR as Static Hand Shape Matcher
+    participant GH as GestureHub
+    participant QM as QuizManager
+    participant PM as ProgressManager
+    participant UI as UI Bảng kiểm tra
+
+    Player->>SR: Thực hiện uốn nắn bàn tay trần
+    Note over SR: So khớp góc khớp xương tay vật lý<br/>với mẫu tư thế tĩnh
+    SR->>GH: Publish(gestureID, true)
+    GH->>QM: Sự kiện OnGestureDetected(gestureID)
+
+    Note over QM: So sánh với correctGestureIDs[nextIndex]
+    alt Nhập đúng cử chỉ mẫu
+        QM->>QM: HandleCorrectPart()
+        QM->>QM: Tăng điểm số score
+        QM->>UI: Cập nhật ScoreTextUI (Màu xanh dương)
+        alt Hoàn thành tất cả các ký tự của câu hỏi
+            QM->>QM: HandleQuestionComplete()
+            QM->>UI: Hiển thị thông báo "PERFECT!"
+            QM->>QM: Đợi 2.0 giây (interQuestionDelay)
+            QM->>QM: LoadQuestion(nextIndex)
+        end
+    else Nhập sai cử chỉ mẫu
+        QM->>QM: HandleWrongInput()
+        Note over QM: Kiểm tra invincibility và noPenalty
+        alt Không được miễn phạt và hết 3 lỗi ẩn
+            QM->>QM: Tăng currentQuestionMistakes
+            QM->>QM: Kích hoạt cửa sổ vô địch (2.5 giây)
+            QM->>UI: Hiển thị "Try again! (Attempts left)"
+        end
+    end
+```
+
+##### Use Case 2: Học viên thực hành uốn tay trong chế độ học lý thuyết
+
+Biểu đồ mô tả quy trình giữ tư thế tay theo hướng dẫn của giảng viên Kyle để hoàn thành một bài học thực hành:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as Người học
+    participant SR as Static Hand Shape Matcher
+    participant GH as GestureHub
+    participant GL as GestureLesson
+    participant Ring as LineRenderer (Vòng tiến trình)
+
+    Player->>SR: Thực hiện uốn tay theo giảng viên Kyle
+    SR->>GH: Publish(targetGestureID, true)
+    GH->>GL: Sự kiện OnGestureDetected(targetGestureID)
+    GL->>GL: SetGestureDetected(true)
+
+    loop Cập nhật mỗi khung hình (Update)
+        GL->>GL: currentHoldTime += Time.deltaTime
+        GL->>Ring: Cập nhật fillAmount = ratio (HoldTime/RequiredTime)
+    end
+
+    Note over GL: Giữ đúng tư thế đủ 1.5 giây
+    GL->>GL: HandleLessonCompletion()
+    GL->>Ring: fillAmount = 1.0 (Hiển thị màu xanh lá)
+    GL->>GL: Phát sự kiện OnLessonFinished
+    GL->>GL: Chờ 1.5 giây (resetDelayTime)
+    GL->>GL: ResetLesson() & ResetUI()
+```
+
+##### Use Case 3: Người học thực hiện vẽ chữ cái động J hoặc Z trên không gian
+
+Biểu đồ mô tả quy trình thu thập tọa độ ngón trỏ, chiếu lên mặt phẳng camera và chạy giải thuật so khớp quỹ đạo nét vẽ:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Player as Người học
+    participant VT as VRMagicTrajectory
+    participant VU as VRMagicUnistroke
+    participant GH as GestureHub
+    participant QM as QuizManager
+
+    Player->>VT: Giữ tư thế tay nền chuẩn (baseHandShape)
+    Note over VT: Bắt đầu trạng thái vẽ nét (isDrawing = true)
+    loop Di chuyển ngón trỏ vẽ nét trong không gian
+        Player->>VT: Dịch chuyển đầu ngón trỏ IndexTip
+        VT->>VT: Ghi nhận tọa độ 3D và hiển thị LineRenderer
+    end
+    Player->>VT: Thả bàn tay trần (không khớp baseHandShape)
+    Note over VT: Kết thúc vẽ nét (isDrawing = false)
+    VT->>VT: StopDrawingAndEvaluate()
+    VT->>VT: Chiếu tọa độ thế giới 3D sang 2D cục bộ của Camera
+    VT->>VU: Recognize(points2D, template)
+    Note over VU: Chuẩn hóa nét vẽ (Normalize)<br/>và chạy tìm kiếm tỷ lệ vàng
+    VU-->>VT: Trả về điểm số khớp mẫu score
+    alt score >= matchThreshold (Nhận diện thành công)
+        VT->>GH: Publish(gestureID, true)
+        GH->>QM: Sự kiện OnGestureDetected(gestureID)
+        QM->>QM: SubmitAnswer(gestureID)
+        VT->>VT: Chờ 1.0 giây rồi ClearTrail()
+    else score < matchThreshold (Thất bại)
+        VT->>VT: ClearTrail() ngay lập tức
+    end
+```
+
+---
+
+### 5.3.2 Thiết kế cơ sở dữ liệu
+
+Vì hệ thống bài giảng tương tác ASL VR được thiết kế để vận hành độc lập trực tiếp trên thiết bị kính Meta Quest 2 mà không yêu cầu kết nối mạng liên tục, cơ sở dữ liệu của hệ thống được tối giản hóa tối đa nhằm tối ưu hiệu năng và độ trễ truy cập dữ liệu. Hệ thống sử dụng PlayerPrefs – cơ chế lưu trữ dữ liệu dạng khóa-giá trị (Key-Value) nội bộ của Unity – để lưu trữ và quản lý điểm số tiến trình của người học một cách an toàn và bền vững.
+
+#### a, Thiết kế bảng dữ liệu lưu trữ
+
+Cấu trúc lưu trữ dữ liệu điểm số các chủ đề học tập được đặc tả qua bảng sơ đồ thuộc tính dưới đây:
+
+| Tên Khóa (Key Name) | Kiểu dữ liệu | Giá trị hợp lệ | Ý nghĩa / Giải thích                                                                                |
+| :------------------ | :----------: | :------------: | :-------------------------------------------------------------------------------------------------- |
+| **Topic_0_Score**   |    float     |  0.0 - 100.0   | Điểm số phần trăm cao nhất đạt được tại phòng thi chủ đề Bảng chữ cái (Alphabets). Mặc định bằng 0. |
+| **Topic_1_Score**   |    float     |  0.0 - 100.0   | Điểm số phần trăm cao nhất đạt được tại phòng thi chủ đề Chữ số (Numbers). Mặc định bằng 0.         |
+| **Topic_2_Score**   |    float     |  0.0 - 100.0   | Điểm số phần trăm cao nhất đạt được tại phòng thi chủ đề Hội thoại (Greetings). Mặc định bằng 0.    |
+
+> **Bảng 5.1:** _Đặc tả cấu trúc khóa lưu trữ dữ liệu tiến trình học tập_
+
+#### b, Logic đồng bộ hóa và mở khóa chủ đề
+
+Sơ đồ ánh xạ logic dưới đây mô tả cách lớp ProgressManager truy vấn cơ sở dữ liệu nội bộ để xác định điều kiện mở khóa phòng học mới:
+
+```mermaid
+graph LR
+    subgraph Storage [Thiết bị lưu trữ nội bộ]
+        db[(PlayerPrefs Key-Value)]
+    end
+
+    subgraph Manager [Lớp ProgressManager]
+        check{IsTopicUnlocked?}
+        score[GetHighestScore(topicIndex - 1)]
+        pass[passingGrade = 80%]
+    end
+
+    subgraph TargetRoom [Phòng học mục tiêu]
+        action[ApplyTopicChange]
+        unlocked((Bật cửa phòng học & Dịch chuyển))
+        locked((Cửa đóng & Báo lỗi khóa))
+    end
+
+    db -->|Đọc khóa Topic_X_Score| score
+    score --> check
+    pass --> check
+    check -->|Điểm số >= 80%| unlocked
+    check -->|Điểm số < 80%| locked
+    unlocked --> action
+```
+
+Mỗi khi người học hoàn thành bài thi tại QuizManager, điểm số phần trăm mới sẽ được so sánh với giá trị tốt nhất hiện tại. Nếu điểm số mới cao hơn, phương thức SaveTopicScore sẽ thực hiện lưu đè giá trị mới vào PlayerPrefs và gọi hàm Save để ghi nhận vĩnh viễn vào bộ nhớ flash của kính VR, đảm bảo tiến trình tự học của người học không bị mất khi tắt ứng dụng hoặc khởi động lại thiết bị.
