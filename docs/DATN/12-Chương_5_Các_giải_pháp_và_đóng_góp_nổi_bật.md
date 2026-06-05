@@ -6,59 +6,59 @@
 
 Hệ thống bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR) được xây dựng dựa trên mô hình Kiến trúc dựa trên thành phần (Component-Based Architecture), một phương pháp tiếp cận phổ biến và được hỗ trợ tự nhiên bởi môi trường phát triển Unity Engine. Nguyên tắc cốt lõi của kiến trúc này là xây dựng các đối tượng (GameObjects) bằng cách tổng hợp từ nhiều thành phần độc lập (Components), mỗi thành phần đóng gói một logic hoặc tập dữ liệu cụ thể. Để tách biệt rõ ràng giữa xử lý logic nghiệp vụ và giao diện trình diễn, đồng thời tối ưu hóa tính năng tương tác hand tracking, hệ thống được tinh chỉnh và phân chia thành bốn lớp logic chính hoạt động độc lập nhằm phân tách các mối quan tâm khác nhau.
 
-Lớp Dữ liệu Học thuật (Academic Data Layer) chịu trách nhiệm định nghĩa các cấu trúc dữ liệu tĩnh phục vụ cho chương trình giảng dạy. Trái tim của lớp này bao gồm PracticeData dùng để lưu trữ từ vựng đích và chuỗi các cử chỉ tay cần thực hiện tuần tự và QuizData dùng để định nghĩa câu hỏi thi, hình ảnh ký hiệu mẫu, âm thanh phát âm và đáp án cử chỉ. Thiết kế này tách rời hoàn toàn nội dung bài học ra khỏi logic lập trình, cho phép bổ sung, chỉnh sửa học liệu trực tiếp từ Editor của Unity mà không cần biên dịch lại mã nguồn.
+Lớp Dữ liệu Học thuật (Academic Data Layer) chịu trách nhiệm lưu trữ và định nghĩa toàn bộ nội dung giáo trình, bao gồm danh sách từ vựng ký hiệu và hệ thống câu hỏi kiểm tra dưới dạng dữ liệu tĩnh. Ý nghĩa cốt lõi của lớp này là tách rời hoàn toàn phần nội dung bài học ra khỏi logic lập trình. Điều này giúp cho việc cập nhật, bổ sung học liệu hoặc mở rộng thêm các bài giảng mới trong tương lai có thể thực hiện một cách nhanh chóng và linh hoạt trực tiếp trên môi trường Unity mà không cần phải can thiệp hay thay đổi mã nguồn của ứng dụng.
 
-Lớp Thu thập và Nhận dạng Cử chỉ (Gesture Capture & Recognition Layer) có nhiệm vụ thu nhận dữ liệu 26 khớp xương tay của bàn tay vật lý từ cảm biến camera của thiết bị đeo đầu thông qua bộ công cụ Unity XR Hands. Lớp này xử lý nhận dạng qua hai kênh song song bao gồm nhận dạng tĩnh để so khớp các góc gập khớp ngón tay vật lý với các mẫu tư thế tay đã cấu hình sẵn (baseHandShape), và nhận dạng động sử dụng lớp VRMagicTrajectory để bắt tọa độ di chuyển của đầu ngón trỏ (IndexTip) khi người học uốn tay ở một tư thế nền nhất định. Toàn bộ cử chỉ nhận dạng thành công được đồng bộ và xuất bản thông qua lớp trung gian GestureHub hoạt động như một Bộ trung chuyển sự kiện bằng sự kiện tĩnh toàn cục (OnGestureDetected).
+Lớp Thu thập và Nhận dạng Cử chỉ (Gesture Capture & Recognition Layer) đóng vai trò thu nhận chuyển động của xương bàn tay từ cảm biến camera của thiết bị thực tế ảo và thực hiện nhận dạng các cử chỉ tay tĩnh hoặc động trong không gian. Ý nghĩa của lớp này là chuyển đổi các hành động vật lý tự nhiên của người học thành các tín hiệu cử chỉ có cấu trúc. Lớp này đóng gói toàn bộ các thuật toán xử lý khớp xương và quỹ đạo chuyển động phức tạp, cung cấp dữ liệu nhận diện đồng nhất và ổn định để các lớp logic cấp cao hơn có thể hiểu và xử lý.
 
-Lớp Điều khiển và Quản lý Tiến trình (Control & Progression Layer) là trung tâm điều hướng chính của hệ thống bài giảng, chịu trách nhiệm điều khiển toàn bộ logic sư phạm, lưu trữ tiến trình học tập của học viên và điều phối trạng thái phòng học ảo. Trong lớp này, lớp ProgressManager chịu trách nhiệm quản lý tiến trình tổng thể của người học, thực hiện lưu trữ điểm số cao nhất của mỗi chủ đề và kiểm tra điều kiện mở khóa và kích hoạt chuyển đổi chủ đề học. Lớp ClassroomManager quản lý vòng đời của từng phòng học ảo bao gồm Lecture Phase và Quiz Phase và kích hoạt bục dịch chuyển người học. Lớp GestureTopicController quản lý bật tắt các nhóm cử chỉ nhận diện của các chữ cái, chữ số hoặc câu chào tương ứng với chủ đề phòng học được kích hoạt. Lớp QuizManager quản lý quá trình thi cử, tự động nạp câu hỏi từ QuizData, kiểm tra đáp án gõ vào, xử lý gõ sai, đệm thời gian gõ sai và áp dụng các cơ chế trò chơi hóa (Gamification) để giảm áp lực phòng thi như lỗi sai ẩn (hiddenMistakes), thời gian vô địch (invincibilityDuration), miễn phạt (noPenaltyGestures). Lớp GestureLesson quản lý bài thực hành uốn tay của học viên trong chế độ học lý thuyết, tính toán thời gian người học giữ đúng cử chỉ tay theo mẫu và phát đi tín hiệu hoàn thành.
+Lớp Điều khiển và Quản lý Tiến trình (Control & Progression Layer) đóng vai trò là bộ não điều hành toàn bộ logic sư phạm, lưu trữ kết quả và điều phối trạng thái của phòng học ảo. Ý nghĩa của lớp này là quản lý vòng đời của bài học, kiểm tra điều kiện mở khóa bài mới dựa trên kết quả tự học, và vận hành cơ chế thi cử với các quy tắc sư phạm hỗ trợ. Lớp này giúp kết nối dữ liệu tĩnh của bài học với các phản hồi sư phạm thực tế, tạo ra một lộ trình học tập có cấu trúc và có tính tương tác cao cho người học.
 
-Lớp Trình diễn và Tương tác (Presentation & Interaction Layer) chịu trách nhiệm tương tác vật lý trực quan và hiển thị phản hồi đồ họa cho người học. Lớp GestureLocomotionProvider thực hiện di chuyển mượt mà cho người học trong môi trường 3D khi cả hai bàn tay cùng thực hiện cử chỉ chỉ tay trỏ về phía trước. Lớp WristDashboardUI xử lý giao diện bảng tiến trình học gắn trên cổ tay người học. Lớp NPCKyleController quản lý hoạt ảnh và máy trạng thái hành vi phản hồi của giảng viên ảo Kyle dựa trên Máy trạng thái hữu hạnbao gồm vẫy tay chào và vỗ tay khích lệ.
+Lớp Trình diễn và Tương tác (Presentation & Interaction Layer) chịu trách nhiệm hiển thị giao diện đồ họa trực quan, các phản hồi hình ảnh thời gian thực và xử lý di chuyển thực tế ảo. Ý nghĩa của lớp này là tối ưu hóa trải nghiệm tương tác trực quan của người học trong không gian ba chiều, giúp hiển thị tiến trình học trên cổ tay, thể hiện các hoạt ảnh hướng dẫn sinh động của giảng viên ảo, và cung cấp cơ chế di chuyển tự nhiên bằng cử chỉ tay trần để tăng cường tính chân thực và sự tập trung.
 
 ---
 
-### 5.2.2 Thiết kế tổng quan
+### 5.1.2 Thiết kế tổng quan
 
-Mã nguồn của hệ thống tương tác ASL VR được tổ chức thành năm gói chính: GestureRecognition_Package, Orchestration_Package, QuizSystem_Package, InteractionLocomotion_Package, và NPC_Package. Cấu trúc này tuân thủ nguyên tắc thiết kế phân lớp, đảm bảo tính phụ thuộc một chiều từ các lớp tương tác, trình diễn cấp cao xuống các lớp xử lý logic cốt lõi và dữ liệu cấp thấp, giảm thiểu tối đa hiện tượng liên kết vòng.
+Mã nguồn của hệ thống tương tác ASL VR được tổ chức thành năm gói chính bao gồm GestureRecognition_Package (gói nhận dạng cử chỉ), Orchestration_Package (gói điều phối tiến trình), QuizSystem_Package (gói hệ thống câu hỏi thi), InteractionLocomotion_Package (gói tương tác và di chuyển), và NPC_Package (gói điều khiển nhân vật hướng dẫn). Cấu trúc này tuân thủ nguyên tắc thiết kế phân lớp, đảm bảo tính phụ thuộc một chiều từ các lớp tương tác, trình diễn cấp cao xuống các lớp xử lý logic cốt lõi và dữ liệu cấp thấp, giảm thiểu tối đa hiện tượng liên kết vòng.
 
 Biểu đồ gói UML dưới đây mô tả cấu trúc phân rã các gói và mối quan hệ phụ thuộc giữa chúng:
 
 ```mermaid
 graph TD
     %% Định nghĩa các gói chính
-    subgraph InteractionLocomotion_Package [Interaction & UI Package]
+    subgraph InteractionLocomotion_Package [Gói tương tác & UI]
         loc[GestureLocomotionProvider]
         wrist[WristDashboardUI]
         follow[WristFollower]
         face[UIFaceCamera]
     end
 
-    subgraph NPC_Package [NPC Controller Package]
+    subgraph NPC_Package [Gói điều khiển nhân vật]
         kyle[NPCKyleController]
         lobby[NPCLobbyInstructorController]
         prompter[RecordingPrompter]
     end
 
-    subgraph Orchestration_Package [Progration & Orchestration Package]
-        progress[ProgressManager - Singleton]
+    subgraph Orchestration_Package [Gói điều phối & Tiến trình]
+        progress[ProgressManager]
         classroom[ClassroomManager]
         topic[GestureTopicController]
     end
 
-    subgraph QuizSystem_Package [Quiz System Package]
+    subgraph QuizSystem_Package [Gói câu hỏi thi]
         quiz[QuizManager]
         trigger[GestureTrigger]
     end
 
-    subgraph GestureRecognition_Package [Gesture Recognition Package]
-        hub[GestureHub - Event Broker]
+    subgraph GestureRecognition_Package [Gói nhận dạng cử chỉ]
+        hub[GestureHub]
         lesson[GestureLesson]
         traj[VRMagicTrajectory]
         uni[VRMagicUnistroke]
     end
 
-    subgraph Data_Package [Data Package]
-        qdata[QuizData - ScriptableObject]
-        pdata[PracticeData - ScriptableObject]
+    subgraph Data_Package [Gói dữ liệu học thuật]
+        qdata[QuizData]
+        pdata[PracticeData]
     end
 
     %% Mối quan hệ phụ thuộc
@@ -78,15 +78,16 @@ graph TD
     style Data_Package fill:#fefefe,stroke:#999,stroke-width:1px,stroke-dasharray: 5 5;
 ```
 
-- **GestureRecognition_Package:** Đóng vai trò là nền tảng nhận dạng và phân phối cử chỉ tay. Gói này cung cấp sự kiện tĩnh thông qua GestureHub để tất cả các gói khác đăng ký sử dụng.
-- **QuizSystem_Package:** Quản lý logic chấm điểm, nạp dữ liệu thi. Gói này phụ thuộc vào GestureRecognition_Package để lấy đáp án cử chỉ nhập vào và phụ thuộc vào Data_Package để lấy nội dung câu hỏi.
-- **Orchestration_Package:** Đóng vai trò điều phối tiến trình và trạng thái phòng học ảo. Gói này quản lý việc kích hoạt phòng học và giao tiếp với QuizSystem_Package để bắt đầu bài thi.
-- **InteractionLocomotion_Package:** Quản lý tương tác UI của người chơi và cơ chế di chuyển trong thế giới 3D. Gói này phụ thuộc vào Orchestration_Package để lấy spawn point và cập nhật điểm số lên Wrist UI.
-- **NPC_Package:** Điều khiển giảng viên Kyle, nhận các tín hiệu trạng thái từ Orchestration_Package để thay đổi trạng thái hoạt ảnh.
+Dưới đây là mô tả chi tiết vai trò của từng gói và các mối quan hệ phụ thuộc tương ứng trong hệ thống:
+* **GestureRecognition_Package (gói nhận dạng cử chỉ):** Đóng vai trò là nền tảng nhận dạng và phân phối cử chỉ tay. Gói này cung cấp sự kiện tĩnh thông qua GestureHub để tất cả các gói khác đăng ký sử dụng.
+* **QuizSystem_Package (gói hệ thống câu hỏi thi):** Quản lý logic chấm điểm, nạp dữ liệu thi. Gói này phụ thuộc vào GestureRecognition_Package để lấy đáp án cử chỉ nhập vào và phụ thuộc vào Data_Package (gói dữ liệu học thuật) để lấy nội dung câu hỏi.
+* **Orchestration_Package (gói điều phối tiến trình):** Đóng vai trò điều phối tiến trình và trạng thái phòng học ảo. Gói này quản lý việc kích hoạt phòng học và giao tiếp với QuizSystem_Package để bắt đầu bài thi.
+* **InteractionLocomotion_Package (gói tương tác và di chuyển):** Quản lý tương tác giao diện người dùng của người chơi và cơ chế di chuyển trong thế giới 3D. Gói này phụ thuộc vào Orchestration_Package để lấy bục dịch chuyển và cập nhật điểm số lên giao diện bảng đeo cổ tay.
+* **NPC_Package (gói điều khiển nhân vật hướng dẫn):** Điều khiển giảng viên Kyle, nhận các tín hiệu trạng thái từ Orchestration_Package để thay đổi trạng thái hoạt ảnh.
 
 ---
 
-### 5.2.3 Thiết kế chi tiết gói
+### 5.1.3 Thiết kế chi tiết gói
 
 Biểu đồ lớp UML chi tiết dưới đây mô tả cấu trúc và mối quan hệ giữa các lớp cốt lõi thuộc ba gói quan trọng nhất trong hệ thống: Orchestration_Package, QuizSystem_Package và GestureRecognition_Package.
 
