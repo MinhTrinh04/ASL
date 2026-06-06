@@ -71,7 +71,7 @@ classDiagram
     ClassroomManager "1" --> "1" GestureTopicController : lấy spawn point
     ClassroomManager "1" o-- "many" QuizManager : chứa bảng thi
     ClassroomManager "1" --> "1" NPCKyleController : điều khiển
-    ClassroomManager "1" --> "1" NPCLobbyInstructorController : điều khiển
+    NPCKyleController ..> ClassroomManager : kích hoạt thi
 
     QuizManager ..> GestureHub : lắng nghe cử chỉ
     WristDashboardUI ..> ProgressManager : đọc điểm số
@@ -95,24 +95,24 @@ classDiagram
     namespace Gesture_Recognition_Package {
         class GestureHub
         class GestureLesson
-        class TrajectoryRecognizer
-        class UnistrokeRecognizer
+        class VRMagicTrajectory
+        class VRMagicUnistroke
         class GestureTrigger
         class GestureLocomotionProvider
     }
 
     GestureLesson ..> GestureHub : lắng nghe sự kiện
-    TrajectoryRecognizer ..> GestureHub : xuất bản sự kiện
-    TrajectoryRecognizer --> UnistrokeRecognizer : sử dụng giải thuật
+    VRMagicTrajectory ..> GestureHub : xuất bản sự kiện
+    VRMagicTrajectory ..> VRMagicUnistroke : sử dụng giải thuật
     GestureTrigger ..> GestureHub : xuất bản sự kiện
-    GestureLocomotionProvider ..> GestureHub : lắng nghe cử chỉ di chuyển
+    GestureLocomotionProvider ..> GestureHub : lắng nghe sự kiện di chuyển
 ```
 
 Đây là gói nền tảng chịu trách nhiệm thu nhận dữ liệu khớp xương tay, thực hiện nhận dạng các cử chỉ tĩnh, động và điều khiển di chuyển bằng tay trần của người học. Lớp GestureHub giữ vai trò trung tâm hoạt động như một bộ trung chuyển sự kiện, cung cấp sự kiện tĩnh OnGestureDetected để tất cả các thành phần khác có thể đăng ký lắng nghe và phản hồi khi có cử chỉ tương ứng.
 
-Lớp GestureLesson lắng nghe các cử chỉ học tập cụ thể để kiểm tra thời gian giữ đúng tư thế (Hold Time) và cập nhật vòng tiến trình thời gian thực. Lớp TrajectoryRecognizer chịu trách nhiệm thu nhận chuyển động ngón trỏ để vẽ nét và nhận diện cử chỉ động cho chữ J và Z.
+Lớp GestureLesson lắng nghe các cử chỉ học tập cụ thể để kiểm tra thời gian giữ đúng tư thế (Hold Time) và cập nhật vòng tiến trình thời gian thực. Lớp VRMagicTrajectory chịu trách nhiệm thu nhận chuyển động ngón trỏ để vẽ nét và nhận diện cử chỉ động cho chữ J và Z.
 
-Lớp UnistrokeRecognizer cung cấp thuật toán nhận diện nét vẽ 2D Unistroke, tính toán điểm số khớp mẫu so với các quỹ đạo mẫu được lưu trữ. Lớp GestureTrigger cho phép kích hoạt các sự kiện cử chỉ khi bàn tay người học tương tác vật lý với các vùng không gian xác định. Lớp GestureLocomotionProvider chịu trách nhiệm di chuyển người học trong không gian ảo bằng cách lắng nghe cử chỉ chỉ tay trỏ của cả hai bàn tay hướng về phía trước để kích hoạt di chuyển mượt mà (Smooth Locomotion).
+Lớp VRMagicUnistroke cung cấp thuật toán nhận diện nét vẽ 2D Unistroke, tính toán điểm số khớp mẫu so với các quỹ đạo mẫu được lưu trữ. Lớp GestureTrigger cho phép kích hoạt các sự kiện cử chỉ khi bàn tay người học tương tác vật lý với các vùng không gian xác định. Lớp GestureLocomotionProvider chịu trách nhiệm di chuyển người học trong không gian ảo bằng cách lắng nghe các tín hiệu cử chỉ chỉ tay từ GestureHub thay vì trực tiếp truy cập và kiểm tra các khớp tay từ SDK để kích hoạt di chuyển mượt mà (Smooth Locomotion).
 
 ---
 

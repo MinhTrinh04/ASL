@@ -1,165 +1,81 @@
 using UnityEngine;
-using UnityEngine.XR.Hands;
-using UnityEngine.XR.Hands.Gestures;
 
 public class GestureLocomotionProvider : MonoBehaviour
 {
-    [Header("Hand Tracking References")]
-    [Tooltip("The XRHandTrackingEvents component for the left hand.")]
-    public XRHandTrackingEvents leftHandTrackingEvents;
-
-    [Tooltip("The XRHandTrackingEvents component for the right hand.")]
-    public XRHandTrackingEvents rightHandTrackingEvents;
-
-    [Tooltip("The Left Hand transform to determine pointing forward direction.")]
-    public Transform leftHandTransform;
-
-    [Tooltip("The Right Hand transform to determine pointing forward direction.")]
-    public Transform rightHandTransform;
-
     [Header("Locomotion Settings")]
-    [Tooltip("The pre-existing '1' hand shape ScriptableObject.")]
-    public ScriptableObject pointingShapeAsset;
-
-    [Tooltip("Locomotion movement speed in meters per second.")]
+    [Tooltip("Tốc độ di chuyển mượt (mét/giây).")]
     public float moveSpeed = 1.5f;
 
-    [Tooltip("If true, locks the vertical (Y) axis so the player glides along the ground.")]
+    [Tooltip("Nếu true, khóa trục Y để người chơi di chuyển dọc theo mặt đất.")]
     public bool lockYAxis = true;
 
-    [Tooltip("The CharacterController attached to the XR Origin for smooth locomotion.")]
+    [Tooltip("CharacterController gắn trên XR Origin để thực hiện di chuyển.")]
     public CharacterController characterController;
 
-    private XRHandShape m_PointingShape;
-    private XRHandPose m_PointingPose;
+    [Header("Gesture IDs")]
+    public string leftPointingGestureID = "Pointing_Left";
+    public string rightPointingGestureID = "Pointing_Right";
+
+    [Header("Hand Direction References")]
+    [Tooltip("Transform của tay trái để xác định hướng đi về phía trước.")]
+    public Transform leftHandTransform;
+
+    [Tooltip("Transform của tay phải để xác định hướng đi về phía trước.")]
+    public Transform rightHandTransform;
+
     private bool m_LeftHandPointing = false;
     private bool m_RightHandPointing = false;
-    private Vector3 m_LeftHandDirection = Vector3.forward;
-    private Vector3 m_RightHandDirection = Vector3.forward;
-
-    private void Awake()
-    {
-        if (pointingShapeAsset != null)
-        {
-            m_PointingShape = pointingShapeAsset as XRHandShape;
-            m_PointingPose = pointingShapeAsset as XRHandPose;
-        }
-
-        if (characterController == null)
-        {
-            characterController = GetComponent<CharacterController>();
-        }
-    }
 
     private void OnEnable()
     {
-        if (leftHandTrackingEvents != null)
-        {
-            leftHandTrackingEvents.jointsUpdated.AddListener(OnLeftJointsUpdated);
-        }
-
-        if (rightHandTrackingEvents != null)
-        {
-            rightHandTrackingEvents.jointsUpdated.AddListener(OnRightJointsUpdated);
-        }
+        GestureHub.OnGestureDetected += OnGestureDetected;
+        GestureHub.OnGestureEnded += OnGestureEnded;
     }
 
     private void OnDisable()
     {
-        if (leftHandTrackingEvents != null)
-        {
-            leftHandTrackingEvents.jointsUpdated.RemoveListener(OnLeftJointsUpdated);
-        }
-
-        if (rightHandTrackingEvents != null)
-        {
-            rightHandTrackingEvents.jointsUpdated.RemoveListener(OnRightJointsUpdated);
-        }
-
-        // Reset tracking states to avoid drift on disable
+        GestureHub.OnGestureDetected -= OnGestureDetected;
+        GestureHub.OnGestureEnded -= OnGestureEnded;
         m_LeftHandPointing = false;
         m_RightHandPointing = false;
     }
 
-    private void OnLeftJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs)
+    private void OnGestureDetected(string gestureID)
     {
-        if (!isActiveAndEnabled || leftHandTrackingEvents == null)
+        if (gestureID == leftPointingGestureID)
         {
-            m_LeftHandPointing = false;
-            return;
+            m_LeftHandPointing = true;
         }
-
-        bool isShapeMatch = m_PointingShape != null && m_PointingShape.CheckConditions(eventArgs);
-        bool isPoseMatch = m_PointingPose != null && m_PointingPose.CheckConditions(eventArgs);
-
-        m_LeftHandPointing = leftHandTrackingEvents.handIsTracked && (isShapeMatch || isPoseMatch);
-
-        if (m_LeftHandPointing)
+        else if (gestureID == rightPointingGestureID)
         {
-            var tipJoint = eventArgs.hand.GetJoint(XRHandJointID.IndexTip);
-            var baseJoint = eventArgs.hand.GetJoint(XRHandJointID.IndexProximal);
-            if (tipJoint.TryGetPose(out Pose tipPose) && baseJoint.TryGetPose(out Pose basePose))
-            {
-                Vector3 localDir = (tipPose.position - basePose.position).normalized;
-                m_LeftHandDirection = transform.TransformDirection(localDir);
-            }
-            else if (leftHandTransform != null)
-            {
-                m_LeftHandDirection = leftHandTransform.forward;
-            }
+            m_RightHandPointing = true;
         }
     }
 
-    private void OnRightJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs)
+    private void OnGestureEnded(string gestureID)
     {
-        if (!isActiveAndEnabled || rightHandTrackingEvents == null)
+        if (gestureID == leftPointingGestureID)
+        {
+            m_LeftHandPointing = false;
+        }
+        else if (gestureID == rightPointingGestureID)
         {
             m_RightHandPointing = false;
-            return;
-        }
-
-        bool isShapeMatch = m_PointingShape != null && m_PointingShape.CheckConditions(eventArgs);
-        bool isPoseMatch = m_PointingPose != null && m_PointingPose.CheckConditions(eventArgs);
-
-        m_RightHandPointing = rightHandTrackingEvents.handIsTracked && (isShapeMatch || isPoseMatch);
-
-        if (m_RightHandPointing)
-        {
-            var tipJoint = eventArgs.hand.GetJoint(XRHandJointID.IndexTip);
-            var baseJoint = eventArgs.hand.GetJoint(XRHandJointID.IndexProximal);
-            if (tipJoint.TryGetPose(out Pose tipPose) && baseJoint.TryGetPose(out Pose basePose))
-            {
-                Vector3 localDir = (tipPose.position - basePose.position).normalized;
-                m_RightHandDirection = transform.TransformDirection(localDir);
-            }
-            else if (rightHandTransform != null)
-            {
-                m_RightHandDirection = rightHandTransform.forward;
-            }
         }
     }
 
     private void Update()
     {
-        // Safe check if hands are no longer tracked, cancel pointing
-        if (leftHandTrackingEvents != null && !leftHandTrackingEvents.handIsTracked)
-        {
-            m_LeftHandPointing = false;
-        }
-        if (rightHandTrackingEvents != null && !rightHandTrackingEvents.handIsTracked)
-        {
-            m_RightHandPointing = false;
-        }
-
         Vector3 moveDirection = Vector3.zero;
 
-        // Only move if BOTH hands are actively performing the pointing gesture!
+        // Chỉ di chuyển khi CẢ HAI tay đều chỉ ngón trỏ về phía trước!
         if (m_LeftHandPointing && m_RightHandPointing)
         {
-            moveDirection = (m_LeftHandDirection + m_RightHandDirection).normalized;
+            Vector3 leftDir = leftHandTransform != null ? leftHandTransform.forward : Vector3.forward;
+            Vector3 rightDir = rightHandTransform != null ? rightHandTransform.forward : Vector3.forward;
+            moveDirection = (leftDir + rightDir).normalized;
         }
 
-        // Apply movement if any hand is actively pointing
         if (moveDirection.sqrMagnitude > 0.001f)
         {
             if (lockYAxis)
@@ -176,7 +92,6 @@ public class GestureLocomotionProvider : MonoBehaviour
             }
             else
             {
-                // Fallback to direct transform manipulation if CharacterController is missing
                 transform.position += deltaMove;
             }
         }

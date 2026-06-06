@@ -837,11 +837,10 @@ public class LobbySetupHelper : EditorWindow
         }
 
         // 7. Configure references
-        locomotion.leftHandTrackingEvents = leftHandEvents;
-        locomotion.rightHandTrackingEvents = rightHandEvents;
+        locomotion.leftPointingGestureID = "Pointing_Left";
+        locomotion.rightPointingGestureID = "Pointing_Right";
         locomotion.leftHandTransform = leftHandTransform;
         locomotion.rightHandTransform = rightHandTransform;
-        locomotion.pointingShapeAsset = shapeAsset;
         locomotion.characterController = cc;
         locomotion.moveSpeed = 1.5f;
         locomotion.lockYAxis = true;
