@@ -94,6 +94,8 @@ classDiagram
         class VRMagicUnistroke
         class GestureTrigger
         class GestureLocomotionProvider
+        class StaticHandGesture
+        class DynamicGesture
     }
 
     GestureLesson ..> GestureHub : lắng nghe sự kiện
@@ -101,13 +103,16 @@ classDiagram
     VRMagicTrajectory ..> VRMagicUnistroke : sử dụng giải thuật
     GestureTrigger ..> GestureHub : xuất bản sự kiện
     GestureLocomotionProvider ..> GestureHub : lắng nghe sự kiện di chuyển
+    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện
+    DynamicGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
+    DynamicGesture ..> GestureTrigger : lắng nghe sự kiện kích hoạt
 ```
 
 Đây là gói nền tảng chịu trách nhiệm thu nhận dữ liệu khớp xương tay, thực hiện nhận dạng các cử chỉ tĩnh, động và điều khiển di chuyển bằng tay trần của người học. Lớp GestureHub giữ vai trò trung tâm hoạt động như một bộ trung chuyển sự kiện, cung cấp sự kiện tĩnh OnGestureDetected để tất cả các thành phần khác có thể đăng ký lắng nghe và phản hồi khi có cử chỉ tương ứng.
 
 Lớp GestureLesson lắng nghe các cử chỉ học tập cụ thể để kiểm tra thời gian giữ đúng tư thế (Hold Time) và cập nhật vòng tiến trình thời gian thực. Lớp VRMagicTrajectory chịu trách nhiệm thu nhận chuyển động ngón trỏ để vẽ nét và nhận diện cử chỉ động cho chữ J và Z.
 
-Lớp VRMagicUnistroke cung cấp thuật toán nhận diện nét vẽ 2D Unistroke, tính toán điểm số khớp mẫu so với các quỹ đạo mẫu được lưu trữ. Lớp GestureTrigger cho phép kích hoạt các sự kiện cử chỉ khi bàn tay người học tương tác vật lý với các vùng không gian xác định. Lớp GestureLocomotionProvider chịu trách nhiệm di chuyển người học trong không gian ảo bằng cách lắng nghe các tín hiệu cử chỉ chỉ tay từ GestureHub thay vì trực tiếp truy cập và kiểm tra các khớp tay từ SDK để kích hoạt di chuyển mượt mà (Smooth Locomotion).
+Lớp VRMagicUnistroke cung cấp thuật toán nhận diện nét vẽ 2D Unistroke, tính toán điểm số khớp mẫu so với các quỹ đạo mẫu được lưu trữ. Lớp StaticHandGesture nhận dạng tư thế tay tĩnh từ dữ liệu khớp xương. Lớp GestureTrigger cho phép kích hoạt các sự kiện cử chỉ tương ứng bằng cách lắng nghe StaticHandGesture và chuyển tiếp lên hệ thống. Lớp DynamicGesture lắng nghe các sự kiện tư thế tĩnh do GestureTrigger kích hoạt và xuất bản qua GestureHub, theo dõi chuỗi thời gian chuyển đổi giữa các trạng thái tay để nhận diện và xuất bản cử chỉ động (như cử chỉ chào Hello). Lớp GestureLocomotionProvider chịu trách nhiệm di chuyển người học trong không gian ảo bằng cách lắng nghe các tín hiệu cử chỉ chỉ tay từ GestureHub thay vì trực tiếp truy cập và kiểm tra các khớp tay từ SDK để kích hoạt di chuyển mượt mà (Smooth Locomotion).
 
 ---
 
@@ -121,7 +126,7 @@ Lớp VRMagicUnistroke cung cấp thuật toán nhận diện nét vẽ 2D Unist
 
 Nhóm lớp này đóng vai trò điều phối tổng thể tiến trình học tập của người học, mở khóa bài học mới và quản lý vòng đời hoạt động của từng phòng học chuyên đề tương ứng.
 
-> **Hình 5.4:** _Sơ đồ lớp ProgressManager và ClassroomManager_
+> **Hình 5.4:** _Sơ đồ lớp ProgressManager, ClassroomManager và QuizManager_
 
 ```mermaid
 %%{init: {'theme': 'neutral'}}%%
@@ -157,22 +162,6 @@ classDiagram
         +MovePlayerToSpawn() void
     }
 
-    ProgressManager "1" --> "*" ClassroomManager : quản lý
-```
-
-Lớp ProgressManager (Hình 5.4) là lớp Singleton trung tâm, đóng vai trò là bộ não điều hành toàn bộ vòng đời và tiến trình học tập của ứng dụng ASL VR. Để bảo đảm tính duy nhất và cung cấp giao diện truy cập toàn cục cho các thành phần khác, lớp này sử dụng thuộc tính tĩnh Instance. Nó chứa các tham chiếu quan trọng như danh sách classrooms của các phòng học chuyên đề, đối tượng lobbyGestureGroup để bật tắt cử chỉ tại sảnh, và teleportProvider để thực hiện dịch chuyển người học. Lớp này quản lý tiến trình của người học bằng cách so sánh điểm số cao nhất của chủ đề trước được lưu trong bộ nhớ thiết bị PlayerPrefs với ngưỡng điểm đạt passingGrade. Các phương thức chính bao gồm EnterLobby() để reset trạng thái và đưa người học về sảnh chính, IsTopicUnlocked() để xác thực quyền mở khóa phòng học mới, và ApplyTopicChange() để thực thi các thiết lập khi học viên chuyển chủ đề học.
-
-Lớp ClassroomManager (Hình 5.4) chịu trách nhiệm quản lý vòng đời và trạng thái hoạt động của một phòng học chuyên đề cụ thể trong hệ thống. Lớp này lưu trữ chỉ số chủ đề topicIndex và các tham chiếu đến các đối tượng tương ứng với từng giai đoạn học tập như lecturePhase (giai đoạn lý thuyết), quizPhase (giai đoạn làm bài kiểm tra) và examEntranceUI (giao diện bảng kích hoạt bài thi). Nó cũng quản lý các đối tượng giao diện bảng thi trong danh sách quizBoards và thực thể giảng viên ảo kyleController. Lớp này cung cấp các phương thức công khai như EnterLectureMode() để bắt đầu giai đoạn học lý thuyết và vẫy tay chào người học, và EnterQuizMode() để kích hoạt giai đoạn làm bài thi trắc nghiệm. Sự phối hợp giữa ProgressManager và ClassroomManager giúp hệ thống phân tách rõ ràng trách nhiệm quản lý tổng thể của sảnh chung và logic nội bộ của từng phòng học chuyên đề.
-
-#### b, Nhóm lớp quản lý thi cử và truyền thông tin cử chỉ tĩnh
-
-Nhóm lớp này vận hành quy tắc thi trắc nghiệm, chấm điểm tự động, truyền tín hiệu nhận diện cử chỉ và xử lý di chuyển của người học bằng tay trần.
-
-> **Hình 5.5:** _Sơ đồ lớp QuizManager, GestureHub và GestureLocomotionProvider_
-
-```mermaid
-%%{init: {'theme': 'neutral'}}%%
-classDiagram
     class QuizManager {
         +TMP_Text questionTextUI
         +Image questionImageUI
@@ -194,6 +183,27 @@ classDiagram
         +EndExam() void
     }
 
+    ProgressManager "1" --> "*" ClassroomManager : quản lý
+    ClassroomManager "1" --> "*" QuizManager : quản lý
+    QuizManager ..> ClassroomManager : tự động đồng bộ topic
+```
+
+Lớp ProgressManager (Hình 5.4) là lớp Singleton trung tâm, đóng vai trò là bộ não điều hành toàn bộ vòng đời và tiến trình học tập của ứng dụng ASL VR. Để bảo đảm tính duy nhất và cung cấp giao diện truy cập toàn cục cho các thành phần khác, lớp này sử dụng thuộc tính tĩnh Instance. Nó chứa các tham chiếu quan trọng như danh sách classrooms của các phòng học chuyên đề, đối tượng lobbyGestureGroup để bật tắt cử chỉ tại sảnh, và teleportProvider để thực hiện dịch chuyển người học. Lớp này quản lý tiến trình của người học bằng cách so sánh điểm số cao nhất của chủ đề trước được lưu trong bộ nhớ thiết bị PlayerPrefs với ngưỡng điểm đạt passingGrade. Các phương thức chính bao gồm EnterLobby() để reset trạng thái và đưa người học về sảnh chính, IsTopicUnlocked() để xác thực quyền mở khóa phòng học mới, và ApplyTopicChange() để thực thi các thiết lập khi học viên chuyển chủ đề học.
+
+Lớp ClassroomManager (Hình 5.4) chịu trách nhiệm quản lý vòng đời và trạng thái hoạt động của một phòng học chuyên đề cụ thể trong hệ thống. Lớp này lưu trữ chỉ số chủ đề topicIndex và các tham chiếu đến các đối tượng tương ứng với từng giai đoạn học tập như lecturePhase (giai đoạn lý thuyết), quizPhase (giai đoạn làm bài kiểm tra) và examEntranceUI (giao diện bảng kích hoạt bài thi). Nó cũng quản lý các đối tượng giao diện bảng thi trong danh sách quizBoards và thực thể giảng viên ảo kyleController. Lớp này cung cấp các phương thức công khai như EnterLectureMode() để bắt đầu giai đoạn học lý thuyết và vẫy tay chào người học, và EnterQuizMode() để kích hoạt giai đoạn làm bài thi trắc nghiệm. Sự phối hợp giữa ProgressManager và ClassroomManager giúp hệ thống phân tách rõ ràng trách nhiệm quản lý tổng thể của sảnh chung và logic nội bộ của từng phòng học chuyên đề.
+
+Lớp QuizManager (Hình 5.4) chịu trách nhiệm vận hành toàn bộ logic của một bài thi trắc nghiệm ký hiệu ASL. Lớp này nắm giữ các thành phần hiển thị giao diện UI bảng thi như questionTextUI, questionImageUI, feedbackTextUI và scoreTextUI. Nó lưu trữ danh sách câu hỏi questionList và quản lý trạng thái thi của người học qua các thuộc tính private như currentQuestionIndex, điểm số score, bộ đệm ký tự đã nhập đúng currentInputBuffer, và các thuộc tính hỗ trợ luật sư phạm bao gồm currentQuestionMistakes (chỉ số lỗi phạt chính thức), hiddenMistakes (số lỗi sai ẩn) và invincibilityEndTime (thời điểm kết thúc cửa sổ vô địch). Các phương thức chính bao gồm StartExam() để khởi tạo bài thi, LoadQuestion() để tải câu hỏi lên bảng, SubmitAnswer() để đối chiếu cử chỉ nhận diện với đáp án, HandleCorrectPart() để xử lý khi người học làm đúng và HandleWrongInput() để xử lý khi người học làm sai theo quy tắc giảm lỗi và miễn phạt.
+
+
+#### b, Nhóm lớp quản lý thi cử và nhận dạng cử chỉ tĩnh/chuỗi cử chỉ động
+
+Nhóm lớp này vận hành toàn bộ logic thi trắc nghiệm, trung chuyển sự kiện, thực thi di chuyển và nhận diện các tư thế tay tĩnh cũng như chuỗi cử chỉ động chuyển đổi qua lại giữa các trạng thái tay.
+
+> **Hình 5.5:** _Sơ đồ lớp GestureHub, GestureLocomotionProvider, StaticHandGesture, GestureTrigger và DynamicGesture_
+
+```mermaid
+%%{init: {'theme': 'neutral'}}%%
+classDiagram
     class GestureHub {
         +OnGestureDetected$ Action~string~
         +OnGestureEnded$ Action~string~
@@ -215,15 +225,60 @@ classDiagram
         -OnGestureEnded(string gestureID) void
     }
 
-    QuizManager ..> GestureHub : đăng ký nhận sự kiện
-    GestureLocomotionProvider ..> GestureHub : đăng ký nhận sự kiện di chuyển
-```
+    class StaticHandGesture {
+        +XRHandTrackingEvents handTrackingEvents
+        +ScriptableObject handShapeOrPose
+        +Transform targetTransform
+        +Image background
+        +Image highlight
+        +UnityEvent gesturePerformed
+        +UnityEvent gestureEnded
+        +float minimumHoldTime
+        +float gestureDetectionInterval
+        -OnJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs) void
+    }
 
-Lớp QuizManager (Hình 5.5) chịu trách nhiệm vận hành toàn bộ logic của một bài thi trắc nghiệm ký hiệu ASL. Lớp này nắm giữ các thành phần hiển thị giao diện UI bảng thi như questionTextUI, questionImageUI, feedbackTextUI và scoreTextUI. Nó lưu trữ danh sách câu hỏi questionList và quản lý trạng thái thi của người học qua các thuộc tính private như currentQuestionIndex, điểm số score, bộ đệm ký tự đã nhập đúng currentInputBuffer, và các thuộc tính hỗ trợ luật sư phạm bao gồm currentQuestionMistakes (chỉ số lỗi phạt chính thức), hiddenMistakes (số lỗi sai ẩn) và invincibilityEndTime (thời điểm kết thúc cửa sổ vô địch). Các phương thức chính bao gồm StartExam() để khởi tạo bài thi, LoadQuestion() để tải câu hỏi lên bảng, SubmitAnswer() để đối chiếu cử chỉ nhận diện với đáp án, HandleCorrectPart() để xử lý khi người học làm đúng và HandleWrongInput() để xử lý khi người học làm sai theo quy tắc giảm lỗi và miễn phạt.
+    class GestureTrigger {
+        +string gestureID
+        -bool isDetected
+        +Trigger() void
+        +TriggerEnded() void
+    }
+
+    class DynamicGesture {
+        +float waveSpeed
+        +string gestureName
+        -Image m_Background
+        -Image m_Highlight
+        -bool isOpenPoseActive
+        -bool isClosedPoseActive
+        -bool isGestureActive
+        +List~string~ openPoseIDs
+        +List~string~ closedPoseIDs
+        +DynamicGestureDetected UnityEvent
+        +DynamicGestureEnded UnityEvent
+        -HandleGlobalDetected(string id) void
+        -HandleGlobalEnded(string id) void
+        +SetOpenPose(bool active) void
+        +SetClosedPose(bool active) void
+    }
+
+    GestureLocomotionProvider ..> GestureHub : đăng ký nhận sự kiện di chuyển
+    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện
+    GestureTrigger ..> GestureHub : xuất bản sự kiện
+    DynamicGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
+    DynamicGesture ..> GestureTrigger : lắng nghe sự kiện kích hoạt
+```
 
 Lớp GestureHub (Hình 5.5) hoạt động như một trung tâm điều phối sự kiện tĩnh (Static Event Hub), đóng vai trò trung gian truyền tín hiệu cử chỉ giữa hệ thống nhận diện và các hệ thống ứng dụng khác mà không gây ràng buộc trực tiếp (coupling). Lớp này khai báo hai sự kiện tĩnh công khai là OnGestureDetected và OnGestureEnded. Khi một cử chỉ được nhận diện hoặc kết thúc nhận diện, phương thức Publish() sẽ được gọi để kích hoạt sự kiện tương ứng và phát đi mã cử chỉ gestureID. Ngoài ra, lớp này còn cung cấp phương thức tĩnh AreEquivalent() để chuẩn hóa và gom nhóm các cử chỉ có hình dáng tương đương (như các biến thể nắm đấm M, N, T, S, E), giúp nâng cao độ chính xác của hệ thống nhận diện.
 
 Lớp GestureLocomotionProvider (Hình 5.5) chịu trách nhiệm di chuyển người học trong không gian ảo bằng cử chỉ tay trần theo nguyên lý đơn nhiệm (SRP) và đảo ngược phụ thuộc (DIP). Nó định nghĩa hai thuộc tính định danh cử chỉ di chuyển là leftPointingGestureID (mặc định Pointing_Left) và rightPointingGestureID (mặc định Pointing_Right) cùng các tham chiếu hướng leftHandTransform, rightHandTransform và CharacterController để di chuyển người học. Thay vì truy cập trực tiếp SDK XR Hands, lớp này đăng ký nhận sự kiện tĩnh từ GestureHub.OnGestureDetected và GestureHub.OnGestureEnded trong phương thức OnEnable() và hủy đăng ký trong OnDisable(). Khi nhận diện được cả hai tay cùng thực hiện cử chỉ chỉ tay trỏ về phía trước, biến trạng thái m_LeftHandPointing và m_RightHandPointing sẽ là true, và trong Update() lớp sẽ thực thi di chuyển người học theo hướng trung bình của hai tay.
+
+Lớp StaticHandGesture (Hình 5.5) là thành phần thuộc thư viện mẫu của XR Hands, chịu trách nhiệm nhận diện tư thế bàn tay tĩnh của người học dựa trên dữ liệu khớp xương tay thu nhận từ hệ thống. Lớp này chứa các trường cấu hình quan trọng như m_HandTrackingEvents để đăng ký nhận cập nhật khớp xương tay, m_HandShapeOrPose trỏ tới tài nguyên hình dáng cử chỉ tĩnh (ScriptableObject), và các thiết lập thời gian bao gồm m_MinimumHoldTime (thời gian giữ tối thiểu) và m_GestureDetectionInterval (chu kỳ kiểm tra cử chỉ). Khi tư thế tay thực tế khớp với mẫu quy định trong khoảng thời gian tối thiểu, nó sẽ kích hoạt sự kiện m_GesturePerformed, và khi kết thúc sẽ gọi m_GestureEnded, đồng thời đổi màu nền m_Background để phản hồi trực quan cho người học.
+
+Lớp GestureTrigger (Hình 5.5) hoạt động như một cầu nối trung gian chuyển tiếp, giúp tách biệt logic nhận diện tư thế tay vật lý khỏi logic nghiệp vụ của bài giảng. Lớp này lưu giữ định danh cử chỉ tương ứng thông qua thuộc tính gestureID. Trong phương thức Start(), nó tìm kiếm các thành phần StaticHandGesture gắn trên cùng một đối tượng để đăng ký lắng nghe hai sự kiện gesturePerformed và gestureEnded. Khi sự kiện bắt đầu được StaticHandGesture kích hoạt, nó gọi phương thức Trigger() để gọi sang GestureHub.Publish() nhằm xuất bản sự kiện nhận diện cử chỉ đến toàn hệ thống. Ngược lại, khi cử chỉ kết thúc, nó gọi TriggerEnded() để gửi thông điệp kết thúc tương tự. Việc phối hợp giữa StaticHandGesture và GestureTrigger giúp hệ thống dễ dàng gắn và cấu hình các tư thế tay tĩnh mới trực tiếp trong Unity Editor.
+
+Lớp DynamicGesture (Hình 5.5) chịu trách nhiệm nhận diện các cử chỉ động dạng chuỗi thời gian chuyển trạng thái (như cử chỉ chào Hello). Nó định nghĩa tốc độ thực hiện cử chỉ waveSpeed và các tham chiếu bộ nhớ đệm openPoseIDs (các ID tư thế xòe tay bắt đầu) và closedPoseIDs (các ID tư thế nắm tay kết thúc). Lớp này đăng ký nhận sự kiện tĩnh từ GestureHub trong phương thức OnEnable(). Khi nhận diện được chuỗi tư thế tay mở rồi đến tư thế tay đóng trong khoảng thời gian waveSpeed, lớp sẽ kích hoạt sự kiện DynamicGestureDetected và gọi GestureHub.Publish(gestureName, true) để xuất bản cử chỉ động Hello ra hệ thống.
 
 #### c, Nhóm lớp thu thập và nhận diện cử chỉ động vẽ nét
 
@@ -265,9 +320,10 @@ classDiagram
     }
 
     VRMagicTrajectory ..> VRMagicUnistroke : sử dụng giải thuật nhận diện
+    VRMagicTrajectory ..> GestureHub : xuất bản sự kiện
 ```
 
-Lớp VRMagicTrajectory (Hình 5.6) là thành phần chịu trách nhiệm thu thập tọa độ và điều khiển vẽ quỹ đạo nét vẽ trong không gian 3D của ngón trỏ để nhận diện các ký hiệu động. Lớp này kế thừa từ MonoBehaviour và lưu trữ các cấu hình như gestureID, tư thế tay kích hoạt vẽ baseHandShape, ngưỡng nhận dạng matchThreshold và khoảng cách tối thiểu giữa hai điểm vẽ pointDistanceMin. Nó chứa các tham chiếu trực quan bao gồm lineRenderer để hiển thị nét vẽ 3D và playerCamera để chiếu tọa độ. Khi nhận sự kiện từ handTrackingEvents khớp với baseHandShape, phương thức StartDrawing() sẽ được kích hoạt để bắt đầu quá trình ghi nhận tọa độ đầu ngón trỏ vào danh sách worldPoints thông qua RecordPoint(). Khi người học hạ tay kết thúc vẽ, StopDrawingAndEvaluate() được gọi để chuyển đổi quỹ đạo 3D thành 2D trên không gian local của camera và chuyển dữ liệu sang lớp VRMagicUnistroke để tính điểm.
+Lớp VRMagicTrajectory (Hình 5.6) là thành phần chịu trách nhiệm thu thập tọa độ và điều khiển vẽ quỹ đạo nét vẽ trong không gian 3D của ngón trỏ để nhận diện các ký hiệu động. Lớp này kế thừa từ MonoBehaviour và lưu trữ các cấu hình như gestureID, tư thế tay kích hoạt vẽ baseHandShape, ngưỡng nhận dạng matchThreshold và khoảng cách tối thiểu giữa hai điểm vẽ pointDistanceMin. Nó chứa các tham chiếu trực quan bao gồm lineRenderer để hiển thị nét vẽ 3D và playerCamera để chiếu tọa độ. Khi nhận sự kiện từ handTrackingEvents khớp với baseHandShape, phương thức StartDrawing() sẽ được kích hoạt để bắt đầu quá trình ghi nhận tọa độ đầu ngón trỏ vào danh sách worldPoints thông qua RecordPoint(). Khi người học hạ tay kết thúc vẽ, StopDrawingAndEvaluate() được gọi để chuyển đổi quỹ đạo 3D thành 2D trên không gian local của camera và chuyển dữ liệu sang lớp VRMagicUnistroke để tính điểm. Khi điểm số vượt ngưỡng, nó trực tiếp gọi GestureHub.Publish() để truyền thông điệp.
 
 Lớp VRMagicUnistroke (Hình 5.6) là một lớp tiện ích phi hành vi (non-MonoBehaviour) thực thi thuật toán nhận dạng nét vẽ 2D Unistroke độc lập. Lớp này chứa các hằng số cấu hình thuật toán như số điểm chuẩn hóa NumPoints, kích thước hộp SquareSize và tỉ lệ vàng Phi để tìm kiếm góc tối ưu. Phương thức tĩnh Recognize() của lớp tiếp nhận danh sách các điểm vẽ 2D từ VRMagicTrajectory, sau đó thực hiện chuỗi tiền xử lý chuẩn hóa bao gồm Resample() (nội suy đều số điểm vẽ thành 64 điểm), RotateToZero() (xoay nét vẽ về góc không độ chuẩn để loại bỏ sai lệch hướng), ScaleToSquare() (co giãn tỉ lệ nét vẽ về kích thước hộp vuông tiêu chuẩn) và TranslateToOrigin() (dịch tâm nét vẽ về tọa độ gốc). Sau khi chuẩn hóa, nét vẽ được so khớp khoảng cách Euclid với danh sách các mẫu chữ cái lưu sẵn để tính ra điểm số khớp cao nhất và phản hồi lại cho bộ lọc.
 
