@@ -343,12 +343,11 @@ classDiagram
     }
 
     VRMagicTrajectory ..> VRMagicUnistroke : sử dụng giải thuật nhận diện
-    VRMagicTrajectory ..> GestureHub : xuất bản sự kiện
 ```
 
-Lớp VRMagicTrajectory (Hình 5.5) là thành phần chịu trách nhiệm thu nhận dữ liệu khớp tay, ghi lại quỹ đạo nét vẽ của ngón trỏ và điều khiển vẽ quỹ đạo nét vẽ trong không gian 3D của ngón trỏ để nhận diện các ký hiệu động. Lớp này kế thừa từ MonoBehaviour và lưu trữ các cấu hình như gestureID, tư thế tay kích hoạt vẽ baseHandShape, ngưỡng nhận dạng matchThreshold và khoảng cách tối thiểu giữa hai điểm vẽ pointDistanceMin. Nó chứa các tham chiếu trực quan bao gồm lineRenderer để hiển thị nét vẽ 3D và playerCamera để chiếu tọa độ. Khi nhận sự kiện từ handTrackingEvents khớp với baseHandShape, phương thức StartDrawing() sẽ được kích hoạt để bắt đầu quá trình ghi nhận tọa độ đầu ngón trỏ vào danh sách worldPoints thông qua RecordPoint(). Khi người học hạ tay kết thúc vẽ, StopDrawingAndEvaluate() được gọi để chuyển đổi quỹ đạo 3D thành 2D trên không gian local của camera và chuyển dữ liệu sang lớp VRMagicUnistroke để tính điểm. Khi điểm số vượt ngưỡng, nó trực tiếp gọi GestureHub.Publish() để truyền thông điệp.
+Lớp VRMagicTrajectory (Hình 5.5) là thành phần chịu trách nhiệm thu nhận dữ liệu khớp tay, ghi lại quỹ đạo nét vẽ của ngón trỏ và điều khiển vẽ quỹ đạo nét vẽ trong không gian 3D của ngón trỏ để nhận diện các ký hiệu động. Lớp này lưu trữ các cấu hình như gestureID, tư thế tay kích hoạt vẽ baseHandShape, ngưỡng nhận dạng matchThreshold và khoảng cách tối thiểu giữa hai điểm vẽ pointDistanceMin. Nó chứa các tham chiếu trực quan bao gồm lineRenderer để hiển thị nét vẽ 3D và playerCamera để chiếu tọa độ. Khi nhận sự kiện từ handTrackingEvents khớp với baseHandShape, phương thức StartDrawing() sẽ được kích hoạt để bắt đầu quá trình ghi nhận tọa độ đầu ngón trỏ vào danh sách worldPoints thông qua RecordPoint(). Khi người học hạ tay kết thúc vẽ, StopDrawingAndEvaluate() được gọi để chuyển đổi quỹ đạo 3D thành 2D trên không gian local của camera và chuyển dữ liệu sang lớp VRMagicUnistroke để tính điểm. Khi điểm số vượt ngưỡng, nó trực tiếp gọi GestureHub.Publish() để truyền thông điệp.
 
-Lớp VRMagicUnistroke (Hình 5.5) là một lớp tiện ích phi hành vi (non-MonoBehaviour) thực thi thuật toán nhận dạng nét vẽ 2D Unistroke độc lập. Lớp này chứa các hằng số cấu hình thuật toán như số điểm chuẩn hóa NumPoints, kích thước hộp SquareSize và tỉ lệ vàng Phi để tìm kiếm góc tối ưu. Phương thức tĩnh Recognize() của lớp tiếp nhận danh sách các điểm vẽ 2D từ VRMagicTrajectory, sau đó thực hiện chuỗi tiền xử lý chuẩn hóa bao gồm Resample() (nội suy đều số điểm vẽ thành 64 điểm), RotateToZero() (xoay nét vẽ về góc không độ chuẩn để loại bỏ sai lệch hướng), ScaleToSquare() (co giãn tỉ lệ nét vẽ về kích thước hộp vuông tiêu chuẩn) và TranslateToOrigin() (dịch tâm nét vẽ về tọa độ gốc). Sau khi chuẩn hóa, nét vẽ được so khớp khoảng cách Euclid với danh sách các mẫu chữ cái lưu sẵn để tính ra điểm số khớp cao nhất và phản hồi lại cho bộ lọc.
+Lớp VRMagicUnistroke (Hình 5.5) là một lớp thực thi thuật toán nhận dạng nét vẽ 2D Unistroke độc lập. Lớp này chứa các hằng số cấu hình thuật toán như số điểm chuẩn hóa NumPoints, kích thước hộp SquareSize và tỉ lệ vàng Phi để tìm kiếm góc tối ưu. Phương thức Recognize() của lớp tiếp nhận danh sách các điểm vẽ 2D từ VRMagicTrajectory, sau đó thực hiện chuỗi tiền xử lý chuẩn hóa bao gồm Resample() (nội suy đều số điểm vẽ thành 64 điểm), RotateToZero() (xoay nét vẽ về góc không độ chuẩn để loại bỏ sai lệch hướng), ScaleToSquare() (co giãn tỉ lệ nét vẽ về kích thước hộp vuông tiêu chuẩn) và TranslateToOrigin() (dịch tâm nét vẽ về tọa độ gốc). Sau khi chuẩn hóa, nét vẽ được so khớp khoảng cách Euclid với danh sách các mẫu chữ cái lưu sẵn để tính ra điểm số khớp cao nhất và phản hồi lại cho bộ lọc.
 
 ---
 
@@ -390,11 +389,7 @@ sequenceDiagram
     end
 ```
 
-Biểu đồ mô tả chi tiết luồng tương tác cho trường hợp sử dụng trả lời câu hỏi tĩnh, một chức năng cốt lõi trong hệ thống bài giảng để đánh giá năng lực của người học. Luồng tương tác bắt đầu khi người học thực hiện uốn nắn bàn tay trần trong không gian ba chiều. Thành phần StaticHandGesture đóng vai trò đối sánh tư thế tĩnh, tuân thủ nguyên tắc tách biệt các mối quan tâm, liên tục kiểm tra và đối chiếu các thông số khớp xương tay thu nhận từ camera cảm biến với tệp dữ liệu mẫu. Khi tư thế khớp với mẫu tĩnh và duy trì đủ thời gian hold time quy định, StaticHandGesture sẽ kích hoạt sự kiện gesturePerformed để thông báo cho component GestureTrigger gắn kèm.
-
-GestureTrigger tiếp nhận sự kiện và đóng vai trò chuyển tiếp sự kiện nghiệp vụ bằng cách gọi phương thức Publish của GestureHub, gửi đi mã cử chỉ tương ứng. GestureHub sau đó phát sự kiện tĩnh OnGestureDetected ra toàn hệ thống để các bên liên quan xử lý. Lớp QuizManager, vốn đang lắng nghe sự kiện tĩnh này từ GestureHub, tiếp nhận dữ liệu và thực hiện so khớp mã cử chỉ nhận diện được với mã cử chỉ đáp án mong muốn của câu hỏi hiện tại.
-
-Tại đây, QuizManager thực hiện phân nhánh xử lý tương ứng với hai trường hợp. Nếu người học thực hiện đúng cử chỉ mẫu, QuizManager sẽ gọi phương thức HandleCorrectPart, tăng điểm số và cập nhật giao diện bảng thi thông qua việc đổi màu chữ ScoreTextUI sang màu xanh để đưa ra phản hồi trực quan tích cực. Khi hoàn thành toàn bộ các ký tự của câu hỏi, QuizManager kích hoạt HandleQuestionComplete, hiển thị thông điệp khích lệ và tự động tải câu hỏi tiếp theo sau một khoảng trễ nhỏ. Ngược lại, nếu người học thực hiện sai, QuizManager sẽ gọi HandleWrongInput để kiểm tra cơ chế miễn phạt; nếu hết lượt miễn phạt và vượt quá số lỗi ẩn cho phép, nó mới ghi nhận một lỗi phạt chính thức (tăng currentQuestionMistakes) và kích hoạt cửa sổ vô địch để tạm khóa phản hồi sai, tránh tạo áp lực tâm lý và giúp người học bình tĩnh thử lại, hoàn tất một chu trình tương tác-xử lý-phản hồi hoàn chỉnh.
+Biểu đồ tuần tự tại Hình 5.6 mô tả luồng tương tác trả lời câu hỏi tĩnh để đánh giá năng lực người học. Luồng tương tác bắt đầu khi người học thực hiện uốn nắn bàn tay trần. Thành phần StaticHandGesture đóng vai trò đối sánh tư thế tĩnh, tuân thủ nguyên tắc tách biệt các mối quan tâm, liên tục đối chiếu khớp xương từ camera cảm biến với tệp mẫu; khi khớp và đủ thời gian giữ tư thế, nó kích hoạt sự kiện báo cho GestureTrigger. Để đảm bảo phân tách trách nhiệm, GestureTrigger không tự xử lý logic mà chuyển tiếp sự kiện bằng cách gọi Publish của bộ trung chuyển sự kiện tĩnh GestureHub. Lớp QuizManager đang lắng nghe sự kiện tĩnh từ GestureHub sẽ tiếp nhận mã cử chỉ và đối chiếu với đáp án của câu hỏi hiện tại. Tại đây, QuizManager thực hiện phân nhánh xử lý: nếu đúng, nó gọi HandleCorrectPart để tăng điểm, đổi màu chữ ScoreTextUI và tự động chuyển câu hỏi tiếp theo sau khoảng trễ; nếu sai, nó gọi HandleWrongInput để kiểm tra số lỗi ẩn và lượt miễn phạt; nếu vượt quá giới hạn, hệ thống mới tăng số lỗi phạt chính thức và tạm khóa phản hồi sai qua cửa sổ vô địch để giúp người học bình tĩnh thử lại, hoàn tất một chu trình tương tác-xử lý-phản hồi hoàn chỉnh.
 
 #### b, Luồng nhận diện cử chỉ động vẽ nét chữ cái bằng giải thuật Unistroke
 
@@ -431,61 +426,7 @@ sequenceDiagram
     end
 ```
 
-Biểu đồ mô tả chi tiết luồng tương tác cho trường hợp sử dụng nhận diện cử chỉ động vẽ nét chữ cái J và Z, một tính năng nâng cao cho phép nhận diện các ký hiệu động có quỹ đạo phức tạp. Luồng tương tác bắt đầu khi người học giữ tư thế tay nền chuẩn để kích hoạt trạng thái vẽ. Khi người học di chuyển ngón trỏ trong không gian, thành phần VRMagicTrajectory thu nhận tọa độ 3D của khớp ngón trỏ ở mỗi khung hình và gọi LineRenderer để hiển thị nét vẽ 3D trực quan, cung cấp phản hồi hình ảnh thời gian thực.
-
-Khi người học hạ tay và thả tư thế tay nền chuẩn ra, VRMagicTrajectory ghi nhận kết thúc quá trình vẽ và bắt đầu quá trình đánh giá bằng phương thức StopDrawingAndEvaluate. Để chuẩn bị cho giải thuật so khớp 2D, lớp này thực hiện phép chiếu hệ tọa độ thế giới 3D của các điểm vẽ sang hệ tọa độ phẳng 2D cục bộ của Camera. Sau đó, danh sách các điểm 2D này được gửi đến lớp tiện ích VRMagicUnistroke thông qua phương thức tĩnh Recognize để tính toán độ tương đồng.
-
-VRMagicUnistroke, hoạt động độc lập dưới dạng một module phi hành vi nhằm tối ưu hóa hiệu năng, thực hiện một chuỗi bốn bước tiền xử lý chuẩn hóa bao gồm nội suy đều số điểm vẽ (Resample), xoay nét vẽ về hướng chuẩn (RotateToZero), co giãn nét vẽ về kích thước tiêu chuẩn (ScaleToSquare), và dịch chuyển tâm quỹ đạo về tọa độ gốc (TranslateToOrigin). Sau khi chuẩn hóa, nét vẽ được so khớp khoảng cách Euclid với danh sách các mẫu chữ cái lưu sẵn để tính toán điểm số khớp mẫu cao nhất và phản hồi lại cho VRMagicTrajectory. Nếu điểm số trả về vượt ngưỡng matchThreshold, VRMagicTrajectory gọi GestureHub.Publish để phát tín hiệu cử chỉ thành công ra toàn hệ thống, từ đó QuizManager nhận sự kiện để nạp đáp án và ghi nhận điểm số, hoàn tất một chu trình tương tác-xử lý-phản hồi hoàn chỉnh.
-
----
-
-### 5.2.3 Thiết kế cơ sở dữ liệu
-
-Vì hệ thống bài giảng tương tác ASL VR được thiết kế để vận hành độc lập trực tiếp trên thiết bị kính Meta Quest 2 mà không yêu cầu kết nối mạng liên tục, cơ sở dữ liệu của hệ thống được tối giản hóa tối đa nhằm tối ưu hiệu năng và độ trễ truy cập dữ liệu. Hệ thống sử dụng PlayerPrefs – cơ chế lưu trữ dữ liệu dạng khóa-giá trị (Key-Value) nội bộ của Unity – để lưu trữ và quản lý điểm số tiến trình của người học một cách an toàn và bền vững.
-
-#### a, Thiết kế bảng dữ liệu lưu trữ
-
-Cấu trúc lưu trữ dữ liệu điểm số các chủ đề học tập được đặc tả qua bảng sơ đồ thuộc tính dưới đây:
-
-| Tên Khóa (Key Name) | Kiểu dữ liệu | Giá trị hợp lệ | Ý nghĩa / Giải thích                                                                                |
-| :------------------ | :----------: | :------------: | :-------------------------------------------------------------------------------------------------- |
-| **Topic_0_Score**   |    float     |  0.0 - 100.0   | Điểm số phần trăm cao nhất đạt được tại phòng thi chủ đề Bảng chữ cái (Alphabets). Mặc định bằng 0. |
-| **Topic_1_Score**   |    float     |  0.0 - 100.0   | Điểm số phần trăm cao nhất đạt được tại phòng thi chủ đề Chữ số (Numbers). Mặc định bằng 0.         |
-| **Topic_2_Score**   |    float     |  0.0 - 100.0   | Điểm số phần trăm cao nhất đạt được tại phòng thi chủ đề Hội thoại (Greetings). Mặc định bằng 0.    |
-
-> **Bảng 5.1:** _Đặc tả cấu trúc khóa lưu trữ dữ liệu tiến trình học tập_
-
-#### b, Logic đồng bộ hóa và mở khóa chủ đề
-
-Sơ đồ ánh xạ logic dưới đây mô tả cách lớp ProgressManager truy vấn cơ sở dữ liệu nội bộ để xác định điều kiện mở khóa phòng học mới:
-
-```mermaid
-graph LR
-    subgraph Storage [Thiết bị lưu trữ nội bộ]
-        db[(PlayerPrefs Key-Value)]
-    end
-
-    subgraph Manager [Lớp ProgressManager]
-        check{IsTopicUnlocked?}
-        score[GetHighestScore(topicIndex - 1)]
-        pass[passingGrade = 80%]
-    end
-
-    subgraph TargetRoom [Phòng học mục tiêu]
-        action[ApplyTopicChange]
-        unlocked((Bật cửa phòng học & Dịch chuyển))
-        locked((Cửa đóng & Báo lỗi khóa))
-    end
-
-    db -->|Đọc khóa Topic_X_Score| score
-    score --> check
-    pass --> check
-    check -->|Điểm số >= 80%| unlocked
-    check -->|Điểm số < 80%| locked
-    unlocked --> action
-```
-
-Mỗi khi người học hoàn thành bài thi tại QuizManager, điểm số phần trăm mới sẽ được so sánh với giá trị tốt nhất hiện tại. Nếu điểm số mới cao hơn, phương thức SaveTopicScore sẽ thực hiện lưu đè giá trị mới vào PlayerPrefs và gọi hàm Save để ghi nhận vĩnh viễn vào bộ nhớ flash của kính VR, đảm bảo tiến trình tự học của người học không bị mất khi tắt ứng dụng hoặc khởi động lại thiết bị.
+Biểu đồ tuần tự tại Hình 5.7 mô tả quy trình thu thập và nhận diện nét vẽ chữ cái J và Z. Luồng tương tác bắt đầu khi người học giữ tư thế tay nền chuẩn để kích hoạt trạng thái vẽ. Khi di chuyển ngón trỏ, component VRMagicTrajectory thu nhận tọa độ 3D và hiển thị nét vẽ qua LineRenderer để cung cấp phản hồi hình ảnh thời gian thực. Khi người học thả tư thế tay nền ra, VRMagicTrajectory gọi StopDrawingAndEvaluate, chiếu toàn bộ tọa độ 3D thành 2D phẳng cục bộ của Camera rồi gửi đến module phi hành vi VRMagicUnistroke để so khớp. VRMagicUnistroke thực hiện tiền xử lý chuẩn hóa nét vẽ qua bốn bước gồm nội suy đều số điểm vẽ (Resample), xoay góc định vị về 0 (RotateToZero), co giãn về khung hình vuông chuẩn (ScaleToSquare) và dịch tâm về gốc tọa độ (TranslateToOrigin). Cuối cùng, thuật toán tính khoảng cách Euclid giữa nét vẽ và nét mẫu; nếu điểm số vượt ngưỡng matchThreshold, VRMagicTrajectory gọi GestureHub.Publish để phát sự kiện thành công ra toàn hệ thống, từ đó QuizManager tiếp nhận sự kiện để ghi nhận đáp án và điểm số, hoàn tất chu trình tương tác-xử lý-phản hồi hoàn chỉnh.
 
 ---
 
