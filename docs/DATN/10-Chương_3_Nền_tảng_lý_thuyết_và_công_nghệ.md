@@ -6,7 +6,7 @@
 
 ### 3.1.1 Nón trải nghiệm Edgar Dale
 
-Học thuyết nón trải nghiệm của Edgar Dale mô tả trực quan mối quan hệ biện chứng giữa các hình thức tiếp nhận thông tin và hiệu quả lưu giữ kiến thức của não bộ con người. Mô hình này phân cấp các hoạt động nhận thức từ trạng thái thụ động nhất ở đỉnh nón, nơi người học chỉ tiếp nhận các ký hiệu ngôn từ và hình ảnh tĩnh, đến trạng thái chủ động nhất ở đáy nón, nơi diễn ra các hoạt động thực nghiệm thực tế và thực hành trực tiếp. 
+Học thuyết nón trải nghiệm của Edgar Dale mô tả trực quan mối quan hệ biện chứng giữa các hình thức tiếp nhận thông tin và hiệu quả lưu giữ kiến thức của não bộ con người. Mô hình này phân cấp các hoạt động nhận thức từ trạng thái thụ động nhất ở đỉnh nón, nơi người học chỉ tiếp nhận các ký hiệu ngôn từ và hình ảnh tĩnh, đến trạng thái chủ động nhất ở đáy nón, nơi diễn ra các hoạt động thực nghiệm thực tế và thực hành trực tiếp.
 
 Theo các nghiên cứu thực nghiệm của Edgar Dale, khả năng lưu giữ kiến thức của người học sau hai tuần được phân bậc vô cùng rõ rệt dựa trên mức độ tham gia vào bài học. Cụ thể, học viên chỉ có thể nhớ được mười phần trăm lượng thông tin nếu chỉ tiếp nhận qua việc đọc, tương ứng với phương pháp tự học truyền thống qua giáo trình in ấn hoặc các tài liệu sách ảnh ngôn ngữ ký hiệu tĩnh. Tỷ lệ này chỉ tăng lên mức hai mươi phần trăm đối với hình thức nghe và ba mươi phần trăm đối với hình thức nhìn, phản ánh thực trạng học tập thụ động qua các video hướng dẫn dạng hai chiều trên màn hình phẳng. Ngược lại, hiệu quả ghi nhớ có thể đạt tới chín mươi phần trăm lượng kiến thức nếu người học được trực tiếp thảo luận và thực hành thông qua các trải nghiệm thực tế có mục đích rõ rệt.
 
@@ -34,14 +34,27 @@ Bên cạnh đó, giải pháp này giúp giảm thiểu tối đa độ phức 
 
 Cuối cùng, việc tích hợp thư viện này đảm bảo tính tương thích cao và tối ưu hóa tối đa hiệu suất phần cứng của thiết bị kính độc lập Meta Quest. Ứng dụng có thể vận hành cực kỳ mượt mà, đạt tốc độ khung hình ổn định từ 72 đến 90 hình trên giây mà không cần phải kết nối với hệ thống máy tính cồng kềnh bên ngoài. Điều này mang lại sự linh hoạt tối đa cho người học, cho phép họ thực hành luyện tập các tư thế tay ở bất kỳ không gian nào một cách dễ dàng và thoải mái.
 
-<!-- ---
+---
 
 ## 3.3 Thuật toán nhận diện quỹ đạo nét vẽ động $1 Unistroke
 
-Đối với các chữ cái động có nét vẽ kéo dài trong không gian ảo như chữ cái J và Z, việc nhận diện bằng tư thế khớp ngón tay tĩnh là hoàn toàn bất khả thi do hình dạng bàn tay và vị trí tọa độ liên tục biến đổi theo thời gian thực. Đồ án giải quyết triệt để bài toán này bằng cách tự nghiên cứu và triển khai bộ nhận dạng quỹ đạo nét vẽ đơn $1 Unistroke Recognizer dựa trên các nghiên cứu toán học hình học phổ biến của Wobbrock, Wilson và Li. Hệ thống cho phép ngón trỏ của người học vẽ trực tiếp một đường nét liên tục trong không gian ảo 3D. Tọa độ 3D này sau đó được chiếu lên một mặt phẳng 2D cục bộ song song với Camera kính HMD của người chơi để đưa về dạng tọa độ phẳng. Bộ nhận dạng thu thập chuỗi điểm tọa độ phẳng này, sau đó đưa chuỗi điểm qua 5 bước chuẩn hóa toán học hình học liên tục để khử hoàn toàn các sai lệch vật lý trước khi tiến hành so khớp khoảng cách với nét mẫu.
+Đối với các chữ cái động có nét vẽ kéo dài trong không gian ảo như chữ cái J và Z, việc nhận diện bằng tư thế khớp ngón tay tĩnh là hoàn toàn bất khả thi do hình dạng bàn tay và vị trí tọa độ liên tục biến đổi theo thời gian thực. Đồ án giải quyết triệt để bài toán này bằng cách tự nghiên cứu và triển khai bộ nhận dạng quỹ đạo nét vẽ đơn $1 Unistroke Recognizer dựa trên các nghiên cứu toán học hình học phổ biến của Wobbrock, Wilson và Li. Hệ thống cho phép ngón trỏ của người học vẽ trực tiếp một đường nét liên tục trong không gian ảo 3D. Tọa độ 3D này sau đó được chiếu lên một mặt phẳng 2D cục bộ song song với Camera kính HMD của người chơi để đưa về dạng tọa độ phẳng. Bộ nhận dạng thu thập chuỗi điểm tọa độ phẳng này, sau đó đưa chuỗi điểm qua các bước chuẩn hóa toán học hình học liên tục để khử hoàn toàn các sai lệch vật lý trước khi tiến hành so khớp khoảng cách với nét mẫu.
+
+> **Hình 3.2:** _Sơ đồ quy trình 4 bước chuẩn hóa quỹ đạo của giải thuật $1 Unistroke_
+
+```mermaid
+flowchart TD
+    StartNode(( )) --> Step1["Bước 1: Nội suy số lượng điểm (Resample)<br/>Đồng bộ số lượng điểm vẽ về đúng 64 điểm bằng nội suy tuyến tính"]
+    Step1 --> Step2["Bước 2: Xoay góc định vị về 0 (Rotate to Zero)<br/>Xoay nét vẽ quanh trọng tâm để đưa góc chỉ thị về 0 độ"]
+    Step2 --> Step3["Bước 3: Co giãn tỷ lệ (Scale to Square)<br/>Co giãn phi tuyến nét vẽ để nằm vừa vặn trong hộp bao 250x250"]
+    Step3 --> Step4["Bước 4: Tịnh tiến trọng tâm (Translate to Origin)<br/>Dịch chuyển toàn bộ tập điểm sao cho trọng tâm trùng gốc (0,0)"]
+    Step4 --> EndNode((( )))
+
+    %% Custom styling for UML Activity Diagram
+    style StartNode fill:#000000,stroke:#000000,width:20px,height:20px
+    style EndNode fill:#FFFFFF,stroke:#000000,stroke-width:4px,width:20px,height:20px
+    classDef activity fill:#E0F2F1,stroke:#009688,stroke-width:2px,color:#004D40;
+    class Step1,Step2,Step3,Step4 activity;
+```
 
 Quy trình chuẩn hóa và so khớp nét vẽ của thuật toán $1 Unistroke được triển khai tuần tự qua 5 bước logic chặt chẽ. Bước đầu tiên là đồng bộ số lượng điểm vẽ bằng phương pháp nội suy tuyến tính để chuyển đổi chuỗi điểm gốc thành một chuỗi điểm mới gồm đúng 64 điểm cố định cách đều nhau về mặt khoảng cách hình học, giúp triệt tiêu hoàn toàn ảnh hưởng của tốc độ di chuyển tay nhanh hay chậm của người học. Bước thứ hai là khử góc xoay nét vẽ bằng cách tìm kiếm trọng tâm hình học của toàn bộ nét vẽ, tính toán góc chỉ thị tạo bởi trọng tâm này với điểm đặt bút đầu tiên, và tiến hành xoay ngược toàn bộ tập điểm quanh trọng tâm một góc tương ứng để đưa góc chỉ thị về 0 độ, giúp nhận diện chính xác dù người học vẽ nghiêng hay thẳng. Bước thứ ba là khử kích thước nét vẽ thông qua việc co giãn phi tuyến nét vẽ sau khi xoay để nó nằm vừa vặn trong một hộp bao vuông có kích thước chuẩn cố định 250x250 pixel, đảm bảo kích cỡ nét vẽ to hay nhỏ đều được chuẩn hóa về cùng một quy mô so sánh. Bước thứ tư là khử vị trí nét vẽ bằng cách dịch chuyển tịnh tiến toàn bộ tập điểm sau co giãn sao cho trọng tâm hình học trùng hoàn toàn với gốc tọa độ hình học, loại bỏ hoàn toàn yếu tố vị trí đứng vẽ của người chơi trong phòng học ảo. Bước cuối cùng là so khớp khoảng cách tối ưu thông qua việc so sánh nét vẽ đã chuẩn hóa với nét vẽ mẫu tiêu chuẩn trong thư viện bằng cách tính toán trung bình cộng khoảng cách Euclide giữa các cặp điểm tương ứng. Để xử lý các sai lệch nhỏ về góc xoay tự nhiên của tay, thuật toán áp dụng phương pháp tìm kiếm tỷ lệ vàng Golden Section Search với hằng số tỷ lệ đặc trưng để liên tục tinh chỉnh xoay thử nét vẽ trong khoảng từ âm 45 độ đến dương 45 độ nhằm tìm ra góc xoay có giá trị khoảng cách lệch nhỏ nhất. Điểm số nhận diện cuối cùng được quy đổi về khoảng từ 0.0 đến 1.0 và khi vượt quá ngưỡng đỗ cấu hình sẵn thì chữ cái động tương ứng được hệ thống công nhận thực hiện thành công.
-
-[Takenote: Cần chèn Hình 3.2 minh họa sơ đồ 4 bước chuẩn hóa nét vẽ của thuật toán $1 Unistroke tại đây]
-
-Việc triển khai thuật toán $1 Unistroke tự phát triển kết hợp chiếu tọa độ camera 2D cục bộ mang lại nhiều ưu thế vượt trội cho đồ án. Thứ nhất là tính gọn nhẹ và tối ưu hiệu suất cực cao khi thuật toán dựa hoàn toàn trên các công thức toán hình học cơ bản thay vì sử dụng các mô hình học máy cồng kềnh đòi hỏi tài nguyên tính toán lớn dễ gây tụt giảm khung hình. Thuật toán có thể thực hiện nhận dạng tức thì chỉ trong vài mili-giây trực tiếp trên kính Meta Quest độc lập, đảm bảo phản hồi thời gian thực tức thời dưới 0.2 giây mà hoàn toàn không gây trễ hay say VR. Thứ hai là khả năng tùy biến và mở rộng linh hoạt khi nhà phát triển có thể dễ dàng đăng ký thêm các quỹ đạo nét vẽ động mới vào hệ thống chỉ bằng cách vẽ mẫu một lần và lưu lại tệp cấu hình, không cần huấn luyện lại mô hình phức tạp. Thứ ba là tăng tính thú vị và động lực học tập khi việc cho phép người học vẽ trực tiếp các nét sáng rực rỡ bám theo ngón tay trong không gian 3D giúp chuyển hóa bài học ghi nhớ cơ học nhàm chán thành một trải nghiệm sáng tạo nghệ thuật trực quan sinh động, củng cố mạnh mẽ trí nhớ vận động cho người học. -->
