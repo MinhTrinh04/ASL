@@ -96,6 +96,7 @@ classDiagram
         class GestureLocomotionProvider
         class StaticHandGesture
         class DynamicGesture
+        class DualGesture
     }
 
     GestureLesson ..> GestureHub : lắng nghe sự kiện
@@ -103,16 +104,18 @@ classDiagram
     VRMagicTrajectory ..> VRMagicUnistroke : sử dụng giải thuật
     GestureTrigger ..> GestureHub : xuất bản sự kiện
     GestureLocomotionProvider ..> GestureHub : lắng nghe sự kiện di chuyển
-    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện
+    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện kích hoạt
     DynamicGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
-    DynamicGesture ..> GestureTrigger : lắng nghe sự kiện kích hoạt
+    DynamicGesture ..> GestureTrigger : kích hoạt sự kiện
+    DualGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
+    DualGesture ..> GestureTrigger : kích hoạt sự kiện
 ```
 
 Đây là gói nền tảng chịu trách nhiệm thu nhận dữ liệu khớp xương tay, thực hiện nhận dạng các cử chỉ tĩnh, động và điều khiển di chuyển bằng tay trần của người học. Lớp GestureHub giữ vai trò trung tâm hoạt động như một bộ trung chuyển sự kiện, cung cấp sự kiện tĩnh OnGestureDetected để tất cả các thành phần khác có thể đăng ký lắng nghe và phản hồi khi có cử chỉ tương ứng.
 
 Lớp GestureLesson lắng nghe các cử chỉ học tập cụ thể để kiểm tra thời gian giữ đúng tư thế (Hold Time) và cập nhật vòng tiến trình thời gian thực. Lớp VRMagicTrajectory chịu trách nhiệm thu nhận chuyển động ngón trỏ để vẽ nét và nhận diện cử chỉ động cho chữ J và Z.
 
-Lớp VRMagicUnistroke cung cấp thuật toán nhận diện nét vẽ 2D Unistroke, tính toán điểm số khớp mẫu so với các quỹ đạo mẫu được lưu trữ. Lớp StaticHandGesture nhận dạng tư thế tay tĩnh từ dữ liệu khớp xương. Lớp GestureTrigger cho phép kích hoạt các sự kiện cử chỉ tương ứng bằng cách lắng nghe StaticHandGesture và chuyển tiếp lên hệ thống. Lớp DynamicGesture lắng nghe các sự kiện tư thế tĩnh do GestureTrigger kích hoạt và xuất bản qua GestureHub, theo dõi chuỗi thời gian chuyển đổi giữa các trạng thái tay để nhận diện và xuất bản cử chỉ động (như cử chỉ chào Hello). Lớp GestureLocomotionProvider chịu trách nhiệm di chuyển người học trong không gian ảo bằng cách lắng nghe các tín hiệu cử chỉ chỉ tay từ GestureHub thay vì trực tiếp truy cập và kiểm tra các khớp tay từ SDK để kích hoạt di chuyển mượt mà (Smooth Locomotion).
+Lớp VRMagicUnistroke cung cấp thuật toán nhận diện nét vẽ 2D Unistroke, tính toán điểm số khớp mẫu so với các quỹ đạo mẫu được lưu trữ. Lớp StaticHandGesture nhận dạng tư thế tay tĩnh từ dữ liệu khớp xương. Lớp GestureTrigger cho phép kích hoạt các sự kiện cử chỉ tương ứng bằng cách lắng nghe StaticHandGesture và chuyển tiếp lên hệ thống. Lớp DynamicGesture lắng nghe các sự kiện tư thế tĩnh của tay qua GestureHub, theo dõi chuỗi thời gian chuyển đổi để nhận diện và kích hoạt GestureTrigger gắn kèm nhằm xuất bản cử chỉ động (như chữ số 11 hoặc cử chỉ chào Hello). Lớp DualGesture chịu trách nhiệm nhận dạng sự kết hợp đồng thời của hai bàn tay bằng cách lắng nghe các sự kiện tư thế tĩnh qua GestureHub để đồng bộ trạng thái sẵn sàng, sau đó kích hoạt GestureTrigger gắn kèm nhằm xuất bản cử chỉ hai tay hoàn chỉnh (như cử chỉ What's up). Lớp GestureLocomotionProvider chịu trách nhiệm di chuyển người học trong không gian ảo bằng cách lắng nghe các tín hiệu cử chỉ từ GestureHub thay vì trực tiếp truy cập và kiểm tra các khớp tay từ SDK để kích hoạt di chuyển mượt mà (Smooth Locomotion).
 
 ---
 
@@ -199,7 +202,7 @@ Lớp QuizManager (Hình 5.4) chịu trách nhiệm vận hành toàn bộ logic
 
 Nhóm lớp này vận hành toàn bộ logic thi trắc nghiệm, trung chuyển sự kiện, thực thi di chuyển và nhận diện các tư thế tay tĩnh cũng như chuỗi cử chỉ động chuyển đổi qua lại giữa các trạng thái tay.
 
-> **Hình 5.5:** _Sơ đồ lớp GestureHub, GestureLocomotionProvider, StaticHandGesture, GestureTrigger và DynamicGesture_
+> **Hình 5.5:** _Sơ đồ lớp GestureHub, GestureLocomotionProvider, StaticHandGesture, GestureTrigger, DynamicGesture và DualGesture_
 
 ```mermaid
 %%{init: {'theme': 'neutral'}}%%
@@ -263,11 +266,27 @@ classDiagram
         +SetClosedPose(bool active) void
     }
 
+    class DualGesture {
+        +string gestureName
+        +List~string~ leftHandPoseIDs
+        +List~string~ rightHandPoseIDs
+        +bool isLeftHandReady
+        +bool isRightHandReady
+        +OnDualGesturePerformed UnityEvent
+        +OnDualGestureEnded UnityEvent
+        -HandleGlobalDetected(string id) void
+        -HandleGlobalEnded(string id) void
+        +SetLeftHand(bool active) void
+        +SetRightHand(bool active) void
+    }
+
     GestureLocomotionProvider ..> GestureHub : đăng ký nhận sự kiện di chuyển
-    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện
+    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện kích hoạt
     GestureTrigger ..> GestureHub : xuất bản sự kiện
     DynamicGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
-    DynamicGesture ..> GestureTrigger : lắng nghe sự kiện kích hoạt
+    DynamicGesture ..> GestureTrigger : kích hoạt sự kiện
+    DualGesture ..> GestureHub : đăng ký nhận sự kiện
+    DualGesture ..> GestureTrigger : kích hoạt sự kiện
 ```
 
 Lớp GestureHub (Hình 5.5) hoạt động như một trung tâm điều phối sự kiện tĩnh (Static Event Hub), đóng vai trò trung gian truyền tín hiệu cử chỉ giữa hệ thống nhận diện và các hệ thống ứng dụng khác mà không gây ràng buộc trực tiếp (coupling). Lớp này khai báo hai sự kiện tĩnh công khai là OnGestureDetected và OnGestureEnded. Khi một cử chỉ được nhận diện hoặc kết thúc nhận diện, phương thức Publish() sẽ được gọi để kích hoạt sự kiện tương ứng và phát đi mã cử chỉ gestureID. Ngoài ra, lớp này còn cung cấp phương thức tĩnh AreEquivalent() để chuẩn hóa và gom nhóm các cử chỉ có hình dáng tương đương (như các biến thể nắm đấm M, N, T, S, E), giúp nâng cao độ chính xác của hệ thống nhận diện.
@@ -278,7 +297,9 @@ Lớp StaticHandGesture (Hình 5.5) là thành phần thuộc thư viện mẫu 
 
 Lớp GestureTrigger (Hình 5.5) hoạt động như một cầu nối trung gian chuyển tiếp, giúp tách biệt logic nhận diện tư thế tay vật lý khỏi logic nghiệp vụ của bài giảng. Lớp này lưu giữ định danh cử chỉ tương ứng thông qua thuộc tính gestureID. Trong phương thức Start(), nó tìm kiếm các thành phần StaticHandGesture gắn trên cùng một đối tượng để đăng ký lắng nghe hai sự kiện gesturePerformed và gestureEnded. Khi sự kiện bắt đầu được StaticHandGesture kích hoạt, nó gọi phương thức Trigger() để gọi sang GestureHub.Publish() nhằm xuất bản sự kiện nhận diện cử chỉ đến toàn hệ thống. Ngược lại, khi cử chỉ kết thúc, nó gọi TriggerEnded() để gửi thông điệp kết thúc tương tự. Việc phối hợp giữa StaticHandGesture và GestureTrigger giúp hệ thống dễ dàng gắn và cấu hình các tư thế tay tĩnh mới trực tiếp trong Unity Editor.
 
-Lớp DynamicGesture (Hình 5.5) chịu trách nhiệm nhận diện các cử chỉ động dạng chuỗi thời gian chuyển trạng thái (như cử chỉ chào Hello). Nó định nghĩa tốc độ thực hiện cử chỉ waveSpeed và các tham chiếu bộ nhớ đệm openPoseIDs (các ID tư thế xòe tay bắt đầu) và closedPoseIDs (các ID tư thế nắm tay kết thúc). Lớp này đăng ký nhận sự kiện tĩnh từ GestureHub trong phương thức OnEnable(). Khi nhận diện được chuỗi tư thế tay mở rồi đến tư thế tay đóng trong khoảng thời gian waveSpeed, lớp sẽ kích hoạt sự kiện DynamicGestureDetected và gọi GestureHub.Publish(gestureName, true) để xuất bản cử chỉ động Hello ra hệ thống.
+Lớp DynamicGesture (Hình 5.5) chịu trách nhiệm nhận diện các cử chỉ động dạng chuỗi thời gian chuyển trạng thái (như cử chỉ chào Hello hoặc chữ số 11). Nó định nghĩa tốc độ thực hiện cử chỉ waveSpeed và các tham chiếu bộ nhớ đệm openPoseIDs (các ID tư thế bắt đầu) và closedPoseIDs (các ID tư thế kết thúc). Lớp này đăng ký nhận sự kiện tĩnh từ GestureHub trong phương thức OnEnable(). Khi nhận diện được chuỗi tư thế tay mở rồi đến tư thế tay đóng trong khoảng thời gian waveSpeed, lớp sẽ kích hoạt sự kiện DynamicGestureDetected để gọi thành phần GestureTrigger gắn kèm nhằm thực hiện xuất bản cử chỉ động hoàn thành ra toàn hệ thống qua GestureHub.
+
+Lớp DualGesture (Hình 5.5) chịu trách nhiệm nhận diện các cử chỉ yêu cầu sự tham gia và đồng bộ của cả hai bàn tay cùng một lúc (như cử chỉ What's up). Lớp này chứa các danh sách cấu hình leftHandPoseIDs và rightHandPoseIDs chứa các ID cử chỉ tĩnh tương ứng với từng tay. Bằng cách đăng ký nhận các sự kiện tĩnh từ GestureHub trong phương thức OnEnable(), lớp sẽ tự động cập nhật trạng thái sẵn sàng của tay trái isLeftHandReady và tay phải isRightHandReady dựa trên các sự kiện do các GestureTrigger của hai tay gửi đến. Khi cả hai tay đều ở trạng thái sẵn sàng, lớp sẽ kích hoạt sự kiện OnDualGesturePerformed để gọi thành phần GestureTrigger gắn kèm nhằm thực hiện xuất bản cử chỉ hai tay hoàn chỉnh ra toàn hệ thống qua GestureHub. Các phương thức cũ như SetLeftHand() và SetRightHand() được đánh dấu lỗi thời nhưng vẫn được duy trì để đảm bảo tương thích ngược với các thiết lập sự kiện kéo thả trước đó trong Unity Scene.
 
 #### c, Nhóm lớp thu thập và nhận diện cử chỉ động vẽ nét
 

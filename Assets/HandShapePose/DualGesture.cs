@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI; // Cần thêm thư viện này để xử lý Image
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class DualGesture : MonoBehaviour
 {
@@ -9,25 +10,41 @@ public class DualGesture : MonoBehaviour
 
     [Header("UI Feedback")]
     [SerializeField]
-    [Tooltip("Ảnh nền icon")]
-    Image m_Background;
+    private Image m_Background;
 
     [SerializeField]
-    [Tooltip("Viền sáng highlight")]
-    Image m_Highlight;
+    private Image m_Highlight;
 
-    Color m_BackgroundDefaultColor;
-    Color m_BackgroundHighlightColor = new Color(0f, 0.627451f, 1f);
+    [Header("Trigger Poses (IDs from GestureHub)")]
+    [Tooltip("Danh sách các ID cử chỉ tĩnh của tay trái để tự động kích hoạt qua GestureHub.")]
+    public List<string> leftHandPoseIDs = new List<string>();
 
-    [Header("Hands State")]
-    public bool isLeftHandReady = false;
-    public bool isRightHandReady = false;
+    [Tooltip("Danh sách các ID cử chỉ tĩnh của tay phải để tự động kích hoạt qua GestureHub.")]
+    public List<string> rightHandPoseIDs = new List<string>();
 
     [Header("Dual Gesture Event")]
     public UnityEvent OnDualGesturePerformed;
     public UnityEvent OnDualGestureEnded;
 
+    [Header("Hands State")]
+    public bool isLeftHandReady = false;
+    public bool isRightHandReady = false;
+
     private bool _wasActive = false;
+    private Color m_BackgroundDefaultColor;
+    private Color m_BackgroundHighlightColor = new Color(0f, 0.627451f, 1f);
+
+    void OnEnable()
+    {
+        GestureHub.OnGestureDetected += HandleGlobalDetected;
+        GestureHub.OnGestureEnded += HandleGlobalEnded;
+    }
+
+    void OnDisable()
+    {
+        GestureHub.OnGestureDetected -= HandleGlobalDetected;
+        GestureHub.OnGestureEnded -= HandleGlobalEnded;
+    }
 
     void Awake()
     {
@@ -55,12 +72,54 @@ public class DualGesture : MonoBehaviour
         }
     }
 
+    private void HandleGlobalDetected(string id)
+    {
+        bool changed = false;
+        if (leftHandPoseIDs.Contains(id))
+        {
+            isLeftHandReady = true;
+            changed = true;
+        }
+        if (rightHandPoseIDs.Contains(id))
+        {
+            isRightHandReady = true;
+            changed = true;
+        }
+
+        if (changed)
+        {
+            CheckDualState();
+        }
+    }
+
+    private void HandleGlobalEnded(string id)
+    {
+        bool changed = false;
+        if (leftHandPoseIDs.Contains(id))
+        {
+            isLeftHandReady = false;
+            changed = true;
+        }
+        if (rightHandPoseIDs.Contains(id))
+        {
+            isRightHandReady = false;
+            changed = true;
+        }
+
+        if (changed)
+        {
+            CheckDualState();
+        }
+    }
+
+    [System.Obsolete("Use GestureHub auto-detection instead by filling in Left/Right Hand Pose IDs")]
     public void SetLeftHand(bool active)
     {
         isLeftHandReady = active;
         CheckDualState();
     }
 
+    [System.Obsolete("Use GestureHub auto-detection instead by filling in Left/Right Hand Pose IDs")]
     public void SetRightHand(bool active)
     {
         isRightHandReady = active;
