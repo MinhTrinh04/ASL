@@ -60,6 +60,12 @@ public class AmbidextrousSetup : EditorWindow
                 if (processedObjects.Contains(gestureObj)) continue;
                 processedObjects.Add(gestureObj);
 
+                if (gestureObj.name == "Pointing_Left" || gestureObj.name == "Pointing_Right")
+                {
+                    Debug.Log($"Skipping ambidextrous setup for hand-specific locomotion gesture: {gestureObj.name}");
+                    continue;
+                }
+
                 StaticHandGesture[] existingOnObject = gestureObj.GetComponents<StaticHandGesture>();
                 
                 // Capture state
@@ -199,6 +205,83 @@ public class AmbidextrousSetup : EditorWindow
                 EditorUtility.SetDirty(dyn);
                 Debug.Log($"Configured Dynamic Gesture: {gestureObj.name} (UI: FIXED, Aliases: {dyn.openPoseIDs.Count})");
             }
+        }
+
+        // Step 2c: Configure Locomotion Gestures specifically (Pointing_Left and Pointing_Right)
+        Transform lobbyGroup = poseCanvas != null ? poseCanvas.Find("Gestures_Lobby") : null;
+        Debug.Log($"[AmbidextrousSetup] poseCanvas={poseCanvas != null}, lobbyGroup={lobbyGroup != null}");
+        if (lobbyGroup != null)
+        {
+            foreach (Transform c in lobbyGroup)
+            {
+                Debug.Log($"[AmbidextrousSetup] child under Gestures_Lobby: {c.name}");
+            }
+        }
+        GameObject pointingLeftObj = lobbyGroup != null ? lobbyGroup.Find("Pointing_Left")?.gameObject : null;
+        GameObject pointingRightObj = lobbyGroup != null ? lobbyGroup.Find("Pointing_Right")?.gameObject : null;
+
+        if (pointingLeftObj != null)
+        {
+            var trigger = pointingLeftObj.GetComponent<GestureTrigger>() ?? pointingLeftObj.AddComponent<GestureTrigger>();
+            trigger.gestureID = "Pointing_Left";
+
+            // Ensure only one StaticHandGesture exists
+            var comps = pointingLeftObj.GetComponents<StaticHandGesture>();
+            foreach (var c in comps)
+            {
+                DestroyImmediate(c);
+            }
+
+            var staticGesture = pointingLeftObj.AddComponent<StaticHandGesture>();
+            staticGesture.handTrackingEvents = leftTracker.GetComponent<XRHandTrackingEvents>();
+            staticGesture.handShapeOrPose = AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/HandShapePose/Move.asset");
+            staticGesture.background = pointingLeftObj.GetComponent<Image>();
+            staticGesture.minimumHoldTime = 0.2f;
+            staticGesture.gestureDetectionInterval = 0.1f;
+
+            // Bind events
+            while (staticGesture.gesturePerformed.GetPersistentEventCount() > 0)
+                UnityEventTools.RemovePersistentListener(staticGesture.gesturePerformed, 0);
+            while (staticGesture.gestureEnded.GetPersistentEventCount() > 0)
+                UnityEventTools.RemovePersistentListener(staticGesture.gestureEnded, 0);
+
+            UnityEventTools.AddVoidPersistentListener(staticGesture.gesturePerformed, trigger.Trigger);
+            UnityEventTools.AddVoidPersistentListener(staticGesture.gestureEnded, trigger.TriggerEnded);
+            
+            EditorUtility.SetDirty(pointingLeftObj);
+            Debug.Log("Configured Pointing_Left for Left Hand only using Move.asset.");
+        }
+
+        if (pointingRightObj != null)
+        {
+            var trigger = pointingRightObj.GetComponent<GestureTrigger>() ?? pointingRightObj.AddComponent<GestureTrigger>();
+            trigger.gestureID = "Pointing_Right";
+
+            // Ensure only one StaticHandGesture exists
+            var comps = pointingRightObj.GetComponents<StaticHandGesture>();
+            foreach (var c in comps)
+            {
+                DestroyImmediate(c);
+            }
+
+            var staticGesture = pointingRightObj.AddComponent<StaticHandGesture>();
+            staticGesture.handTrackingEvents = rightTracker.GetComponent<XRHandTrackingEvents>();
+            staticGesture.handShapeOrPose = AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/HandShapePose/Move.asset");
+            staticGesture.background = pointingRightObj.GetComponent<Image>();
+            staticGesture.minimumHoldTime = 0.2f;
+            staticGesture.gestureDetectionInterval = 0.1f;
+
+            // Bind events
+            while (staticGesture.gesturePerformed.GetPersistentEventCount() > 0)
+                UnityEventTools.RemovePersistentListener(staticGesture.gesturePerformed, 0);
+            while (staticGesture.gestureEnded.GetPersistentEventCount() > 0)
+                UnityEventTools.RemovePersistentListener(staticGesture.gestureEnded, 0);
+
+            UnityEventTools.AddVoidPersistentListener(staticGesture.gesturePerformed, trigger.Trigger);
+            UnityEventTools.AddVoidPersistentListener(staticGesture.gestureEnded, trigger.TriggerEnded);
+            
+            EditorUtility.SetDirty(pointingRightObj);
+            Debug.Log("Configured Pointing_Right for Right Hand only using Move.asset.");
         }
 
         EditorUtility.SetDirty(manager);
