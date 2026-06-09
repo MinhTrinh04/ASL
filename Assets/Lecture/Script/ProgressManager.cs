@@ -48,8 +48,6 @@ public class ProgressManager : MonoBehaviour
 
     public void EnterLobby()
     {
-        if (lobbyGestureGroup != null) lobbyGestureGroup.SetActive(true);
-
         // Tắt tất cả các classroom
         if (classrooms != null)
         {
@@ -70,6 +68,9 @@ public class ProgressManager : MonoBehaviour
                 }
             }
         }
+
+        // Bật Lobby Gestures (đặt ở cuối để tránh bị loop tắt phía trên đè lên)
+        if (lobbyGestureGroup != null) lobbyGestureGroup.SetActive(true);
 
         // Teleport player tới spawn point của Lobby
         if (teleportProvider != null && lobbySpawnPoint != null)

@@ -240,6 +240,11 @@ public class AmbidextrousSetup : EditorWindow
             staticGesture.gestureDetectionInterval = 0.1f;
 
             // Bind events
+            if (staticGesture.gesturePerformed == null)
+                staticGesture.gesturePerformed = new UnityEngine.Events.UnityEvent();
+            if (staticGesture.gestureEnded == null)
+                staticGesture.gestureEnded = new UnityEngine.Events.UnityEvent();
+
             while (staticGesture.gesturePerformed.GetPersistentEventCount() > 0)
                 UnityEventTools.RemovePersistentListener(staticGesture.gesturePerformed, 0);
             while (staticGesture.gestureEnded.GetPersistentEventCount() > 0)
@@ -272,6 +277,11 @@ public class AmbidextrousSetup : EditorWindow
             staticGesture.gestureDetectionInterval = 0.1f;
 
             // Bind events
+            if (staticGesture.gesturePerformed == null)
+                staticGesture.gesturePerformed = new UnityEngine.Events.UnityEvent();
+            if (staticGesture.gestureEnded == null)
+                staticGesture.gestureEnded = new UnityEngine.Events.UnityEvent();
+
             while (staticGesture.gesturePerformed.GetPersistentEventCount() > 0)
                 UnityEventTools.RemovePersistentListener(staticGesture.gesturePerformed, 0);
             while (staticGesture.gestureEnded.GetPersistentEventCount() > 0)
@@ -286,6 +296,7 @@ public class AmbidextrousSetup : EditorWindow
 
         EditorUtility.SetDirty(manager);
         UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(manager.scene);
+        UnityEditor.SceneManagement.EditorSceneManager.SaveOpenScenes();
         Debug.Log("Ambidextrous Gesture Setup Finalized!");
     }
 }
