@@ -111,7 +111,7 @@ classDiagram
     VRMagicTrajectory ..> VRMagicUnistroke : sử dụng giải thuật
     GestureTrigger ..> GestureHub : xuất bản sự kiện
     GestureLocomotionProvider ..> GestureHub : lắng nghe sự kiện di chuyển
-    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện kích hoạt
+    StaticHandGesture ..> GestureTrigger : kích hoạt sự kiện
     DynamicGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
     DynamicGesture ..> GestureTrigger : kích hoạt sự kiện
     DualGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
@@ -283,7 +283,7 @@ classDiagram
     }
 
     GestureLocomotionProvider ..> GestureHub : đăng ký nhận sự kiện di chuyển
-    GestureTrigger "1" --> "*" StaticHandGesture : lắng nghe sự kiện kích hoạt
+    StaticHandGesture ..> GestureTrigger : kích hoạt sự kiện
     GestureTrigger ..> GestureHub : xuất bản sự kiện
     DynamicGesture ..> GestureHub : lắng nghe & xuất bản sự kiện
     DynamicGesture ..> GestureTrigger : kích hoạt sự kiện
@@ -297,7 +297,7 @@ Lớp GestureLocomotionProvider (Hình 5.4) chịu trách nhiệm di chuyển ng
 
 Lớp StaticHandGesture (Hình 5.4) là thành phần thuộc thư viện mẫu của XR Hands, chịu trách nhiệm nhận diện tư thế bàn tay tĩnh của người học dựa trên dữ liệu khớp xương tay thu nhận từ hệ thống. Lớp này chứa các trường cấu hình quan trọng như m_HandTrackingEvents để đăng ký nhận cập nhật khớp xương tay, m_HandShapeOrPose trỏ tới tài nguyên hình dáng cử chỉ tĩnh, và các thiết lập thời gian bao gồm m_MinimumHoldTime (thời gian giữ tối thiểu) và m_GestureDetectionInterval (chu kỳ kiểm tra cử chỉ).
 
-Lớp GestureTrigger (Hình 5.4) hoạt động như một cầu nối trung gian chuyển tiếp, giúp tách biệt logic nhận diện tư thế tay vật lý khỏi logic nghiệp vụ của bài giảng. Lớp này lưu giữ định danh cử chỉ tương ứng thông qua thuộc tính gestureID. Trong phương thức Start(), nó tìm kiếm các thành phần StaticHandGesture gắn trên cùng một đối tượng để đăng ký lắng nghe hai sự kiện gesturePerformed và gestureEnded. Khi sự kiện bắt đầu được StaticHandGesture kích hoạt, nó gọi phương thức Trigger() để gọi sang GestureHub.Publish() nhằm xuất bản sự kiện nhận diện cử chỉ đến toàn hệ thống.
+Lớp GestureTrigger (Hình 5.4) hoạt động như một cầu nối trung gian chuyển tiếp, giúp tách biệt logic nhận diện tư thế tay vật lý khỏi logic nghiệp vụ của bài giảng. Lớp này lưu giữ định danh cử chỉ tương ứng thông qua thuộc tính gestureID. Thay vì tự động tìm kiếm thành phần bằng mã nguồn, lớp này được các thành phần StaticHandGesture gắn trên cùng đối tượng (hoặc các lớp nhận diện cử chỉ phức tạp khác) gọi trực tiếp thông qua cơ chế sự kiện UnityEvent kéo thả trên giao diện Unity Inspector. Khi sự kiện tương ứng được StaticHandGesture kích hoạt, nó sẽ gọi phương thức Trigger() hoặc TriggerEnded() trên GestureTrigger để chuyển tiếp và xuất bản ra toàn hệ thống qua GestureHub.Publish().
 
 Lớp DynamicGesture (Hình 5.4) chịu trách nhiệm nhận diện các cử chỉ động dạng chuỗi thời gian chuyển trạng thái (như chữ số 11). Nó định nghĩa tốc độ thực hiện cử chỉ waveSpeed và các tham chiếu bộ nhớ đệm openPoseIDs và closedPoseIDs. Lớp này đăng ký nhận sự kiện từ GestureHub trong phương thức OnEnable(). Khi nhận diện được chuỗi tư thế tay mở rồi đến tư thế tay đóng trong khoảng thời gian waveSpeed, lớp sẽ kích hoạt sự kiện DynamicGestureDetected để gọi thành phần GestureTrigger gắn kèm nhằm thực hiện xuất bản cử chỉ động hoàn thành ra toàn hệ thống qua GestureHub.
 
