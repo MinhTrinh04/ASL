@@ -10,6 +10,7 @@ public class VRMagicTrajectory : MonoBehaviour
     public XRHandShape baseHandShape; // The shape to hold to start drawing
     public float matchThreshold = 0.3f;
     public float pointDistanceMin = 0.01f; // 1cm
+    public bool showVisualTrail = true;
 
     [Header("References")]
     public XRHandTrackingEvents handTrackingEvents; // Left or Right hand
@@ -57,6 +58,30 @@ public class VRMagicTrajectory : MonoBehaviour
             });
         }
 
+        if (lineRenderer != null)
+        {
+            lineRenderer.enabled = false;
+            lineRenderer.positionCount = 0;
+            
+            if (showVisualTrail)
+            {
+                lineRenderer.startWidth = 0.01f;
+                lineRenderer.endWidth = 0.005f;
+                
+                // ALWAYS assign a material that supports vertex color
+                Shader spritesShader = Shader.Find("Sprites/Default");
+                if (spritesShader != null)
+                {
+                    lineRenderer.material = new Material(spritesShader);
+                }
+                
+                Color neonColor = gestureID == "J" ? Color.cyan : Color.magenta;
+                lineRenderer.startColor = neonColor;
+                lineRenderer.endColor = neonColor;
+                lineRenderer.useWorldSpace = true;
+            }
+        }
+
         if (handTrackingEvents != null)
         {
             handTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
@@ -96,10 +121,15 @@ public class VRMagicTrajectory : MonoBehaviour
     {
         isDrawing = true;
         worldPoints.Clear();
-        if (lineRenderer != null)
+        if (lineRenderer != null && showVisualTrail)
         {
             lineRenderer.positionCount = 0;
             lineRenderer.enabled = true;
+            
+            // Reset color back to original neon color in case it was green from last success
+            Color neonColor = gestureID == "J" ? Color.cyan : Color.magenta;
+            lineRenderer.startColor = neonColor;
+            lineRenderer.endColor = neonColor;
         }
     }
 
@@ -111,21 +141,40 @@ public class VRMagicTrajectory : MonoBehaviour
         {
             Vector3 point = pose.position;
             
-            // Only add if it moved enough
+            if (playerCamera == null && Camera.main != null)
+            {
+                playerCamera = Camera.main.transform;
+            }
+
+            // Convert coordinate from local tracking space to World Space
+            Vector3 worldPoint = point;
+            if (playerCamera != null)
+            {
+                if (playerCamera.parent != null)
+                {
+                    worldPoint = playerCamera.parent.TransformPoint(point);
+                }
+                else
+                {
+                    worldPoint = playerCamera.TransformPoint(point);
+                }
+            }
+
+            // Only add if it moved enough (using world space distance)
             if (worldPoints.Count > 0)
             {
-                if (Vector3.Distance(worldPoints[worldPoints.Count - 1], point) < pointDistanceMin)
+                if (Vector3.Distance(worldPoints[worldPoints.Count - 1], worldPoint) < pointDistanceMin)
                 {
                     return;
                 }
             }
             
-            worldPoints.Add(point);
+            worldPoints.Add(worldPoint);
 
-            if (lineRenderer != null)
+            if (lineRenderer != null && showVisualTrail)
             {
                 lineRenderer.positionCount = worldPoints.Count;
-                lineRenderer.SetPosition(worldPoints.Count - 1, point);
+                lineRenderer.SetPosition(worldPoints.Count - 1, worldPoint);
             }
         }
     }
@@ -151,6 +200,13 @@ public class VRMagicTrajectory : MonoBehaviour
             if (score >= matchThreshold)
             {
                 GestureHub.Publish(gestureID);
+                
+                // Show green feedback on success
+                if (lineRenderer != null && showVisualTrail)
+                {
+                    lineRenderer.startColor = Color.green;
+                    lineRenderer.endColor = Color.green;
+                }
                 
                 // Keep the trail for a moment then clear
                 Invoke(nameof(ClearTrail), 1.0f);

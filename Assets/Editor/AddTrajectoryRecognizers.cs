@@ -6,7 +6,16 @@ public class AddVRMagicTrajectorys
     [MenuItem("Tools/Setup Trajectories")]
     public static void Setup()
     {
-        var hands = GameObject.FindObjectsOfType<UnityEngine.XR.Hands.XRHandTrackingEvents>();
+        var allHands = GameObject.FindObjectsOfType<UnityEngine.XR.Hands.XRHandTrackingEvents>();
+        var filteredHands = new System.Collections.Generic.List<UnityEngine.XR.Hands.XRHandTrackingEvents>();
+        foreach (var hand in allHands)
+        {
+            if (hand.gameObject.name.Contains("Gesture Detection"))
+            {
+                filteredHands.Add(hand);
+            }
+        }
+        var hands = filteredHands.ToArray();
         
         SetupObject("J", hands, "Assets/HandShapePose/Alphabet/I/I.asset");
         SetupObject("Z", hands, "Assets/HandShapePose/Alphabet/X/X.asset");

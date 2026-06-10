@@ -124,6 +124,16 @@ public class AmbidextrousSetup : EditorWindow
                 // Bind if not sub-pose
                 if (trigger != null)
                 {
+                    // Clean up existing listeners copied during PasteComponent to prevent duplication
+                    while (rightComp.gesturePerformed.GetPersistentEventCount() > 0)
+                        UnityEventTools.RemovePersistentListener(rightComp.gesturePerformed, 0);
+                    while (leftComp.gesturePerformed.GetPersistentEventCount() > 0)
+                        UnityEventTools.RemovePersistentListener(leftComp.gesturePerformed, 0);
+                    while (rightComp.gestureEnded.GetPersistentEventCount() > 0)
+                        UnityEventTools.RemovePersistentListener(rightComp.gestureEnded, 0);
+                    while (leftComp.gestureEnded.GetPersistentEventCount() > 0)
+                        UnityEventTools.RemovePersistentListener(leftComp.gestureEnded, 0);
+
                     UnityEventTools.AddVoidPersistentListener(rightComp.gesturePerformed, trigger.Trigger);
                     UnityEventTools.AddVoidPersistentListener(leftComp.gesturePerformed, trigger.Trigger);
                     UnityEventTools.AddVoidPersistentListener(rightComp.gestureEnded, trigger.TriggerEnded);
