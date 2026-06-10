@@ -20,9 +20,13 @@ public class VRMagicTrajectory : MonoBehaviour
     private bool isDrawing = false;
     private List<Vector3> worldPoints = new List<Vector3>();
     private VRMagicUnistroke.Template template;
+    private GestureHub gestureHub;
+
+    private bool IsTrailEnabled => showVisualTrail && (gestureHub == null || gestureHub.showVisualTrail);
 
     void Start()
     {
+        gestureHub = FindObjectOfType<GestureHub>();
         if (playerCamera == null && Camera.main != null)
         {
             playerCamera = Camera.main.transform;
@@ -63,7 +67,7 @@ public class VRMagicTrajectory : MonoBehaviour
             lineRenderer.enabled = false;
             lineRenderer.positionCount = 0;
             
-            if (showVisualTrail)
+            if (IsTrailEnabled)
             {
                 lineRenderer.startWidth = 0.01f;
                 lineRenderer.endWidth = 0.005f;
@@ -121,7 +125,7 @@ public class VRMagicTrajectory : MonoBehaviour
     {
         isDrawing = true;
         worldPoints.Clear();
-        if (lineRenderer != null && showVisualTrail)
+        if (lineRenderer != null && IsTrailEnabled)
         {
             lineRenderer.positionCount = 0;
             lineRenderer.enabled = true;
@@ -171,7 +175,7 @@ public class VRMagicTrajectory : MonoBehaviour
             
             worldPoints.Add(worldPoint);
 
-            if (lineRenderer != null && showVisualTrail)
+            if (lineRenderer != null && IsTrailEnabled)
             {
                 lineRenderer.positionCount = worldPoints.Count;
                 lineRenderer.SetPosition(worldPoints.Count - 1, worldPoint);
@@ -202,7 +206,7 @@ public class VRMagicTrajectory : MonoBehaviour
                 GestureHub.Publish(gestureID);
                 
                 // Show green feedback on success
-                if (lineRenderer != null && showVisualTrail)
+                if (lineRenderer != null && IsTrailEnabled)
                 {
                     lineRenderer.startColor = Color.green;
                     lineRenderer.endColor = Color.green;

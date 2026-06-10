@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class GestureHub : MonoBehaviour
 {
+    [Header("Global Settings")]
+    public bool showVisualTrail = true;
+
     public static event Action<string> OnGestureDetected;
     public static event Action<string> OnGestureEnded;
 
