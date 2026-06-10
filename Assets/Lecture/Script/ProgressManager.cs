@@ -69,8 +69,16 @@ public class ProgressManager : MonoBehaviour
             }
         }
 
-        // Bật Lobby Gestures (đặt ở cuối để tránh bị loop tắt phía trên đè lên)
-        if (lobbyGestureGroup != null) lobbyGestureGroup.SetActive(true);
+        // Bật tất cả Lobby Gestures khi về sảnh chính
+        if (lobbyGestureGroup != null)
+        {
+            lobbyGestureGroup.SetActive(true);
+            for (int i = 0; i < lobbyGestureGroup.transform.childCount; i++)
+            {
+                Transform child = lobbyGestureGroup.transform.GetChild(i);
+                child.gameObject.SetActive(true);
+            }
+        }
 
         // Teleport player tới spawn point của Lobby
         if (teleportProvider != null && lobbySpawnPoint != null)
@@ -117,8 +125,18 @@ public class ProgressManager : MonoBehaviour
             return false;
         }
 
-        // Tắt Lobby Gestures khi chuyển sang phòng học
-        if (lobbyGestureGroup != null) lobbyGestureGroup.SetActive(false);
+        // Tắt các lobby gestures khác khi chuyển sang phòng học, giữ lại Pointing_Left và Pointing_Right để di chuyển
+        if (lobbyGestureGroup != null)
+        {
+            for (int i = 0; i < lobbyGestureGroup.transform.childCount; i++)
+            {
+                Transform child = lobbyGestureGroup.transform.GetChild(i);
+                if (child.name != "Pointing_Left" && child.name != "Pointing_Right")
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+        }
 
         // Bước 1: Kích hoạt gesture group TRƯỚC
         // Đảm bảo gesture đúng đã active trước khi MovePlayerToSpawn() chạy
