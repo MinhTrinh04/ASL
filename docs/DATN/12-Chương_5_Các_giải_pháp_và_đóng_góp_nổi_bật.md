@@ -461,3 +461,29 @@ Bảng dưới đây thống kê các thông tin chi tiết về ứng dụng đ
 | **Các lớp chính**      | GestureHub, ProgressManager, ClassroomManager, QuizManager, GestureLocomotionProvider, WristDashboardUI |
 
 > **Bảng 5.3:** _Bảng thống kê thông tin ứng dụng_
+
+---
+
+## 5.4 Giao diện sản phẩm và kịch bản tương tác
+
+Để người học có thể hình dung toàn bộ trải nghiệm học tập và tương tác trong ứng dụng thực tế ảo mà không cần cài đặt trực tiếp sản phẩm lên thiết bị Meta Quest 2, phần này trình bày chi tiết các giao diện chức năng chính cùng kịch bản vận hành thực tế của ASL VR.
+
+> **Hình 5.8:** _Giao diện Sảnh chính và Bảng điều khiển đeo cổ tay_
+
+Ngay khi bắt đầu ứng dụng, người học được đưa vào không gian sảnh chính rộng lớn, được thiết kế theo phong cách hiện đại và tối giản, đóng vai trò là căn cứ khởi đầu của toàn bộ hành trình học tập. Tại không gian trung tâm này, người học đối diện với nhân vật giảng viên hướng dẫn ảo đứng chào mừng và sẵn sàng hỗ trợ. Điểm nổi bật nhất ở giao diện sảnh chính là Bảng điều khiển tự động bám theo và hiển thị ngay trên cổ tay trái của người học. Giao diện bảng đeo tay hiển thị các nút bấm không gian tượng trưng cho ba phòng học chuyên đề cốt lõi: Chữ cái, Chữ số và Hội thoại, đi kèm thanh tiến trình phần trăm hoàn thành trực quan. Người học sử dụng ngón trỏ của tay phải để chạm vật lý trực tiếp lên các nút chức năng để kích hoạt chuyển đổi và dịch chuyển tới phòng họp tương ứng.
+
+> **Hình 5.9:** _Giao diện học lý thuyết và thực hành trong Phòng học Chữ cái_
+
+Khi chuyển sang phòng học chuyên đề, cụ thể là Phòng học Chữ cái, người học sẽ tham gia vào giai đoạn học lý thuyết và thực hành cử chỉ tay. Giao diện phòng học được thiết kế trực quan bao gồm ba bảng hiển thị thẻ bài học lớn đặt cạnh nhau và giảng viên ảo Kyle đứng bên cạnh. Các thẻ bài học hiển thị thẻ từ vựng với hình ảnh minh họa trực quan, mô tả chi tiết hình dáng tư thế tay của các chữ cái (như chữ J, A, S) để người học quan sát và đối chiếu. Giảng viên ảo đóng vai trò hướng dẫn và điều phối sư phạm, đưa ra bong bóng hội thoại chứa lời thoại hướng dẫn trực quan cùng các nút chọn chức năng không gian để bắt đầu làm bài thi trắc nghiệm hoặc luyện tập. Người học sẽ nhìn vào hình ảnh minh họa trên các bảng học, sau đó tự uốn nắn các khớp bàn tay trần của mình trước kính VR. Hệ thống camera cảm biến trên Meta Quest 2 sẽ tự động theo dõi, thu thập dữ liệu khớp xương tay thời gian thực để đối chiếu với cử chỉ chuẩn, giúp người học nhận biết và điều chỉnh tư thế chính xác.
+
+> **Hình 5.10:** _Giao diện vẽ nét cử chỉ động J và Z trong không gian_
+
+Đối với các chữ cái động có quỹ đạo chuyển động phức tạp như J và Z, ứng dụng cung cấp giao diện vẽ nét động 3D lơ lửng trong không gian. Khi người học uốn bàn tay trần thành tư thế tay nền chuẩn (dáng tay chữ I cho chữ J, dáng tay chữ X cho chữ Z) và di chuyển ngón trỏ, hệ thống sẽ ghi nhận tọa độ bàn tay trong không gian thế giới thực và hiển thị nét vẽ thời gian thực. Nét vẽ có màu sắc neon phát sáng rực rỡ (màu xanh lam Cyan đối với chữ J, màu hồng Magenta đối với chữ Z) để mang lại phản hồi trực quan sinh động. Khi người học hoàn thành nét vẽ và thả tư thế tay nền ra, hệ thống sẽ tự động chuyển đổi tọa độ nét vẽ 3D thành 2D phẳng cục bộ theo góc nhìn của Camera. Nếu nét vẽ chính xác và điểm số đạt ngưỡng yêu cầu, vệt vẽ sẽ tự động chuyển sang màu xanh lá cây rực rỡ trong 1.0 giây làm phản hồi thành công trước khi biến mất, giúp người học nhận biết kết quả tức thì.
+
+> **Hình 5.11:** _Giao diện phòng thi trắc nghiệm và phản hồi sư phạm_
+
+Sau khi hoàn thành các bài học thực hành, người học sẽ bước vào phòng thi trắc nghiệm để đánh giá năng lực. Giao diện phòng thi nổi bật với bảng thi trắc nghiệm 3D lớn hiển thị câu hỏi dưới dạng văn bản hoặc hình ảnh ký hiệu, yêu cầu người học phải trả lời bằng cách thực hiện các cử chỉ tay tương thích. Điểm đặc biệt của giao diện này là cơ chế phản hồi sư phạm: khi người học uốn tay sai đáp án, viền bảng thi sẽ chuyển sang màu đỏ để cảnh báo. Để giảm thiểu áp lực học tập và khuyến khích người học, hệ thống áp dụng cơ chế "bộ đệm lỗi sai ẩn" cho phép sai tối đa 3 lần cho mỗi ký tự trước khi tính lỗi chính thức, kết hợp với "thời gian miễn phạt" trong 2.0 giây để người học bình tĩnh điều chỉnh lại các ngón tay mà không bị phạt điểm liên tiếp.
+
+> **Hình 5.12:** _Giao diện di chuyển bằng cử chỉ tay trần_
+
+Để tăng tính nhập vai và giải phóng người học khỏi tay cầm vật lý, ứng dụng hỗ trợ cơ chế di chuyển hoàn toàn bằng cử chỉ tay trần. Giao diện hiển thị mũi tên hướng dẫn di chuyển 3D xuất hiện lơ lửng từ cổ tay hướng theo ngón trỏ khi người học thực hiện uốn cả hai bàn tay thành tư thế chỉ tay hướng về phía trước. Khi nhận diện được cử chỉ này, hệ thống sẽ tính toán vector hướng trung bình của hai tay, chiếu phẳng lên mặt sàn và di chuyển cơ thể người học trượt đi mượt mà trong không gian lớp học ảo. Cơ chế này mang lại khả năng khám phá phòng học tự nhiên và nhập vai hoàn toàn bằng tay trần.
