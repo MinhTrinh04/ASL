@@ -54,12 +54,16 @@ Về định hướng tối ưu hóa nhận thức và thiết kế cảm xúc, 
 
 ## 1.5 Bố cục đồ án
 
-Nội dung thuyết minh đồ án tốt nghiệp được tổ chức thành 7 chương chính như sau:
+Phần còn lại của thuyết minh đồ án tốt nghiệp này nhằm trình bày chi tiết về quá trình nghiên cứu, thiết kế, triển khai và thực nghiệm ứng dụng thực tế ảo hỗ trợ tự học ngôn ngữ ký hiệu.
 
-- **CHƯƠNG 1. GIỚI THIỆU ĐỀ TÀI**: Đặt vấn đề, mục tiêu đề tài, phạm vi và đối tượng người sử dụng, định hướng giải pháp kỹ thuật - sư phạm và bố cục đồ án.
-- **CHƯƠNG 2. KHẢO SÁT VÀ PHÂN TÍCH YÊU CẦU**: Khảo sát các giải pháp học ngôn ngữ ký hiệu hiện hành, phân tích ca sử dụng, biểu đồ hoạt động nghiệp vụ và đặc tả chi tiết các chức năng học/thi cùng yêu cầu phi chức năng.
-- **CHƯƠNG 3. NỀN TẢNG LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG**: Cơ sở lý luận EdTech (Nón trải nghiệm Edgar Dale, Thuyết học tập trải nghiệm của David Kolb), công nghệ theo dõi tay Unity XR Hands và nhận diện cử chỉ, và cơ sở động học của thuật toán nhận diện nét vẽ $1 Unistroke.
-- **CHƯƠNG 4. THIẾT KẾ BÀI GIẢNG, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG**: Đặc tả triết lý thiết kế mục tiêu, luồng tiến trình bài giảng, cơ chế tương tác sư phạm tinh tế (Hidden Mistakes, Invincibility Window), hệ thống điều khiển tay trần, thiết kế kiến trúc phần mềm hướng sự kiện Event-Driven, sơ đồ gói, sơ đồ lớp, kết quả tối ưu hiệu năng standalone Quest 2 và quy trình kiểm thử đánh giá thực tế.
-- **CHƯƠNG 5. THỰC NGHIỆM VÀ ĐÁNH GIÁ**: Kiến trúc chi tiết, thiết kế lớp, sơ đồ lớp, xây dựng ứng dụng, kết quả sản phẩm và các thực nghiệm đối chứng định lượng đánh giá hiệu quả tiếp thu và lưu giữ kiến thức giữa hai phương pháp.
-- **CHƯƠNG 6. CÁC GIẢI PHÁP VÀ ĐÓNG GÓP NỔI BẬT**: Phân tích chi tiết 2 đóng góp nổi bật nhất gồm giải pháp nhận diện nét vẽ 3D động cho chữ cái J/Z kết hợp thuật toán 2D $1 Unistroke và lợi ích cải tiến vượt trội về mặt Công nghệ giáo dục (EdTech) / sư phạm tương tác tay trần so với các phương pháp truyền thống.
-- **CHƯƠNG 7. KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN**: Tổng kết các kết quả đạt được, tự đánh giá ưu khuyết điểm của ứng dụng và đề xuất các hướng phát triển nâng cao trong tương lai.
+Đầu tiên, Chương 2 sẽ đi sâu vào khảo sát các giải pháp học ngôn ngữ ký hiệu hiện hành, phân tích các ca sử dụng, sơ đồ hoạt động nghiệp vụ cùng các đặc tả chi tiết về chức năng học tập, kiểm tra thi cử và các yêu cầu phi chức năng của hệ thống.
+
+Tiếp theo, Chương 3 sẽ đặt nền tảng lý thuyết và công nghệ sử dụng, giới thiệu các cơ sở lý luận EdTech bao gồm Nón trải nghiệm Edgar Dale và Thuyết học tập trải nghiệm của David Kolb, đồng thời trình bày về công nghệ theo dõi tay Unity XR Hands và cơ chế động học của giải thuật nhận dạng nét vẽ $1 Unistroke.
+
+Sau khi đã xây dựng nền tảng lý thuyết và công nghệ, Chương 4 sẽ tập trung chi tiết vào việc thiết kế bài giảng, các cơ chế tương tác sư phạm tinh tế như Hidden Mistakes và Invincibility Window, thiết kế kiến trúc phần mềm hướng sự kiện Event-Driven cùng các sơ đồ lớp, sơ đồ gói và quy trình kiểm thử hệ thống.
+
+Để kiểm chứng tính hiệu quả của giải pháp đề xuất, Chương 5 sẽ triển khai thực nghiệm và đánh giá hệ thống trên nền tảng VR, trình bày kết quả thực nghiệm đối chứng định lượng khoa học để đánh giá hiệu quả tiếp thu kiến thức tức thời và khả năng lưu giữ trí nhớ cơ bắp lâu dài giữa hai phương pháp học.
+
+Bên cạnh đó, Chương 6 sẽ làm rõ các giải pháp kỹ thuật và đóng góp nổi bật nhất của đồ án, phân tích sâu về giải pháp chiếu nét vẽ 3D động kết hợp thuật toán 2D $1 Unistroke cùng những cải tiến mang tính vượt trội về mặt EdTech và tương tác tay trần so với phương pháp học truyền thống.
+
+Cuối cùng, Chương 7 sẽ tổng kết lại những kết quả thực tế đạt được, đồng thời thảo luận về những mặt hạn chế hiện tại và đề xuất các định hướng nghiên cứu mở rộng trong tương lai.
