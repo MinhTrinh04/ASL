@@ -6,19 +6,19 @@
 
 ### 2.1.1 Khảo sát phương pháp truyền thống
 
-Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận truyền thống bộc lộ những hạn chế đặc thù:
+Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận truyền thống bộc lộ những hạn chế đặc thù.
 
-Đầu tiên, đối với phương thức học qua giáo trình in ấn và sách ảnh tĩnh, đây là phương pháp thụ động nhất khi người học chỉ tiếp xúc với hình ảnh chụp phẳng 2D ghi lại các tư thế tay tĩnh. Do ngôn ngữ ký hiệu là hệ thống giao tiếp đa chiều phức tạp, người học hoàn toàn gặp khó khăn trong việc hình dung cách gập các ngón tay trong không gian ba chiều hoặc hướng xoay lòng bàn tay (ví dụ: sự kết hợp cực kỳ nhỏ về chiều sâu giữa hai chữ cái U và V, hoặc hướng bàn tay giữa K và P rất khó mô tả bằng ảnh chụp phẳng).
+Đầu tiên, đối với phương thức học qua giáo trình in ấn và sách ảnh tĩnh, đây là phương pháp thụ động nhất khi người học chỉ tiếp xúc với hình ảnh chụp phẳng 2D ghi lại các tư thế tay tĩnh. Do ngôn ngữ ký hiệu là hệ thống giao tiếp đa chiều phức tạp, người học hoàn toàn gặp khó khăn trong việc hình dung cách gập các ngón tay trong không gian ba chiều hoặc hướng xoay lòng bàn tay (ví dụ như sự kết hợp cực kỳ nhỏ về chiều sâu giữa hai chữ cái U và V, hoặc hướng bàn tay giữa K và P rất khó mô tả bằng ảnh chụp phẳng).
 
 Tiếp theo, đối với phương thức học qua video ghi hình sẵn, các video 2D dù cung cấp chuyển động liên tục của tay nhưng vẫn bị khóa cứng ở góc nhìn camera cố định. Người học không thể xoay nghiêng hoặc quan sát từ trên xuống để thấy rõ chiều sâu của cử chỉ. Quan trọng hơn, việc tự học trước màn hình phẳng hoàn toàn thiếu đi cơ chế tự đánh giá độ chính xác, người học không thể biết mình đã gập đúng khớp ngón tay hay chưa, dễ dẫn đến việc ghi nhớ sai lệch hệ thống cơ khớp.
 
 ### 2.1.2 Khảo sát ứng dụng thực tế ảo
 
-Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án "Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo" đặt mục tiêu khắc phục.
+Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo đặt mục tiêu khắc phục.
 
 #### Gesture Play
 
-Một trong những ứng dụng giáo dục tiên phong trong việc tiếp cận bảng chữ cái ASL bằng cử chỉ tay trần là Gesture Play (Hình 2.1). Trò chơi này hướng tới việc dạy bảng chữ cái thông qua hai chế độ tương tác chính: Practice Mode cung cấp một không gian thực hành tự do theo tiến trình của người học, và Game Mode thách thức người chơi nhận diện cử chỉ dưới áp lực thời gian để lấy điểm số. Điểm cộng lớn của ứng dụng là giao diện tối giản và khả năng phản hồi tương đối nhạy đối với các tư thế tay cơ bản, giúp người học nhanh chóng làm quen với thao tác không tay cầm.
+Một trong những ứng dụng giáo dục tiên phong trong việc tiếp cận bảng chữ cái ASL bằng cử chỉ tay trần là Gesture Play (Hình 2.1). Trò chơi này hướng tới việc dạy bảng chữ cái thông qua hai chế độ tương tác chính là Practice Mode cung cấp một không gian thực hành tự do theo tiến trình của người học, và Game Mode thách thức người chơi nhận diện cử chỉ dưới áp lực thời gian để lấy điểm số. Điểm cộng lớn của ứng dụng là giao diện tối giản và khả năng phản hồi tương đối nhạy đối với các tư thế tay cơ bản, giúp người học nhanh chóng làm quen với thao tác không tay cầm.
 
 ![Chế độ Game Mode tính điểm và nhận diện cử chỉ tay trong Gesture Play](Hinhve/Chương%202/GP.png)
 
