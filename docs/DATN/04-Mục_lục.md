@@ -22,9 +22,9 @@
 
 * **CHƯƠNG 3. NỀN TẢNG LÝ THUYẾT VÀ CÔNG NGHỆ SỬ DỤNG..... 6**
   * 3.1 Các lý luận về phương pháp dạy học và nền tảng EdTech....................... 6
-    * 3.1.1 Nón trải nghiệm Edgar Dale (Edgar Dale's Cone of Experience).......... 6
-    * 3.1.2 Thuyết học tập trải nghiệm (Experiential Learning Theory).............. 6
-  * 3.2 Công nghệ theo dõi tay Unity XR Hands và nhận diện cử chỉ.................... 6
+    * 3.1.1 Nón trải nghiệm Edgar Dale............................................................ 6
+    * 3.1.2 Thuyết học tập trải nghiệm David Kolb............................................... 6
+  * 3.2 Thư viện theo dõi tay Unity XR Hands và nhận diện cử chỉ..................... 6
   * 3.3 Thuật toán nhận diện quỹ đạo nét vẽ động $1 Unistroke......................... 6
 
 * **CHƯƠNG 4. THIẾT KẾ BÀI GIẢNG, TRIỂN KHAI VÀ ĐÁNH GIÁ HỆ THỐNG............................................................................. 7**
