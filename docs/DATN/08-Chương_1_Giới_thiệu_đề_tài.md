@@ -6,13 +6,13 @@ Ngôn ngữ là phương tiện giao tiếp cơ bản nhất của loài ngườ
 
 Tuy nhiên, việc tiếp cận và học tập ngôn ngữ ký hiệu ASL đối với người nghe bình thường đang gặp rất nhiều rào cản. Các phương pháp giáo dục truyền thống hiện hành bộc lộ nhiều hạn chế lớn:
 
-- **Thiếu tính đa chiều trực quan**: Việc học qua sách ảnh tĩnh hoặc video trên Youtube/Website chỉ hiển thị cử chỉ tay trên một mặt phẳng dẹt. Các tài liệu 2D hoàn toàn thất bại trong việc mô tả chiều sâu và sự chuyển động của ngôn ngữ ký hiệu ASL.
+- **Thiếu tính đa chiều trực quan**: Việc học qua sách ảnh tĩnh hoặc video trên Youtube/Website chỉ hiển thị cử chỉ tay trên một mặt phẳng dẹt. Các tài liệu truyền thống hoàn toàn thất bại trong việc mô tả chiều sâu và sự chuyển động của ngôn ngữ ký hiệu ASL.
 - **Thiếu cơ chế phản hồi tức thời**: Khi tự học qua video, người học tự thực hiện động tác nhưng không có giáo viên bên cạnh chỉnh sửa. Họ không thể biết cử chỉ của mình đã đúng độ gập ngón tay, hướng lòng bàn tay hay chưa. Sự sai lệch lâu ngày dẫn đến thói quen sai lầm, làm biến đổi hoàn toàn ngữ nghĩa của từ vựng ký hiệu.
 - **Thiếu động lực học tập và dễ nản lòng**: Học ngôn ngữ ký hiệu đòi hỏi sự lặp đi lặp lại của các cơ ngón tay để tạo trí nhớ cơ bắp. Các giáo trình học chay hoặc bài tập giấy khô khan nhanh chóng tạo cảm giác nhàm chán, dẫn đến tỉ lệ bỏ cuộc cao ở người tự học.
 
-Để khắc phục triệt để các rào cản đặc thù về mặt không gian và tương tác động lực học của ngôn ngữ ký hiệu, công nghệ thực tế ảo (Virtual Reality - VR) tích hợp tính năng theo dõi cử chỉ tay trần nổi lên như một giải pháp giáo dục đặc biệt mang tính đột phá. Môi trường VR 3D lập thể không chỉ tái hiện lớp học trực quan đa chiều, giúp người học quan sát hình dáng và chuyển động bàn tay từ mọi góc độ, mà còn cho phép họ sử dụng chính đôi bàn tay tự nhiên của mình để thực hành các ký hiệu ASL.
+Để khắc phục triệt để các rào cản đặc thù về mặt không gian và tương tác động lực học của ngôn ngữ ký hiệu, công nghệ thực tế ảo (VR - Virtual Reality) tích hợp tính năng theo dõi cử chỉ tay trần nổi lên như một giải pháp giáo dục đặc biệt mang tính đột phá. Môi trường VR ba chiều (3D - Three-Dimensional) lập thể không chỉ tái hiện lớp học trực quan đa chiều, giúp người học quan sát hình dáng và chuyển động bàn tay từ mọi góc độ, mà còn cho phép họ sử dụng chính đôi bàn tay tự nhiên của mình để thực hành các ký hiệu ASL.
 
-Từ thực tiễn đó, đồ án lựa chọn nghiên cứu và phát triển đề tài **"Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo"**. Đây là một ứng dụng EdTech VR tiên phong tích hợp công nghệ theo dõi tay, mang lại một phương pháp học tập ASL hoàn toàn mới: học tập qua trải nghiệm tương tác trực tiếp 3D và nhận phản hồi đánh giá cử chỉ thời gian thực chính xác.
+Từ thực tiễn đó, đồ án lựa chọn nghiên cứu và phát triển đề tài Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo. Đây là một ứng dụng công nghệ giáo dục (EdTech) VR tiên phong tích hợp công nghệ theo dõi tay, mang lại một phương pháp học tập ASL hoàn toàn mới: học tập qua trải nghiệm tương tác trực tiếp 3D và nhận phản hồi đánh giá cử chỉ thời gian thực chính xác.
 
 ---
 
