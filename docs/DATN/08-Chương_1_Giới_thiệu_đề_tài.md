@@ -44,17 +44,11 @@ Về phạm vi bài giảng, tài liệu học tập được hệ thống hóa 
 
 ## 1.4 Định hướng giải pháp
 
-Để giải quyết bài toán thiếu tính đa chiều trực quan và thiếu vòng lặp phản hồi của phương pháp học truyền thống, đồ án đề xuất định hướng giải pháp tích hợp đồng bộ giữa Lý luận sư phạm EdTech và Công nghệ mô phỏng tương tác:
+Để giải quyết bài toán thiếu tính đa chiều trực quan và thiếu vòng lặp phản hồi của phương pháp học truyền thống, đồ án đề xuất định hướng giải pháp tích hợp đồng bộ giữa Lý luận sư phạm EdTech và Công nghệ mô phỏng tương tác.
 
-### 1.4.1 Định hướng Sư phạm Tương tác Nhập vai
+Về định hướng sư phạm tương tác nhập vai, hệ thống được hiện thực hóa trước hết qua việc xây dựng môi trường lớp học thực nghiệm ảo, nơi nội dung học được phân tách thành chuỗi phòng học ảo 3D độc lập đóng vai trò như các phòng thực nghiệm chuyên sâu, giúp học viên tách biệt không gian nhận thức, tăng tính nhập vai và tự do tương tác mà không bị xao nhãng. Đồng hành cùng quá trình học tập là hình mẫu giảng viên ảo thân thiện, thực hiện ngôn ngữ hình thể sinh động, vẫy tay chào và biểu thị tư thế tay mẫu kết hợp phát âm trực quan, giúp thu hẹp khoảng cách tâm lý và tạo cảm giác được chỉ dẫn trực tiếp. Cuối cùng, hệ thống thiết lập một vòng lặp phản hồi tương tác siêu tốc bằng cách trực quan hóa kết quả uốn tay ngay trên màn hình hiển thị bằng màu sắc tương phản cao, giúp người học biết ngay chất lượng tư thế tay mình vừa gập để tự điều chỉnh các khớp ngón tay vật lý cho đến khi đạt độ chính xác cần thiết.
 
-- **Xây dựng Môi trường Lớp học Thực nghiệm Ảo**: Phân tách nội dung học thành chuỗi 3 phòng học ảo 3D độc lập. Cơ chế này hoạt động như một phòng thực nghiệm chuyên sâu, giúp người học tách biệt không gian nhận thức giữa các bài học, tăng tính nhập vai và tự do tương tác mà không bị xao nhãng.
-- **Người giảng viên ảo thân thiện**: Sử dụng mô hình giảng viên Kyle làm bạn đồng hành trong suốt quá trình học. Kyle thực hiện ngôn ngữ hình thể, vẫy tay chào và biểu thị tư thế tay mẫu một cách sinh động, kết hợp với các hiệu ứng âm thanh phát âm trực quan. Sự hiện diện của NPC đồng hành giúp thu hẹp khoảng cách tâm lý, tạo cảm giác được chỉ dẫn trực tiếp như trong mô hình lớp học truyền thống.
-- **Vòng lặp Phản hồi Tương tác Siêu tốc**: Ứng dụng trực quan hóa kết quả ngay trên dòng ký tự hiển thị bằng màu sắc tương phản cao. Người học biết ngay kết quả tư thế tay mình vừa gập và tự điều chỉnh các cơ khớp ngón tay vật lý cho đến khi đạt độ chính xác cần thiết.
-
-### 1.4.2 Định hướng Tối ưu hóa Nhận thức & Thiết kế Cảm xúc
-
-- **Thiết kế hỗ trợ "thử và sai" thoải mái**: Trong kiểm tra đánh giá, để ngăn ngừa cảm giác thất bại của người học do giới hạn phần cứng của cảm biến bắt khớp tay, hệ thống sẽ dung thứ cho các lỗi nhỏ qua cơ chế đệm sai lầm ẩn. Khi người học thực hiện lệch động tác, hệ thống cho phép thử lại nhiều lần và chỉ tính lỗi phạt khi vượt quá giới hạn đệm. Sau một lỗi, cửa sổ miễn phạt ngắn hạn được kích hoạt để người học có thời gian thư thái điều chỉnh cơ tay của mình.
+Về định hướng tối ưu hóa nhận thức và thiết kế cảm xúc, đề tài hướng tới xây dựng một cơ chế hỗ trợ quá trình thử và sai một cách thoải mái cho người học. Trong hoạt động kiểm tra đánh giá, để ngăn ngừa cảm giác thất bại hoặc ức chế tâm lý của người học do các giới hạn vật lý tự nhiên của cảm biến bắt khớp tay kính VR, hệ thống sẽ dung thứ cho các lỗi sai lệch nhỏ thông qua cơ chế đệm sai lầm ẩn. Khi người học thực hiện chưa chuẩn động tác, hệ thống cho phép thử lại nhiều lần và chỉ chính thức tính lỗi phạt khi số lần làm sai vượt quá giới hạn đệm. Đồng thời, ngay sau mỗi lỗi phạt, một cửa sổ miễn phạt ngắn hạn được kích hoạt để người học có thời gian thư thái và bình tĩnh điều chỉnh cơ tay của mình trước khi tiếp tục thực hành bài học.
 
 ---
 
