@@ -38,25 +38,9 @@ Một đại diện đáng chú ý khác trên Meta Quest Store là Sign Pose VR
 
 > **Hình 2.3:** Đặc tả khớp mẫu tay trong chế độ Learn Mode của Sign Pose VR
 
-Mặc dù có thiết kế sư phạm khá rõ ràng, Sign Pose VR lại gặp rào cản lớn về mặt trải nghiệm người dùng và tính đa dạng nội dung. Hệ thống so khớp xương tay thô của ứng dụng cực kỳ nhạy cảm với các hiện tượng nhiễu cảm biến hoặc hiện tượng run tay vật lý của người học. Việc không tích hợp bất kỳ cơ chế đệm sai số hay cửa sổ miễn phạt nào khiến người học vô cùng ức chế khi chỉ một dịch chuyển rất nhỏ của ngón tay ngoài ý muốn cũng bị hệ thống đánh giá sai và phạt điểm trực tiếp. Đồng thời, giao diện của Sign Pose VR lạm dụng các bảng UI Canvas 2D phẳng lớn lơ lửng cố định trong không gian ảo, không chỉ gây che khuất tầm nhìn bắt khớp tay của camera kính HMD mà còn gây mệt mỏi nhận thức và xao nhãng rất lớn cho người học. Đáng nói nhất, tương tự như Gesture Play, Sign Pose VR bộc lộ sự thiếu sót sâu sắc về mặt học liệu thực hành khi hoàn toàn bỏ qua các bài học theo chủ đề đời sống, không có hệ thống chữ số 3D, từ ghép hay các đoạn hội thoại đa chiều, chỉ bó hẹp người học trong các bài kiểm tra ký tự đơn lẻ nhàm chán.
-
-#### Nhận xét chung về khoảng trống thị trường
+Mặc dù có thiết kế sư phạm khá rõ ràng, Sign Pose VR lại gặp rào cản lớn về mặt trải nghiệm người dùng và tính đa dạng nội dung. Hệ thống so khớp xương tay thô của ứng dụng cực kỳ nhạy cảm với các hiện tượng nhiễu cảm biến hoặc hiện tượng run tay vật lý của người học. Việc không tích hợp bất kỳ cơ chế đệm sai số hay cửa sổ miễn phạt nào khiến người học vô cùng ức chế khi chỉ một dịch chuyển rất nhỏ của ngón tay ngoài ý muốn cũng bị hệ thống đánh giá sai và phạt điểm trực tiếp. Đáng nói nhất, tương tự như Gesture Play, Sign Pose VR bộc lộ sự thiếu sót sâu sắc về mặt học liệu thực hành khi hoàn toàn bỏ qua các bài học theo chủ đề đời sống, chỉ bó hẹp người học trong các bài kiểm tra ký tự đơn lẻ nhàm chán.
 
 Từ việc phân tích các sản phẩm thực tế trên, có thể đưa ra nhận định chung rằng các ứng dụng VR học ngôn ngữ ký hiệu hiện hành đã mở ra hướng đi đầy tiềm năng cho việc dạy học tương tác tay trần. Tuy nhiên, chúng đều gặp phải các hạn chế lớn như: công nghệ bắt khớp tay thô sơ bỏ sót các cử chỉ động vẽ nét phức tạp do lỗi che khuất camera, giao diện UI Canvas cồng kềnh cản trước thao tác ngón tay, và đặc biệt là sự nghèo nàn, thiếu hụt nghiêm trọng về các chủ đề học liệu thực tế. Điều này khẳng định sự tồn tại khoảng trống lớn trên thị trường, một cơ hội mà đồ án **Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo** đã khai thác triệt để bằng cách cung cấp một chương trình học ASL toàn diện 3 module (Bảng chữ cái, Bảng chữ số thực nghiệm, Mẫu câu giao tiếp), đi kèm các cơ chế trò chơi hóa bảo vệ tâm lý người học.
-
-Để làm nổi bật giá trị giải pháp của đồ án, bảng dưới đây so sánh chi tiết đặc tính kỹ thuật và tương tác:
-
-#### Bảng 2.1: So sánh tính năng tương tác của giải pháp đề xuất với các ứng dụng hiện tại
-
-| Tính năng so sánh                  | Tài liệu truyền thống                         | Ứng dụng ASL VR hiện tại trên Store               | Giải pháp đề xuất của đồ án                                            |
-| :--------------------------------- | :-------------------------------------------- | :------------------------------------------------ | :--------------------------------------------------------------------- |
-| **Không gian tương tác**           | 2D phẳng tĩnh hoặc động bị khóa góc camera    | 3D lập thể trong không gian ảo                    | 3D lập thể nhập vai chuyên biệt                                        |
-| **Phương thức tương tác**          | Đọc/Xem thụ động, không tương tác trực tiếp   | Dùng tay cầm hoặc cử chỉ tĩnh rất cơ bản          | Tương tác hoàn toàn bằng bàn tay vật lý trần                           |
-| **Độ trễ và phản hồi**             | Không có phản hồi đánh giá cử chỉ             | Phản hồi chậm, dễ mất dấu khi tay di chuyển nhanh | Phản hồi thời gian thực tức thì kèm trực quan hóa màu sắc              |
-| **Nhận diện cử chỉ động vẽ nét**   | Không hỗ trợ                                  | Không hỗ trợ                                      | Hỗ trợ chính xác cao nhờ thuật toán **$1 Unistroke**                   |
-| **Cơ chế thi cử**                  | Thi trắc nghiệm giấy hoặc ứng dụng điện thoại | Thi trắc nghiệm chọn đáp án bằng nút bấm tay cầm  | Thi thực hành đánh vần chuỗi từ thực tế, điền từ vào chỗ trống         |
-| **Thiết kế UI/UX chống xao nhãng** | Không áp dụng                                 | UI Canvas phẳng lơ lửng gây cản trở tương tác tay | Bảng đeo tay phía trên cổ tay và bảng thông tin tự hướng theo góc nhìn |
-| **Cơ chế giảm áp lực phòng thi**   | Không có                                      | Sai là phạt điểm trực tiếp                        | Tích hợp **Hidden Mistakes**, **Invincibility Window** giảm ức chế     |
 
 ## 2.2 Mục đích của bài giảng
 
