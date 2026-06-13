@@ -28,7 +28,7 @@ Phạm vi đề tài bao gồm các chức năng chính:
 - **Điều khiển và bài giảng kiểm tra**: Tích hợp cơ chế quản lý lộ trình học tập, mở khóa phòng thi và làm bài kiểm tra tại bảng thi với đa dạng hình thức.
 - **Hệ thống giảng viên ảo và Phản hồi trực quan**: Xây dựng giảng viên ảo Kyle có khả năng chuyển đổi hoạt ảnh trạng thái linh hoạt đồng bộ với tiến trình của người học, kết hợp vòng lặp phản hồi siêu tốc bằng màu sắc tương phản trực quan.
 
-Đề tài không chỉ hướng đến việc nâng cao hiệu quả học ngôn ngữ ký hiệu chuyên biệt mà còn đặt nền móng cho các ứng dụng tương tác cử chỉ tay không cần thiết bị vật lý trong các lĩnh vực giáo dục đặc biệt khác, như hỗ trợ trẻ tự kỷ giao tiếp hoặc mô phỏng y tế. Hệ thống được thiết kế để dễ dàng tích hợp vào các nền tảng kính VR phổ biến, đảm bảo khả năng mở rộng và ứng dụng thực tế trong tương lai.
+Đề tài tập trung xây dựng giải pháp học tập chuyên biệt dành cho ASL dựa trên một cơ chế kiến trúc phần mềm linh hoạt, tách biệt giữa logic quản lý bài học và dữ liệu nhận diện cử chỉ. Với cấu trúc module hóa cao, hệ thống không chỉ tối ưu hóa hiệu quả thực hành cử chỉ ASL thông dụng mà còn có tính mở rộng và khả năng tái sử dụng vượt trội, tạo điều kiện thuận lợi để tùy biến và phát triển cho các hệ thống ngôn ngữ ký hiệu của các quốc gia khác trong tương lai.
 
 ---
 
