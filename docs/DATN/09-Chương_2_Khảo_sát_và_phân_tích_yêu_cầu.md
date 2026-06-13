@@ -2,9 +2,9 @@
 
 ## 2.1 Khảo sát hiện trạng
 
-Để định hình một hướng giải pháp tối ưu và thực tiễn nhất, đồ án tiến hành khảo sát và phân tích hiện trạng các giải pháp học tập ASL hiện hành trên cả hai môi trường: các phương pháp học tập truyền thống và các ứng dụng VR có sẵn trên cửa hàng Meta Horizon Store.
+Để định hình một hướng giải pháp tối ưu và thực tiễn nhất, đồ án tiến hành khảo sát và phân tích hiện trạng các giải pháp học tập ASL hiện hành trên cả hai môi trường là các phương pháp học tập truyền thống và các ứng dụng VR có sẵn trên cửa hàng Meta Horizon Store.
 
-### 2.1.1 Khảo sát các giải pháp học tập ngôn ngữ ký hiệu truyền thống
+### 2.1.1 Khảo sát phương pháp truyền thống
 
 Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận truyền thống bộc lộ những hạn chế đặc thù:
 
@@ -12,7 +12,7 @@
 
 Tiếp theo, đối với phương thức học qua video ghi hình sẵn, các video 2D dù cung cấp chuyển động liên tục của tay nhưng vẫn bị khóa cứng ở góc nhìn camera cố định. Người học không thể xoay nghiêng hoặc quan sát từ trên xuống để thấy rõ chiều sâu của cử chỉ. Quan trọng hơn, việc tự học trước màn hình phẳng hoàn toàn thiếu đi cơ chế tự đánh giá độ chính xác, người học không thể biết mình đã gập đúng khớp ngón tay hay chưa, dễ dẫn đến việc ghi nhớ sai lệch hệ thống cơ khớp.
 
-### 2.1.2 Khảo sát các ứng dụng học ngôn ngữ ký hiệu trong Thực tế ảo hiện hành
+### 2.1.2 Khảo sát ứng dụng thực tế ảo
 
 Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án "Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo" đặt mục tiêu khắc phục.
 
