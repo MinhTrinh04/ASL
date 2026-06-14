@@ -37,37 +37,38 @@ Luồng tiến trình học tập của bài giảng tương tác Silent Classro
 > **Hình 4.1:** Sơ đồ tiến trình và luồng bài giảng tương tác Silent Classroom ASL VR
 
 ```mermaid
-graph TD
-    A[Welcome Screen / Sảnh chờ] --> B[Main Lobby / Hành lang chính]
-    B -->|Xem và chạm bảng cổ tay| C[Bảng thông tin đeo cổ tay / Xem tiến trình]
-    B -->|Dịch chuyển| D[Phòng học 1: Bảng chữ cái]
-    B -->|Dịch chuyển - Khóa/Mở khóa| E[Phòng học 2: Chữ số]
-    B -->|Dịch chuyển - Khóa/Mở khóa| F[Phòng học 3: Hội thoại]
+flowchart TD
+    StartNode((●)) --> Welcome[Welcome Screen / Sảnh chờ]
+    Welcome --> Exit[Exit Game / Thoát game]
+    Exit --> EndNode(((●)))
 
-    D --> D1[Chế độ Thực hành: Luyện tập với Kyle]
-    D1 -->|Tập uốn ngón tay theo mẫu| D1
-    D1 -->|Di chuyển| D2[Chế độ Kiểm tra: Bảng câu đố 3D]
-    D2 -->|Giải câu đố trắc nghiệm & đánh vần| D3{Hệ thống chấm điểm}
-    D3 -->|Điểm < 80%| D4[Yêu cầu học lại / Replay]
-    D4 --> D1
-    D3 -->|Điểm >= 80%| D5[Đạt Master / Mở khóa phòng tiếp theo]
-    D5 --> B
+    Welcome --> Lobby[Main Lobby / Hành lang chính]
+    Lobby --> Practice[Practice Mode / Chế độ thực hành]
+    Practice --> Quiz[Quiz Mode / Chế độ kiểm tra]
+    Quiz --> Clear{"Score >= 80%?"}
 
-    E --> E1[Chế độ Thực hành: Luyện tập với Kyle]
-    E1 --> E2[Chế độ Kiểm tra: Bảng đố phép tính]
-    E2 --> E3{Hệ thống chấm điểm}
-    E3 -->|Điểm < 80%| E4[Yêu cầu học lại]
-    E4 --> E1
-    E3 -->|Điểm >= 80%| E5[Đạt Master / Mở khóa phòng Hội thoại]
-    E5 --> B
+    Clear -->|No / Chưa đạt| Lobby
+    Clear -->|Yes / Đạt| NextTopic[Next Topic / Phòng học tiếp theo]
+    NextTopic --> Lobby
 
-    F --> F1[Chế độ Thực hành: Luyện tập với Kyle]
-    F1 --> F2[Chế độ Kiểm tra: Tình huống giao tiếp]
-    F2 --> F3{Hệ thống chấm điểm}
-    F3 -->|Điểm < 80%| F4[Yêu cầu học lại]
-    F4 --> F1
-    F3 -->|Điểm >= 80%| F5[Đạt Master / Hoàn thành bài giảng]
-    F5 --> B
+    Lobby --> Wrist[Wrist Dashboard / Bảng đeo tay]
+    Wrist --> Option[Option Menu / Bảng tùy chọn]
+    Wrist --> ViewProgress([View Progress / Xem tiến trình])
+    Wrist --> Achievements([Achievements / Thành tựu])
+    Wrist --> Room1([Room 1: Letters / Phòng 1: Chữ cái])
+    Wrist --> Room2([Room 2: Numbers / Phòng 2: Chữ số])
+    Wrist --> Room3([Room 3: Conversation / Phòng 3: Hội thoại])
+
+    Option --> ExitWelcome([Exit to Welcome Screen / Thoát về sảnh chờ])
+    Option --> SaveProgress([Save Progress / Lưu tiến độ])
+    ExitWelcome --> Welcome
+
+
+    class StartNode,EndNode startEnd;
+    class Welcome,Lobby,Practice,Quiz,NextTopic greenNode;
+    class Exit,Wrist,Option redNode;
+    class Clear decisionNode;
+    class ViewProgress,Achievements,Room1,Room2,Room3,ExitWelcome,SaveProgress ellipseNode;
 ```
 
 ### 4.2.4 Nhiệm vụ, thử thách
