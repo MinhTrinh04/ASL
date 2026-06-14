@@ -38,33 +38,28 @@ Luồng tiến trình học tập của bài giảng tương tác Silent Classro
 
 ```mermaid
 flowchart TD
-    StartNode((●)) --> Lobby[Main Lobby / Sảnh chờ]
-    Lobby --> Exit[Exit Game / Thoát game]
+    StartNode((●)) --> MainLobby[Main Lobby / Sảnh hành lang chính]
+    MainLobby --> Exit[Exit Game / Thoát game]
     Exit --> EndNode(((●)))
 
-    Lobby --> Practice[Practice Mode / Chế độ thực hành]
+    MainLobby --> BaseClassroom[Base Classroom / Phòng học chuyên đề]
+    BaseClassroom --> ExitLobby([Exit to Lobby / Thoát về sảnh chờ])
+    ExitLobby --> MainLobby
+
+    BaseClassroom --> Practice[Practice Mode / Chế độ thực hành]
     Practice --> Quiz[Quiz Mode / Chế độ kiểm tra]
     Quiz --> Clear{"Score >= 80%?"}
-
-    Clear -->|No / Chưa đạt| Lobby
-    Clear -->|Yes / Đạt| NextTopic[Next Topic / Phòng học tiếp theo]
-    NextTopic --> Lobby
-
-    Lobby --> Wrist[Wrist Dashboard / Bảng đeo tay]
-    Wrist --> Option[Option Menu / Bảng tùy chọn]
-    Wrist --> Room1([Room 1: Letters / Phòng 1: Chữ cái])
-    Wrist --> Room2([Room 2: Numbers / Phòng 2: Chữ số])
-    Wrist --> Room3([Room 3: Conversation / Phòng 3: Hội thoại])
-
-    Option --> ExitLobby([Exit to Lobby / Thoát về sảnh chờ])
-    ExitLobby --> Lobby
+    
+    Clear -->|No / Chưa đạt| Practice
+    Clear -->|Yes / Đạt| NextClass[Next Class / Phòng học tiếp theo]
+    NextClass --> MainLobby
 
 
     class StartNode,EndNode startEnd;
-    class Lobby,Practice,Quiz,NextTopic greenNode;
-    class Exit,Wrist,Option redNode;
+    class MainLobby,BaseClassroom,Practice,Quiz,NextClass greenNode;
+    class Exit redNode;
     class Clear decisionNode;
-    class Room1,Room2,Room3,ExitLobby ellipseNode;
+    class ExitLobby ellipseNode;
 ```
 
 ### 4.2.4 Nhiệm vụ, thử thách
