@@ -38,11 +38,10 @@ Luồng tiến trình học tập của bài giảng tương tác Silent Classro
 
 ```mermaid
 flowchart TD
-    StartNode((●)) --> Welcome[Welcome Screen / Sảnh chờ]
-    Welcome --> Exit[Exit Game / Thoát game]
+    StartNode((●)) --> Lobby[Main Lobby / Sảnh chờ]
+    Lobby --> Exit[Exit Game / Thoát game]
     Exit --> EndNode(((●)))
 
-    Welcome --> Lobby[Main Lobby / Hành lang chính]
     Lobby --> Practice[Practice Mode / Chế độ thực hành]
     Practice --> Quiz[Quiz Mode / Chế độ kiểm tra]
     Quiz --> Clear{"Score >= 80%?"}
@@ -53,22 +52,19 @@ flowchart TD
 
     Lobby --> Wrist[Wrist Dashboard / Bảng đeo tay]
     Wrist --> Option[Option Menu / Bảng tùy chọn]
-    Wrist --> ViewProgress([View Progress / Xem tiến trình])
-    Wrist --> Achievements([Achievements / Thành tựu])
     Wrist --> Room1([Room 1: Letters / Phòng 1: Chữ cái])
     Wrist --> Room2([Room 2: Numbers / Phòng 2: Chữ số])
     Wrist --> Room3([Room 3: Conversation / Phòng 3: Hội thoại])
 
-    Option --> ExitWelcome([Exit to Welcome Screen / Thoát về sảnh chờ])
-    Option --> SaveProgress([Save Progress / Lưu tiến độ])
-    ExitWelcome --> Welcome
+    Option --> ExitLobby([Exit to Lobby / Thoát về sảnh chờ])
+    ExitLobby --> Lobby
 
 
     class StartNode,EndNode startEnd;
-    class Welcome,Lobby,Practice,Quiz,NextTopic greenNode;
+    class Lobby,Practice,Quiz,NextTopic greenNode;
     class Exit,Wrist,Option redNode;
     class Clear decisionNode;
-    class ViewProgress,Achievements,Room1,Room2,Room3,ExitWelcome,SaveProgress ellipseNode;
+    class Room1,Room2,Room3,ExitLobby ellipseNode;
 ```
 
 ### 4.2.4 Nhiệm vụ, thử thách
