@@ -60,7 +60,7 @@ Phần còn lại của thuyết minh đồ án tốt nghiệp này nhằm trìn
 
 Tiếp theo, Chương 3 sẽ đặt nền tảng lý thuyết và công nghệ sử dụng, giới thiệu các cơ sở lý luận EdTech bao gồm Nón trải nghiệm Edgar Dale và Thuyết học tập trải nghiệm của David Kolb, đồng thời trình bày về công nghệ theo dõi tay Unity XR Hands và cơ chế động học của giải thuật nhận dạng nét vẽ $1 Unistroke.
 
-Sau khi đã xây dựng nền tảng lý thuyết và công nghệ, Chương 4 sẽ tập trung chi tiết vào việc thiết kế bài giảng, các cơ chế tương tác sư phạm tinh tế như Hidden Mistakes và Invincibility Window, thiết kế kiến trúc phần mềm hướng sự kiện Event-Driven cùng các sơ đồ lớp, sơ đồ gói và quy trình kiểm thử hệ thống.
+Sau khi đã xây dựng nền tảng lý thuyết và công nghệ, Chương 4 sẽ tập trung chi tiết vào việc thiết kế bài giảng, các cơ chế tương tác sư phạm nhằm giảm áp lực thi cử, thiết kế kiến trúc phần mềm cùng các sơ đồ lớp, sơ đồ gói và quy trình kiểm thử hệ thống.
 
 Để kiểm chứng tính hiệu quả của giải pháp đề xuất, Chương 5 sẽ triển khai thực nghiệm và đánh giá hệ thống trên nền tảng VR, trình bày kết quả thực nghiệm đối chứng định lượng khoa học để đánh giá hiệu quả tiếp thu kiến thức tức thời và khả năng lưu giữ trí nhớ cơ bắp lâu dài giữa hai phương pháp học.
 
