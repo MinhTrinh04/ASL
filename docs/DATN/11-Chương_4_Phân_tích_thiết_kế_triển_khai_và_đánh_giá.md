@@ -49,7 +49,7 @@ flowchart TD
     BaseClassroom --> Practice[Practice Mode / Chế độ thực hành]
     Practice --> Quiz[Quiz Mode / Chế độ kiểm tra]
     Quiz --> Clear{"Score >= 80%?"}
-    
+
     Clear -->|No / Chưa đạt| Practice
     Clear -->|Yes / Đạt| NextClass[Next Class / Phòng học tiếp theo]
     NextClass --> MainLobby
@@ -72,14 +72,8 @@ Người học cần rèn luyện sự dẻo dai của ngón tay, phối hợp p
 ### 4.3.1 Luật tương tác và cơ chế sư phạm
 
 Trong bài giảng, người học sẽ thực hiện các hành động tương tác như dịch chuyển vị trí học tập, chạm các nút ảo trực quan trên bảng thông tin đeo tay, uốn nắn bàn tay trần tạo các tư thế tay tĩnh, và vẽ nét ngón trỏ trong không gian để mô phỏng ký tự động. Người học được tự do điều chỉnh bàn tay ảo và luyện tập thử sai liên tục mà không bị giới hạn.
-Mỗi phòng học chuyên đề mang đến những thử thách thực hành độc đáo:
 
-- **Ở phòng học Bảng chữ cái:** Người học thực hành uốn nắn hai mươi sáu tư thế tay tĩnh đơn lẻ và hai chữ cái động như J và Z bằng cách di chuyển đầu ngón tay vẽ nét quỹ đạo trong không gian.
-- **Ở phòng học Chữ số:** Người học thực hành đếm các số từ 0 - 9 và giải các bài đố phép toán trực quan trên bảng.
-- **Ở phòng học Hội thoại:** Người học thực hiện ghép các từ vựng giao tiếp thông dụng đòi hỏi phối hợp đồng bộ cử chỉ của cả hai bàn tay vật lý.
-
-Để vượt qua bài kiểm tra năng lực và hoàn thành mục tiêu của mỗi phòng học chuyên đề, học viên bắt buộc phải đạt tỷ lệ chính xác tối thiểu là 80% trong các chuỗi thực hành. Việc tích lũy đủ điểm số này là luật cốt lõi để kích hoạt điều kiện mở khóa cánh cửa dẫn vào phòng học chuyên đề tiếp theo trên sảnh hành lang chính. Nếu học viên đạt điểm dưới mức 80%, cửa phòng tiếp theo vẫn khóa, buộc học viên phải thực hiện chế độ học lại để cải thiện kết quả.
-Học viên có thể chủ động học lại nhiều lần để cải thiện năng lực của mình. Càng thực hiện chính xác các câu hỏi ngay từ lượt uốn tay đầu tiên, điểm số kiểm tra tích lũy càng cao, nâng cao tinh thần chủ động tự học.
+Mỗi phòng học chuyên đề mang đến những thử thách thực hành độc đáo, từ việc uốn nắn 26 tư thế tay tĩnh và vẽ nét quỹ đạo của hai chữ cái động J và Z, thực hành đếm số từ 0 đến 9 kết hợp giải bài tập toán trực quan, cho đến ghép các cụm từ giao tiếp thông dụng đòi hỏi sự phối hợp đồng bộ của cả hai bàn tay. Để vượt qua bài kiểm tra năng lực và hoàn thành mục tiêu của mỗi phòng học chuyên đề, học viên bắt buộc phải đạt tỷ lệ chính xác tối thiểu là 80% trong các chuỗi thực hành. Việc tích lũy đủ điểm số này là luật cốt lõi để kích hoạt điều kiện mở khóa cánh cửa dẫn vào phòng học chuyên đề tiếp theo trên sảnh hành lang chính. Nếu học viên đạt điểm dưới mức 80%, cửa phòng tiếp theo vẫn khóa, buộc học viên phải thực hiện chế độ học lại để cải thiện kết quả.
 
 ### 4.3.2 Mô hình lớp học ảo
 
@@ -100,11 +94,8 @@ Không gian mô phỏng phòng khách hoặc quán cà phê ảo thân thiện v
 #### 4.3.2.2 Hệ thống tiến trình và đánh giá năng lực học thuật
 
 Hệ thống tiến trình và đánh giá năng lực học thuật trong bài giảng được xây dựng chặt chẽ nhằm phản ánh chính xác mức độ tiếp thu và độ thành thạo ngôn ngữ ký hiệu của học viên thông qua từng giai đoạn học tập. Thay vì sử dụng các cơ chế thăng cấp hay điểm số tiền tệ của các trò chơi giải trí thông thường, bài giảng tập trung vào việc đo lường năng lực thực tế. Học viên khi tham gia học tập sẽ thực hiện các bài thi trắc nghiệm và đánh giá thực hành trực tiếp tại bảng kiểm tra 3D của mỗi phòng học. Điểm số đánh giá được tính dựa trên tỷ lệ phần trăm mức độ chính xác của các tư thế tay và nét vẽ được uốn nắn thành công ngay từ những lượt thử đầu tiên, dao động từ 0% đến 100%.
-Trong đó, nhằm đảm bảo công bằng và phản ánh đúng thực chất năng lực mà không gây ức chế tâm lý do giới hạn vật lý của cảm biến bắt khớp tay trần trên kính VR, hệ thống đánh giá tích hợp các cơ chế bảo vệ học tập đặc thù:
 
-- **Cơ chế Sai lầm ẩn:** Cảm biến camera hồng ngoại của kính VR dễ gặp hiện tượng nhiễu bắt khớp ngón tay trong một vài khung hình ngắn. Thay vì lập tức trừ điểm hay ghi nhận lỗi sai khi khớp tay bị lệch nhẹ ngoài ý muốn trong quá trình đánh giá, hệ thống sử dụng một bộ đệm thời gian ngắn từ 1.5 - 2 giây. Chỉ khi người học duy trì tư thế tay sai vượt quá thời gian đệm này, hệ thống mới chính thức ghi nhận lỗi và áp dụng vào kết quả đánh giá thực tế.
-- **Cửa sổ vô địch:** Ngay sau khi người học làm sai một cử chỉ và bị hệ thống báo lỗi, một cửa sổ thời gian miễn phạt ngắn được kích hoạt. Giai đoạn này cho phép người học thả lòng cơ tay, thoải mái uốn nắn điều chỉnh lại các khớp ngón tay mà không lo bị hệ thống liên tục phạt điểm dồn dập trong kết quả tiến trình.
-- **Danh sách cử chỉ miễn phạt:** Các cử chỉ tay tự nhiên dùng để tương tác điều khiển giao diện như xem cổ tay mở menu hay trỏ ngón tay di chuyển được hệ thống đăng ký vào danh sách ngoại lệ, đảm bảo không bao giờ bị tính nhầm là lỗi thực hiện sai bài học.
+Trong đó, nhằm đảm bảo công bằng và phản ánh đúng năng lực mà không gây ức chế do giới hạn vật lý của cảm biến bắt khớp tay trần trên kính VR, hệ thống tích hợp các cơ chế bảo vệ học tập đặc thù. Đầu tiên là cơ chế sai lầm ẩn sử dụng một bộ đệm từ 1,5 đến 2 giây trước khi ghi nhận lỗi nhằm tránh trừ điểm oan do camera hồng ngoại bị nhiễu bắt khớp trong vài khung hình ngắn. Tiếp theo, ngay sau khi phát sinh lỗi thực hành, một cửa sổ vô địch được kích hoạt để người học có thời gian thư giãn cơ tay, uốn nắn điều chỉnh tư thế mà không bị phạt điểm dồn dập. Cuối cùng, hệ thống đăng ký một danh sách các cử chỉ tương tác giao diện tự nhiên như mở bảng menu hay trỏ ngón tay di chuyển làm ngoại lệ để tránh tính nhầm thành lỗi thực hiện bài học.
 
 Toàn bộ kết quả và mức độ thông thạo này sẽ được ghi nhận và cập nhật trực tiếp lên bảng thông tin tiến trình cá nhân gắn trên cổ tay của học viên dưới dạng ba trạng thái trực quan: Màu xám đại diện cho những phòng học hoặc chủ đề chưa mở khóa; Màu xanh lá đại diện cho trạng thái Đạt chuẩn. Để đảm bảo tính bền vững của tiến trình tự học dài hạn, điểm số đánh giá cao nhất của mỗi học viên cho từng chủ đề sẽ được tự động ghi nhớ và lưu trữ vĩnh viễn trên hệ thống của thiết bị, giúp học viên có thể tiếp tục hành trình học tập cá nhân hóa của mình vào bất kỳ lúc nào mà không lo bị mất dữ liệu tiến độ.
 
