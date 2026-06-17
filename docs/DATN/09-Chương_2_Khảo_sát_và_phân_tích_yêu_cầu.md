@@ -6,7 +6,7 @@
 
 ### 2.1.1 Khảo sát phương pháp truyền thống
 
-Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận và học tập trực tuyến truyền thống bộc lộ những hạn chế lớn về mặt tương tác và hiệu quả tiếp thu kiến thức [10], [11].
+Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận và học tập trực tuyến truyền thống bộc lộ những hạn chế lớn về mặt tương tác và hiệu quả tiếp thu kiến thức.
 
 Đầu tiên, đối với phương thức học qua giáo trình in ấn và sách ảnh tĩnh, đây là phương pháp thụ động nhất khi người học chỉ tiếp xúc với hình ảnh chụp phẳng 2D ghi lại các tư thế tay tĩnh. Do ngôn ngữ ký hiệu là hệ thống giao tiếp đa chiều phức tạp, người học hoàn toàn gặp khó khăn trong việc hình dung cách gập các ngón tay trong không gian ba chiều hoặc hướng xoay lòng bàn tay (ví dụ như sự kết hợp cực kỳ nhỏ về chiều sâu giữa hai chữ cái U và V, hoặc hướng bàn tay giữa K và P rất khó mô tả bằng ảnh chụp phẳng).
 
@@ -14,7 +14,7 @@ Tiếp theo, đối với phương thức học qua video ghi hình sẵn, các 
 
 ### 2.1.2 Khảo sát ứng dụng thực tế ảo
 
-Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm để nâng cao chất lượng trải nghiệm học tập [12], [13]. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo đặt mục tiêu khắc phục.
+Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm để nâng cao chất lượng trải nghiệm học tập. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo đặt mục tiêu khắc phục.
 
 #### Gesture Play
 
