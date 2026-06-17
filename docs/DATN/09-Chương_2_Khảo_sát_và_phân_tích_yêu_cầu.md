@@ -6,7 +6,7 @@
 
 ### 2.1.1 Khảo sát phương pháp truyền thống
 
-Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận truyền thống bộc lộ những hạn chế đặc thù.
+Đối với người nghe bình thường có mong muốn học ngôn ngữ ký hiệu để hỗ trợ cộng đồng khiếm thính, các phương pháp tiếp cận và học tập trực tuyến truyền thống bộc lộ những hạn chế lớn về mặt tương tác và hiệu quả tiếp thu kiến thức [10], [11].
 
 Đầu tiên, đối với phương thức học qua giáo trình in ấn và sách ảnh tĩnh, đây là phương pháp thụ động nhất khi người học chỉ tiếp xúc với hình ảnh chụp phẳng 2D ghi lại các tư thế tay tĩnh. Do ngôn ngữ ký hiệu là hệ thống giao tiếp đa chiều phức tạp, người học hoàn toàn gặp khó khăn trong việc hình dung cách gập các ngón tay trong không gian ba chiều hoặc hướng xoay lòng bàn tay (ví dụ như sự kết hợp cực kỳ nhỏ về chiều sâu giữa hai chữ cái U và V, hoặc hướng bàn tay giữa K và P rất khó mô tả bằng ảnh chụp phẳng).
 
@@ -14,7 +14,7 @@ Tiếp theo, đối với phương thức học qua video ghi hình sẵn, các 
 
 ### 2.1.2 Khảo sát ứng dụng thực tế ảo
 
-Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo đặt mục tiêu khắc phục.
+Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tảng VR hiện nay đang chứng kiến một số nỗ lực thử nghiệm đáng ghi nhận nhằm khai thác công nghệ theo dõi tay không tay cầm để nâng cao chất lượng trải nghiệm học tập [12], [13]. Việc phân tích sâu các sản phẩm này giúp nhận diện các giới hạn công nghệ hiện tại và đồng thời làm nổi bật những hạn chế cố hữu mà đồ án Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo đặt mục tiêu khắc phục.
 
 #### Gesture Play
 
@@ -42,7 +42,7 @@ Mặc dù có thiết kế sư phạm khá rõ ràng, Sign Pose VR lại gặp r
 
 Từ việc phân tích các sản phẩm thực tế trên, có thể đưa ra nhận định chung rằng các ứng dụng VR học ngôn ngữ ký hiệu hiện hành đã mở ra hướng đi đầy tiềm năng cho việc dạy học tương tác tay trần nhưng vẫn tồn tại những rào cản lớn chưa được giải quyết triệt để. Nhằm khắc phục trực tiếp các hạn chế đó, định hướng giải pháp của đồ án Bài giảng ngôn ngữ ký hiệu trong Thực tế ảo tập trung vào hai cải tiến trọng tâm.
 
-Đầu tiên, về mặt kỹ thuật nhận diện, đồ án giải quyết triệt để rào cản bỏ sót chữ cái của các ứng dụng đi trước bằng việc mở rộng hỗ trợ đầy đủ các ký tự động vẽ nét (J và Z) dựa trên thuật toán $1 Unistroke và các ký tự tĩnh khó (bao gồm M, N, O, P, Q, T) bằng cơ chế tính toán khoảng cách tương đối từ đầu ngón cái tới các khớp xương ngón tay lân cận để vượt qua lỗi che khuất camera.Tiếp theo, về mặt xây dựng học liệu, đồ án khắc phục triệt để sự nghèo nàn và thiếu hụt nghiêm trọng về các chủ đề thực tế của các giải pháp hiện hành bằng việc hệ thống hóa chương trình học thành 3 module bài học bao gồm bảng chữ cái, bảng chữ số và hội thoại giao tiếp cơ bản.
+Đầu tiên, về mặt kỹ thuật nhận diện, đồ án giải quyết triệt để rào cản bỏ sót chữ cái của các ứng dụng đi trước bằng việc mở rộng hỗ trợ đầy đủ các ký tự động vẽ nét (J và Z) dựa trên thuật toán $1 Unistroke [3] và các ký tự tĩnh khó (bao gồm M, N, O, P, Q, T) bằng cơ chế tính toán khoảng cách tương đối từ đầu ngón cái tới các khớp xương ngón tay lân cận để vượt qua lỗi che khuất camera. Tiếp theo, về mặt xây dựng học liệu, đồ án khắc phục triệt để sự nghèo nàn và thiếu hụt nghiêm trọng về các chủ đề thực tế của các giải pháp hiện hành bằng việc hệ thống hóa chương trình học thành 3 module bài học bao gồm bảng chữ cái, bảng chữ số và hội thoại giao tiếp cơ bản.
 
 ## 2.2 Mục đích của bài giảng
 
