@@ -18,7 +18,7 @@ Thị trường ứng dụng học tập ngôn ngữ ký hiệu trên nền tả
 
 #### Gesture Play
 
-Một trong những ứng dụng giáo dục tiên phong trong việc tiếp cận bảng chữ cái ASL bằng cử chỉ tay trần là Gesture Play (Hình 2.1). Trò chơi này hướng tới việc dạy bảng chữ cái thông qua hai chế độ tương tác chính là Practice Mode cung cấp một không gian thực hành tự do theo tiến trình của người học, và Game Mode thách thức người chơi nhận diện cử chỉ dưới áp lực thời gian để lấy điểm số. Điểm cộng lớn của ứng dụng là giao diện tối giản và khả năng phản hồi tương đối nhạy đối với các tư thế tay cơ bản, giúp người học nhanh chóng làm quen với thao tác không tay cầm.
+Một trong những ứng dụng giáo dục tiên phong trong việc tiếp cận bảng chữ cái ASL bằng cử chỉ tay trần là Gesture Play [7] (Hình 2.1). Trò chơi này hướng tới việc dạy bảng chữ cái thông qua hai chế độ tương tác chính là Practice Mode cung cấp một không gian thực hành tự do theo tiến trình của người học, và Game Mode thách thức người chơi nhận diện cử chỉ dưới áp lực thời gian để lấy điểm số. Điểm cộng lớn của ứng dụng là giao diện tối giản và khả năng phản hồi tương đối nhạy đối với các tư thế tay cơ bản, giúp người học nhanh chóng làm quen với thao tác không tay cầm.
 
 ![Chế độ Game Mode tính điểm và nhận diện cử chỉ tay trong Gesture Play](Hinhve/Chương%202/GP.png)
 
@@ -32,7 +32,7 @@ Tuy nhiên, Gesture Play bộc lộ một điểm yếu chí mạng về mặt c
 
 #### Sign Pose VR
 
-Một đại diện đáng chú ý khác trên Meta Quest Store là Sign Pose VR (Hình 2.3), một công cụ học tập được thiết kế dành riêng cho người mới bắt đầu để rèn luyện độ chính xác của các tư thế tay ASL. Ứng dụng tích hợp Learn Mode cung cấp các viền mẫu tay chỉ dẫn chi tiết để người học uốn nắn bàn tay vật lý của mình và Quiz Mode để kiểm tra mức độ lưu giữ kiến thức. Ưu điểm lớn nhất của ứng dụng là đã trực quan hóa được hướng dẫn đặt các ngón tay và cung cấp phản hồi sửa sai tức thời đối với các tư thế tay tĩnh.
+Một đại diện đáng chú ý khác trên Meta Quest Store là Sign Pose VR [8] (Hình 2.3), một công cụ học tập được thiết kế dành riêng cho người mới bắt đầu để rèn luyện độ chính xác của các tư thế tay ASL. Ứng dụng tích hợp Learn Mode cung cấp các viền mẫu tay chỉ dẫn chi tiết để người học uốn nắn bàn tay vật lý của mình và Quiz Mode để kiểm tra mức độ lưu giữ kiến thức. Ưu điểm lớn nhất của ứng dụng là đã trực quan hóa được hướng dẫn đặt các ngón tay và cung cấp phản hồi sửa sai tức thời đối với các tư thế tay tĩnh.
 
 ![Đặc tả khớp mẫu tay trong chế độ Learn Mode của Sign Pose VR](Hinhve/Chương%202/SP.png)
 

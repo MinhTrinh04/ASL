@@ -12,6 +12,6 @@
 
 [6] Khronos Group, “OpenXR Specification (Version 1.0),” Khronos OpenXR Registry, 2023. [Online]. Available: https://www.khronos.org/registry/OpenXR/
 
-[7] W. Vicars, “American Sign Language Linguistics: Pronunciation, Grammar, and Palm Orientation,” ASL University, 2020. [Online]. Available: https://www.lifeprint.com/asl101/pages-layout/linguistics.htm
+[7] Meta Platforms, Inc., “Gesture Play,” Meta Quest Store, 2024. [Online]. Available: https://www.meta.com/experiences/gesture-play/24771852309158778/
 
-[8] W. Vicars, “ASL University Fingerspelling and Handshape Dictionary,” ASL University, 2024. [Online]. Available: https://www.lifeprint.com/asl101/fingerspelling/index.htm
+[8] Loophole Studios, “Sign Pose VR,” Meta Quest Store, 2025. [Online]. Available: https://www.meta.com/experiences/sign-pose-vr/24069781642651333/
