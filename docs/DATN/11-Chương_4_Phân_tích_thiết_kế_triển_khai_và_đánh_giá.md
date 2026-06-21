@@ -2,17 +2,8 @@
 
 ## 4.1 Tổng quan bài giảng
 
-- **Tên bài giảng:** Bài giảng tương tác Ngôn ngữ ký hiệu Mỹ trong Thực tế ảo (ASL VR)
-- **Bản sắc bài giảng:** Bài giảng là một không gian thực nghiệm tương tác tay trần 3D sinh động, nơi người học sử dụng đôi bàn tay vật lý tự uốn nắn khớp ngón tay chuẩn hóa và tự do trải nghiệm lý thuyết EdTech trực quan mà không bị cản trở bởi tay cầm vật lý.
-- **Trụ cột bài giảng:**
-  - Chân thực (Immersive).
-  - Tự nhiên (Natural).
-  - Thấu cảm (Empowering).
-- **Điểm độc đáo:**
-  - Cơ chế uốn nắn bàn tay trần tự nhiên, trực quan hóa khớp tay ảo thời gian thực không cần tay cầm.
-  - Nhận dạng quỹ đạo nét vẽ của đầu ngón trỏ đối với các chữ cái động như J và Z.
-  - Giảng viên ảo Kyle phản hồi sinh học thời gian thực sinh động, giúp thu hẹp khoảng cách giao tiếp với cộng đồng khiếm thính.
-- **Phong cách đồ họa:** Bài giảng sử dụng tông màu be và xanh pastel dịu nhẹ, phong cách nghệ thuật stylized, lowpoly tối giản tạo cảm giác thoáng đãng và giảm mỏi mắt nhận thức.
+Bài giảng tương tác Silent Classroom ASL VR được xây dựng như một không gian thực nghiệm tương tác tay trần 3D sinh động. Tại đây, người học sử dụng chính đôi bàn tay vật lý của mình để tự uốn nắn các khớp ngón tay chuẩn hóa và tự do trải nghiệm các lý thuyết EdTech trực quan mà không bị cản trở bởi các thiết bị tay cầm truyền thống. Hướng tiếp cận này được xây dựng vững chắc trên ba trụ cột giá trị cốt lõi là chân thực, tự nhiên và thấu cảm. Điểm độc đáo nổi bật của bài giảng thể hiện qua cơ chế nhận diện tự nhiên, giúp trực quan hóa khớp tay ảo theo thời gian thực và nhận dạng chính xác quỹ đạo nét vẽ của đầu ngón trỏ đối với các chữ cái động phức tạp như J và Z. Đồng hành cùng học viên là giảng viên ảo Kyle với khả năng phản hồi sinh học sinh động, góp phần thu hẹp khoảng cách giao tiếp với cộng đồng người khiếm thính. Để tối ưu hóa trải nghiệm học tập, môi trường ảo áp dụng phong cách đồ họa stylized kết hợp mô hình lowpoly tối giản, sử dụng các tông màu be và xanh pastel dịu nhẹ nhằm tạo cảm giác thoáng đãng đồng thời giảm thiểu tối đa hiện tượng mỏi mắt nhận thức cho người học.
+
 
 ## 4.2 Lối tương tác
 

@@ -1,6 +1,6 @@
 # TÀI LIỆU THAM KHẢO
 
-[1] M. Molenda, “Cone of Experience,” in Educational Technology: An Encyclopedia, A. Kovalchick and K. Dawson, Eds. Santa Barbara, CA: ABC-CLIO, 2003, pp. 161–165. [Online]. Available: https://www.researchgate.net/publication/292372728_Cone_of_Experience
+[1] Y. S. Lee, A. Rashidi, A. Talei, H. J. Beh, and S. Rashidi, “A Comparison Study on the Learning Effectiveness of Construction Training Scenarios in a Virtual Reality Environment,” Virtual Worlds, vol. 2, no. 1, pp. 36–52, 2023. DOI: 10.3390/virtualworlds2010003 [Online]. Available: https://doi.org/10.3390/virtualworlds2010003
 
 [2] D. A. Kolb, “Experiential learning: Experience as the source of learning and development,” Prentice-Hall, 1984. [Online]. Available: https://www.researchgate.net/publication/235701029_Experiential_Learning_Experience_as_the_Source_of_Learning_and_Development
 
