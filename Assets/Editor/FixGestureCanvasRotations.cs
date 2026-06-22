@@ -241,7 +241,7 @@ public class FixGestureCanvasRotations : EditorWindow
                         RectTransform iconRect = iconChild.GetComponent<RectTransform>();
                         if (iconRect != null)
                         {
-                            iconRect.sizeDelta = new Vector2(60f, 60f);
+                            iconRect.sizeDelta = new Vector2(40f, 40f);
                             iconRect.anchoredPosition = Vector2.zero;
                         }
 
