@@ -87,6 +87,12 @@ public class QuizManager : MonoBehaviour
             topicIndex = parentMgr.topicIndex;
         }
 
+        // Disable audio playOnAwake
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+        }
+
         // Auto-locate AudioCanvas if not set
         if (playAudioButton == null)
         {
@@ -182,13 +188,6 @@ public class QuizManager : MonoBehaviour
         else
         {
             questionImageUI.gameObject.SetActive(false);
-        }
-
-        // ── Auto-play audio for AudioFillInTheGap ─────────────────────────────
-        if (data.questionType == QuestionType.AudioFillInTheGap &&
-            data.questionAudio != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(data.questionAudio);
         }
 
         if (playAudioButton != null)
@@ -455,7 +454,11 @@ public class QuizManager : MonoBehaviour
         string missingType = isNumbers ? "numbers" : "letters";
         
         string title = "";
-        if (!string.IsNullOrEmpty(data.questionText))
+        if (data.questionType == QuestionType.AudioFillInTheGap)
+        {
+            title = "<color=" + COLOR_BEIGE + ">Listen and spell the word:</color>";
+        }
+        else if (!string.IsNullOrEmpty(data.questionText))
         {
             title = $"<color={COLOR_BEIGE}><size=100%>{data.questionText}</size></color>";
         }
@@ -469,7 +472,23 @@ public class QuizManager : MonoBehaviour
         string displayedText = $"\n\n{title}\n\n<size=180%>";
         int    completed     = currentInputBuffer.Count;
 
-        if (!string.IsNullOrEmpty(data.sentenceTemplate))
+        if (data.questionType == QuestionType.AudioFillInTheGap)
+        {
+            for (int i = 0; i < data.correctGestureIDs.Length; i++)
+            {
+                if (i < completed)
+                {
+                    displayedText += $"<color={COLOR_BLUE}><b>{data.correctGestureIDs[i]}</b></color>";
+                }
+                else
+                {
+                    displayedText += $"<color={COLOR_BEIGE}>_</color>";
+                }
+
+                if (i < data.correctGestureIDs.Length - 1) displayedText += " ";
+            }
+        }
+        else if (!string.IsNullOrEmpty(data.sentenceTemplate))
         {
             string template = data.sentenceTemplate;
             int bufferPointer = 0; // Maps to index in currentInputBuffer/IDs
@@ -537,6 +556,7 @@ public class QuizManager : MonoBehaviour
 
     void AutoAdvanceGapFill(QuizData data)
     {
+        if (data.questionType == QuestionType.AudioFillInTheGap) return;
         if ((data.questionType != QuestionType.Ordering && data.questionType != QuestionType.AudioFillInTheGap) || string.IsNullOrEmpty(data.sentenceTemplate)) return;
 
         bool isNumbers = data.topic != null && data.topic.Equals("Numbers", StringComparison.OrdinalIgnoreCase);
@@ -554,6 +574,7 @@ public class QuizManager : MonoBehaviour
 
     int GetScoreWeight(QuizData data)
     {
+        if (data.questionType == QuestionType.AudioFillInTheGap) return data.correctGestureIDs.Length;
         if (data.questionType != QuestionType.Ordering && data.questionType != QuestionType.AudioFillInTheGap) return 1;
         if (data.correctGestureIDs == null) return 1;
         if (string.IsNullOrEmpty(data.sentenceTemplate)) return data.correctGestureIDs.Length;
