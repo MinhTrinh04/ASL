@@ -15,6 +15,7 @@ public class QuizManager : MonoBehaviour
     public TMP_Text feedbackTextUI;
     public TMP_Text scoreTextUI;
     public GameObject examCanvas; // Màn hình thi
+    public GameObject playAudioButton; // Nút audio play
 
     [Header("Exam Config")]
     public int topicIndex = 0; 
@@ -85,6 +86,22 @@ public class QuizManager : MonoBehaviour
         {
             topicIndex = parentMgr.topicIndex;
         }
+
+        // Auto-locate AudioCanvas if not set
+        if (playAudioButton == null)
+        {
+            Transform canvasTrans = transform.Find("AudioCanvas");
+            if (canvasTrans != null)
+            {
+                playAudioButton = canvasTrans.gameObject;
+            }
+        }
+
+        // Hide by default initially
+        if (playAudioButton != null)
+        {
+            playAudioButton.SetActive(false);
+        }
     }
 
     void OnEnable()
@@ -100,7 +117,7 @@ public class QuizManager : MonoBehaviour
     // ── Exam flow ─────────────────────────────────────────────────────────────
     public void StartExam()
     {
-
+        ShuffleQuestions();
         currentQuestionIndex = 0;
         score                = 0;
         isExamActive         = true;
@@ -172,6 +189,12 @@ public class QuizManager : MonoBehaviour
             data.questionAudio != null && audioSource != null)
         {
             audioSource.PlayOneShot(data.questionAudio);
+        }
+
+        if (playAudioButton != null)
+        {
+            bool isAudioQuestion = (data.questionType == QuestionType.AudioFillInTheGap && data.questionAudio != null);
+            playAudioButton.SetActive(isAudioQuestion);
         }
 
         feedbackTextUI.text  = "Waiting for input...";
@@ -369,6 +392,11 @@ public class QuizManager : MonoBehaviour
         questionTextUI.text = "CONGRATULATIONS!";
         questionImageUI.gameObject.SetActive(false);
 
+        if (playAudioButton != null)
+        {
+            playAudioButton.SetActive(false);
+        }
+
         int totalPossible = questionList.Count;
         float percentage = (totalPossible > 0) ? (score / totalPossible) * 100f : 0f;
 
@@ -398,6 +426,18 @@ public class QuizManager : MonoBehaviour
         if (scoreTextUI != null)
             scoreTextUI.text =
                 $"Score: <color={COLOR_BLUE}>{score:F1}</color>/<color={COLOR_RED}>{totalPossible}</color>";
+    }
+
+    private void ShuffleQuestions()
+    {
+        if (questionList == null || questionList.Count == 0) return;
+        for (int i = 0; i < questionList.Count; i++)
+        {
+            QuizData temp = questionList[i];
+            int randomIndex = UnityEngine.Random.Range(i, questionList.Count);
+            questionList[i] = questionList[randomIndex];
+            questionList[randomIndex] = temp;
+        }
     }
 
     IEnumerator WaitAndFinish()

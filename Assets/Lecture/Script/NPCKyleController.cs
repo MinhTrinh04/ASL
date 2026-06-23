@@ -91,9 +91,9 @@ public class NPCKyleController : MonoBehaviour
     {
         currentSessionList.Clear();
         
-        // Filter into lists
-        var spellings = allPracticeData.Where(d => d.targetWord.Length > 1).ToList();
-        var letters = allPracticeData.Where(d => d.targetWord.Length == 1).ToList();
+        // Filter into lists, ignoring targetWord == "NET" and filtering out nulls
+        var spellings = allPracticeData.Where(d => d != null && d.targetWord.Length > 1 && !d.targetWord.Equals("NET", System.StringComparison.OrdinalIgnoreCase)).ToList();
+        var letters = allPracticeData.Where(d => d != null && d.targetWord.Length == 1).ToList();
         
         // Shuffle
         ShuffleList(spellings);

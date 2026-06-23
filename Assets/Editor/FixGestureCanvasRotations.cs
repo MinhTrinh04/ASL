@@ -299,4 +299,86 @@ public class FixGestureCanvasRotations : EditorWindow
         }
         return path;
     }
+
+    [MenuItem("Tools/Fix Back Buttons")]
+    public static void FixBackButtons()
+    {
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("Starting FixBackButtons...");
+        
+        try
+        {
+            sb.AppendLine("Opening scene Assets/Scenes/all_.unity...");
+            EditorSceneManager.OpenScene("Assets/Scenes/all_.unity");
+            
+            Unity.VRTemplate.StepManager[] managers = GameObject.FindObjectsOfType<Unity.VRTemplate.StepManager>(true);
+            sb.AppendLine($"Found {managers.Length} StepManager components in the scene.");
+            int count = 0;
+
+            foreach (var manager in managers)
+            {
+                if (manager == null || manager.gameObject == null) continue;
+                
+                sb.AppendLine($"Processing StepManager on GameObject: '{manager.name}' (Path: {GetGameObjectPath(manager.gameObject)})");
+
+                Transform backTransform = manager.transform.Find("Back");
+                if (backTransform == null)
+                {
+                    backTransform = FindChildRecursive(manager.transform, "Back");
+                }
+
+                if (backTransform != null)
+                {
+                    Button btn = backTransform.GetComponent<Button>();
+                    if (btn != null)
+                    {
+                        sb.AppendLine($"  Found Back button on path: {GetGameObjectPath(backTransform.gameObject)}");
+                        
+                        // Clear existing onClick listeners
+                        int clearedCount = btn.onClick.GetPersistentEventCount();
+                        while (btn.onClick.GetPersistentEventCount() > 0)
+                        {
+                            UnityEditor.Events.UnityEventTools.RemovePersistentListener(btn.onClick, 0);
+                        }
+                        sb.AppendLine($"  Cleared {clearedCount} existing onClick persistent events.");
+
+                        // Add persistent listener calling manager.Back()
+                        UnityEditor.Events.UnityEventTools.AddVoidPersistentListener(btn.onClick, new UnityEngine.Events.UnityAction(manager.Back));
+                        sb.AppendLine("  Added void persistent listener calling manager.Back().");
+                        
+                        EditorUtility.SetDirty(btn);
+                        EditorUtility.SetDirty(manager);
+                        EditorSceneManager.MarkSceneDirty(manager.gameObject.scene);
+                        
+                        count++;
+                    }
+                    else
+                    {
+                        sb.AppendLine("  GameObject named 'Back' does not have a Button component!");
+                    }
+                }
+                else
+                {
+                    sb.AppendLine("  Could not find any child GameObject named 'Back'.");
+                }
+            }
+
+            if (count > 0)
+            {
+                EditorSceneManager.SaveOpenScenes();
+                sb.AppendLine($"Successfully saved and wired up {count} Back buttons to their StepManagers.");
+            }
+            else
+            {
+                sb.AppendLine("No Back buttons were wired up.");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            sb.AppendLine($"Error: {ex.Message}\n{ex.StackTrace}");
+        }
+
+        System.IO.File.WriteAllText("C:/Github/ASL/fix_back_buttons_log.txt", sb.ToString());
+        Debug.Log("Finished FixBackButtons. Log saved to fix_back_buttons_log.txt");
+    }
 }
