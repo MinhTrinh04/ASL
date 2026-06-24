@@ -381,4 +381,69 @@ public class FixGestureCanvasRotations : EditorWindow
         System.IO.File.WriteAllText("C:/Github/ASL/fix_back_buttons_log.txt", sb.ToString());
         Debug.Log("Finished FixBackButtons. Log saved to fix_back_buttons_log.txt");
     }
+
+    [MenuItem("Tools/Update Quiz Correct Sound to Duolingo")]
+    public static void UpdateQuizSounds()
+    {
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("Starting UpdateQuizSounds...");
+
+        try
+        {
+            sb.AppendLine("Opening scene Assets/Scenes/all_.unity...");
+            EditorSceneManager.OpenScene("Assets/Scenes/all_.unity");
+
+            AssetDatabase.ImportAsset("Assets/Lecture/Audio/duolingo_correct.wav");
+            AssetDatabase.Refresh();
+            AudioClip duolingoClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Lecture/Audio/duolingo_correct.wav");
+            if (duolingoClip == null)
+            {
+                sb.AppendLine("Error: Could not load duolingo clip at Assets/Lecture/Audio/duolingo_correct.wav");
+                System.IO.File.WriteAllText("C:/Github/ASL/update_sounds_log.txt", sb.ToString());
+                Debug.LogError("[UpdateQuizSounds] Failed to load audio clip!");
+                return;
+            }
+            sb.AppendLine($"Successfully loaded duolingo clip: {duolingoClip.name}");
+
+            QuizManager[] quizManagers = GameObject.FindObjectsOfType<QuizManager>(true);
+            sb.AppendLine($"Found {quizManagers.Length} QuizManager components in the scene.");
+            int count = 0;
+
+            foreach (var qm in quizManagers)
+            {
+                if (qm == null || qm.gameObject == null) continue;
+                
+                // Skip prefab assets or objects not in any scene
+                if (EditorUtility.IsPersistent(qm.gameObject) || qm.gameObject.scene.name == null)
+                {
+                    sb.AppendLine($"Skipping prefab asset or stage object: {qm.name}");
+                    continue;
+                }
+
+                sb.AppendLine($"Updating QuizManager: {qm.name} (Path: {GetGameObjectPath(qm.gameObject)})");
+                qm.correctClip = duolingoClip;
+                
+                EditorUtility.SetDirty(qm);
+                EditorSceneManager.MarkSceneDirty(qm.gameObject.scene);
+                count++;
+            }
+
+            if (count > 0)
+            {
+                EditorSceneManager.SaveOpenScenes();
+                sb.AppendLine($"Successfully saved and updated {count} QuizManager correctClip references.");
+            }
+            else
+            {
+                sb.AppendLine("No QuizManager instances were updated.");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            sb.AppendLine($"Error: {ex.Message}\n{ex.StackTrace}");
+        }
+
+        System.IO.File.WriteAllText("C:/Github/ASL/update_sounds_log.txt", sb.ToString());
+        Debug.Log("Finished UpdateQuizSounds. Log saved to update_sounds_log.txt");
+    }
 }
