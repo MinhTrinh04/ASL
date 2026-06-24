@@ -273,13 +273,14 @@ public class QuizManager : MonoBehaviour
         if (currentData.questionType == QuestionType.Ordering || currentData.questionType == QuestionType.AudioFillInTheGap)
             UpdateSpellingDisplay(currentData);
 
-        PlayAudioIfAvailable(correctClip);
-
         feedbackTextUI.text  = "Correct!";
         feedbackTextUI.color = new Color(0.368f, 0.592f, 1.0f); // COLOR_BLUE
 
         if (currentInputBuffer.Count == questionList[currentQuestionIndex].correctGestureIDs.Length)
+        {
+            PlayAudioIfAvailable(correctClip);
             StartCoroutine(HandleQuestionComplete());
+        }
     }
 
     // ── Wrong input — Feature 1 (no-penalty) + Hidden Mistakes ────────────────
