@@ -125,9 +125,16 @@ public class ProgressManager : MonoBehaviour
             return false;
         }
 
+        // Bước 1: Kích hoạt gesture group TRƯỚC
+        // Đảm bảo gesture đúng đã active trước khi MovePlayerToSpawn() chạy
+        if (gestureTopicController != null)
+            gestureTopicController.EnableTopicByIndex(newTopicIndex);
+
         // Tắt các lobby gestures khác khi chuyển sang phòng học, giữ lại Pointing_Left và Pointing_Right để di chuyển
+        // Bật lại lobbyGestureGroup vì EnableTopicByIndex vừa tắt nó do Gestures_Lobby ở index 3.
         if (lobbyGestureGroup != null)
         {
+            lobbyGestureGroup.SetActive(true);
             for (int i = 0; i < lobbyGestureGroup.transform.childCount; i++)
             {
                 Transform child = lobbyGestureGroup.transform.GetChild(i);
@@ -135,13 +142,12 @@ public class ProgressManager : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
+                else
+                {
+                    child.gameObject.SetActive(true);
+                }
             }
         }
-
-        // Bước 1: Kích hoạt gesture group TRƯỚC
-        // Đảm bảo gesture đúng đã active trước khi MovePlayerToSpawn() chạy
-        if (gestureTopicController != null)
-            gestureTopicController.EnableTopicByIndex(newTopicIndex);
 
         // Bước 2: Toggle các classroom
         if (classrooms != null && classrooms.Count > 0)
