@@ -289,7 +289,6 @@ public class QuizManager : MonoBehaviour
         // Ignore empty or neutral gestures
         if (string.IsNullOrEmpty(gestureID) || gestureID.Equals("Idle", StringComparison.OrdinalIgnoreCase) || gestureID.Equals("None", StringComparison.OrdinalIgnoreCase))
         {
-            lastWrongGesture = ""; // Reset so they can retry the same wrong gesture if they intentionally do it again
             return;
         }
 
@@ -334,6 +333,7 @@ public class QuizManager : MonoBehaviour
     {
         lastCorrectInputTime = Time.time;
         currentInputBuffer.Add(gestureID);
+        hiddenMistakes = 0; // Reset hidden mistakes on successful input segment
 
         QuizData currentData = questionList[currentQuestionIndex];
         AutoAdvanceGapFill(currentData);
