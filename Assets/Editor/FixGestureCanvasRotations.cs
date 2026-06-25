@@ -446,4 +446,67 @@ public class FixGestureCanvasRotations : EditorWindow
         System.IO.File.WriteAllText("C:/Github/ASL/update_sounds_log.txt", sb.ToString());
         Debug.Log("Finished UpdateQuizSounds. Log saved to update_sounds_log.txt");
     }
+
+    [MenuItem("Tools/Update Quiz BGM to Kahoot")]
+    public static void UpdateQuizBGM()
+    {
+        var sb = new System.Text.StringBuilder();
+        sb.AppendLine("Starting UpdateQuizBGM...");
+
+        try
+        {
+            sb.AppendLine("Opening scene Assets/Scenes/all_.unity...");
+            EditorSceneManager.OpenScene("Assets/Scenes/all_.unity");
+
+            AudioClip kahootClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Lecture/Audio/Kahoot.mp3");
+            if (kahootClip == null)
+            {
+                sb.AppendLine("Error: Could not load Kahoot clip at Assets/Lecture/Audio/Kahoot.mp3");
+                System.IO.File.WriteAllText("C:/Github/ASL/update_bgm_log.txt", sb.ToString());
+                Debug.LogError("[UpdateQuizBGM] Failed to load audio clip!");
+                return;
+            }
+            sb.AppendLine($"Successfully loaded Kahoot clip: {kahootClip.name}");
+
+            QuizManager[] quizManagers = GameObject.FindObjectsOfType<QuizManager>(true);
+            sb.AppendLine($"Found {quizManagers.Length} QuizManager components in the scene.");
+            int count = 0;
+
+            foreach (var qm in quizManagers)
+            {
+                if (qm == null || qm.gameObject == null) continue;
+                
+                // Skip prefab assets or objects not in any scene
+                if (EditorUtility.IsPersistent(qm.gameObject) || qm.gameObject.scene.name == null)
+                {
+                    sb.AppendLine($"Skipping prefab asset or stage object: {qm.name}");
+                    continue;
+                }
+
+                sb.AppendLine($"Updating QuizManager: {qm.name} (Path: {GetGameObjectPath(qm.gameObject)})");
+                qm.quizBGMLoop = kahootClip;
+                
+                EditorUtility.SetDirty(qm);
+                EditorSceneManager.MarkSceneDirty(qm.gameObject.scene);
+                count++;
+            }
+
+            if (count > 0)
+            {
+                EditorSceneManager.SaveOpenScenes();
+                sb.AppendLine($"Successfully saved and updated {count} QuizManager quizBGMLoop references.");
+            }
+            else
+            {
+                sb.AppendLine("No QuizManager instances were updated.");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            sb.AppendLine($"Error: {ex.Message}\n{ex.StackTrace}");
+        }
+
+        System.IO.File.WriteAllText("C:/Github/ASL/update_bgm_log.txt", sb.ToString());
+        Debug.Log("Finished UpdateQuizBGM. Log saved to update_bgm_log.txt");
+    }
 }

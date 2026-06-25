@@ -45,6 +45,7 @@ public class QuizManager : MonoBehaviour
     public AudioClip correctClip;
     public AudioClip wrongClip;
     public AudioClip finishClip;
+    public AudioClip quizBGMLoop;
 
     [Header("Events")]
     public UnityEvent onExamFinished;
@@ -67,6 +68,69 @@ public class QuizManager : MonoBehaviour
     private float          questionStartTime      = 0f;
     private float          invincibilityEndTime   = -1f;
 
+    private AudioSource    bgmAudioSource;
+
+    private AudioSource GetBgmAudioSource()
+    {
+        if (bgmAudioSource == null)
+        {
+            AudioSource[] sources = GetComponents<AudioSource>();
+            if (sources.Length >= 2)
+            {
+                foreach (var src in sources)
+                {
+                    if (src != audioSource)
+                    {
+                        bgmAudioSource = src;
+                        break;
+                    }
+                }
+            }
+            if (bgmAudioSource == null)
+            {
+                bgmAudioSource = gameObject.AddComponent<AudioSource>();
+                Debug.Log($"[QuizManager] Added bgmAudioSource dynamically on '{gameObject.name}'");
+            }
+            else
+            {
+                Debug.Log($"[QuizManager] Reused existing AudioSource for BGM on '{gameObject.name}'");
+            }
+
+            bgmAudioSource.playOnAwake = false;
+            bgmAudioSource.loop = true;
+            bgmAudioSource.enabled = true;
+
+            // Sync settings
+            if (audioSource != null)
+            {
+                bgmAudioSource.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
+                bgmAudioSource.spatialBlend = audioSource.spatialBlend;
+                bgmAudioSource.minDistance = audioSource.minDistance;
+                bgmAudioSource.maxDistance = audioSource.maxDistance;
+                bgmAudioSource.rolloffMode = audioSource.rolloffMode;
+            }
+        }
+        return bgmAudioSource;
+    }
+
+    private GameObject GetPlayAudioButton()
+    {
+        if (playAudioButton == null)
+        {
+            Transform canvasTrans = transform.Find("AudioCanvas");
+            if (canvasTrans != null)
+            {
+                playAudioButton = canvasTrans.gameObject;
+                Debug.Log($"[QuizManager] Found playAudioButton (AudioCanvas) on '{gameObject.name}'");
+            }
+            else
+            {
+                Debug.LogWarning($"[QuizManager] AudioCanvas NOT found on '{gameObject.name}'!");
+            }
+        }
+        return playAudioButton;
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────────
     bool IsInvincible() => Time.time < invincibilityEndTime;
 
@@ -77,8 +141,9 @@ public class QuizManager : MonoBehaviour
     }
 
     // ── Lifecycle ─────────────────────────────────────────────────────────────
-    void Start()
+    void Awake()
     {
+        Debug.Log($"[QuizManager] Awake called on '{gameObject.name}'");
         // Tự động đồng bộ topicIndex từ ClassroomManager cha
         // Đảm bảo score được lưu vào đúng key mà không cần set thủ công trong Inspector
         ClassroomManager parentMgr = GetComponentInParent<ClassroomManager>(true);
@@ -87,26 +152,21 @@ public class QuizManager : MonoBehaviour
             topicIndex = parentMgr.topicIndex;
         }
 
-        // Disable audio playOnAwake
+        // Force full volume for SFX/pronunciations
         if (audioSource != null)
         {
             audioSource.playOnAwake = false;
+            audioSource.volume = 1.0f;
         }
 
-        // Auto-locate AudioCanvas if not set
-        if (playAudioButton == null)
-        {
-            Transform canvasTrans = transform.Find("AudioCanvas");
-            if (canvasTrans != null)
-            {
-                playAudioButton = canvasTrans.gameObject;
-            }
-        }
+        // Setup background music AudioSource
+        GetBgmAudioSource();
 
-        // Hide by default initially
-        if (playAudioButton != null)
+        // Auto-locate AudioCanvas and hide initially
+        GameObject audioBtn = GetPlayAudioButton();
+        if (audioBtn != null)
         {
-            playAudioButton.SetActive(false);
+            audioBtn.SetActive(false);
         }
     }
 
@@ -123,12 +183,28 @@ public class QuizManager : MonoBehaviour
     // ── Exam flow ─────────────────────────────────────────────────────────────
     public void StartExam()
     {
+        Debug.Log($"[QuizManager] StartExam called on '{gameObject.name}'");
         ShuffleQuestions();
         currentQuestionIndex = 0;
         score                = 0;
         isExamActive         = true;
 
         if (examCanvas != null) examCanvas.SetActive(true);
+
+        // Start BGM loop if available on bgmAudioSource
+        AudioSource bgm = GetBgmAudioSource();
+        if (bgm != null && quizBGMLoop != null)
+        {
+            bgm.clip = quizBGMLoop;
+            bgm.loop = true;
+            bgm.volume = 0.15f; // Increased default background music volume to 15% (clearly audible)
+            bgm.Play();
+            Debug.Log($"[QuizManager] Started playing BGM: '{quizBGMLoop.name}' on '{gameObject.name}'");
+        }
+        else
+        {
+            Debug.LogWarning($"[QuizManager] Cannot play BGM. bgm: {bgm != null}, clip: {quizBGMLoop != null}");
+        }
 
         LoadQuestion(0);
         UpdateScoreUI();
@@ -190,10 +266,12 @@ public class QuizManager : MonoBehaviour
             questionImageUI.gameObject.SetActive(false);
         }
 
-        if (playAudioButton != null)
+        GameObject audioBtn = GetPlayAudioButton();
+        if (audioBtn != null)
         {
             bool isAudioQuestion = (data.questionType == QuestionType.AudioFillInTheGap && data.questionAudio != null);
-            playAudioButton.SetActive(isAudioQuestion);
+            audioBtn.SetActive(isAudioQuestion);
+            Debug.Log($"[QuizManager] LoadQuestion: isAudioQuestion = {isAudioQuestion} for '{data.name}'");
         }
 
         feedbackTextUI.text  = "Waiting for input...";
@@ -392,9 +470,17 @@ public class QuizManager : MonoBehaviour
         questionTextUI.text = "CONGRATULATIONS!";
         questionImageUI.gameObject.SetActive(false);
 
-        if (playAudioButton != null)
+        // Stop BGM loop on bgmAudioSource
+        AudioSource bgm = GetBgmAudioSource();
+        if (bgm != null)
         {
-            playAudioButton.SetActive(false);
+            bgm.Stop();
+        }
+
+        GameObject audioBtn = GetPlayAudioButton();
+        if (audioBtn != null)
+        {
+            audioBtn.SetActive(false);
         }
 
         int totalPossible = questionList.Count;
