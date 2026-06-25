@@ -524,6 +524,19 @@ public class QuizManager : MonoBehaviour
             questionList[i] = questionList[randomIndex];
             questionList[randomIndex] = temp;
         }
+
+        // Always put the PIZZA question first in the Alphabets quiz (topicIndex = 0)
+        if (topicIndex == 0)
+        {
+            int pizzaIndex = questionList.FindIndex(q => q != null && q.name.ToUpper().Contains("PIZZA"));
+            if (pizzaIndex >= 0)
+            {
+                QuizData pizzaObj = questionList[pizzaIndex];
+                questionList.RemoveAt(pizzaIndex);
+                questionList.Insert(0, pizzaObj);
+                Debug.Log("[QuizManager] Forced 'PIZZA' question to the first position of the Alphabets quiz.");
+            }
+        }
     }
 
     IEnumerator WaitAndFinish()
